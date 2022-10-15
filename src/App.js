@@ -1,49 +1,22 @@
-import FormContainer from "./components/FormContainer/FormContainer.js";
-import React, { useState } from "react";
-import styles from "./App.module.css";
-import NavBar from "./components/NavBar";
-import Button from 'react-bootstrap/Button';
+import { Route, Routes, Outlet, Navigate } from "react-router-dom";
+import LandingPage from "./components/LandingPage/LandingPage";
+import Matches from "./components/SugestionsDashboard/SuggestionsDashboard";
+
 
 function App() {
-  const [showLogin, setShowLogin] = useState(false);
-  const [showReg, setShowReg] = useState(false);
 
-  const handleReg = () => {
-    setShowLogin(false);
-    setShowReg(true);
-  };
-  const handleLogin = () => {
-    setShowReg(false);
-    setShowLogin(true);
-  };
-
-  return (
-    <>
-      <NavBar handleLogin={handleLogin} />
-      <section className={styles.mainContainer}>
-        <FormContainer
-          handleAction={handleLogin}
-          show={showLogin}
-          setShow={setShowLogin}
-          passConfirm={false}
-          buttonName="Login"
-          goToReg={handleReg}
-        />
-        <FormContainer
-          handleAction={handleReg}
-          show={showReg}
-          setShow={setShowReg}
-          passConfirm={true}
-          buttonName="Register" 
-          goToLog={handleLogin}
-        />
-        <div className={styles.sloganContainer}>
-          <h1 className={styles.slogan}>Swipe Right®</h1>
-          <Button variant="danger" size="lg"  className={styles.createAcc} onClick={handleReg}>Create account</Button>
-        </div>
-      </section>
-    </>
-  );
+	return (
+			<Routes>
+				<Route path="/" element={<LandingPage></LandingPage>}></Route>
+				<Route path='/app' element={<Outlet></Outlet>}>
+					<Route index element={<Navigate to='recs'></Navigate>}></Route>
+					<Route path='recs' element= {<Matches></Matches>}></Route>
+					<Route path='explore' element= {<div>explore</div>}></Route>
+					<Route path='profile' element= {<div>profile</div>}></Route>
+				</Route>
+			</Routes>
+			
+	);
 }
 
 export default App;

@@ -1,0 +1,13 @@
+.matchContainer{
+    
+    display: flex;
+    flex-direction: row;
+}
+.dashBoard{
+    background-color: blue;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 375px;
+    
+}

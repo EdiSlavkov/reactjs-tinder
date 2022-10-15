@@ -1,0 +1,55 @@
+.linkProfile{
+    display: inline-block;
+    width: 120px;
+    padding: 2px;
+    margin: 10px;
+    border: 1px solid transparent;
+    border-radius: 30px;
+    text-decoration: none;
+    color: white;
+}
+.linkProfile:hover{
+    background-color: rgba(120, 120, 120, 60%);
+}
+.navButton{
+    font-size: 25px;
+    color: whitesmoke;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: 4px;
+    margin-right: 20px;
+
+
+}
+.navButton:hover{
+    background-color: rgba(38, 29, 29, 0.6);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: 4px;
+    color: rgb(255, 68, 88)
+
+
+}
+.navigationController{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    background-image: linear-gradient(45deg,#fd267a,#ff6036);
+    height: 87px;
+}
+.linkBTN{
+    /* display: inline-block; */
+    /* border: 1px solid transparent; */
+    /* width: 40px;
+    height: 40px; */
+    /* border-radius: 50%; */
+    /* margin-right: 10px; */
+    /* background-color: rgba(38, 29, 29, 0.6); */
+}
+.linkBTN:hover{
+    /* background-color: rgb(17,20,24); */
+    /* color: rgb(255, 68, 88) !important; */
+
+}
