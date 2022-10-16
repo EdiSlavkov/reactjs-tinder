@@ -8,14 +8,14 @@ export default function LoggedNavigation(){
     return (
         <div className={style.navigationController}>
 
-        <Link to='/main/profile' className={style.linkProfile}>
+        <Link to='/app/profile' className={style.linkProfile}>
             <img src='https://pfpmaker.com/_nuxt/img/profile-2.d5d0ad9.png'style={{width: '40px', marginRight: '3px'}} alt="img"></img>
             Гъргулин
         </Link>
-        <Link to='/main/explore' className={style.linkBTN}>
+        <Link to='/app/explore' className={style.linkBTN}>
             <TbListSearch className={style.navButton}></TbListSearch>
         </Link>
-        <Link to='/main/recs' className={style.linkBTN}>
+        <Link to='/app/recs' className={style.linkBTN}>
             <RiHeartFill className={style.navButton}></RiHeartFill>
         </Link>
 

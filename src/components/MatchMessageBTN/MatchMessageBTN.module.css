@@ -1,0 +1,9 @@
+.MatchMessageBTN{
+    background-color: transparent;
+    font-size: 15px;
+    font-weight: bolder;
+    color: black;
+    border: 2px solid transparent;
+    border-bottom: 3px solid rgb(255,68,88) ;
+    margin: 0 10px;
+}
