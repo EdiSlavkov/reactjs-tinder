@@ -4,6 +4,7 @@ import LoggedNavigation from '../LoggedNavigation/LoggedNavigation'
 import BigCard from '../cards/BigCard'
 import SmallCard from '../cards/SmallCard'
 import MatchMessageBTN from '../MatchMessageBTN/MatchMessageBTN'
+import ProfileCard from '../ProfilePage/ProfileCard'
 
 
 
@@ -22,8 +23,7 @@ export function Matches() {
 
             </div>
             {/* kartichka posredata s bug ot react components :D */}
-            <SwipeCard>
-            </SwipeCard>
+            <ProfileCard></ProfileCard>
         </div>
     )
 }
@@ -47,8 +47,8 @@ export function Explore() {
 
             </div>
             {/* kartichka posredata s bug ot react components :D */}
-            <SwipeCard>
-            </SwipeCard>
+            <ProfileCard></ProfileCard>
+
         </div>
     )
 }
