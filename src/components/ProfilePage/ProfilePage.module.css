@@ -1,5 +1,6 @@
 .ProfilePage{
     display: flex;
+    height: 98vh;
     
 }
 .LoggedNavigation{
@@ -10,9 +11,12 @@
 .ProfilePreferences{
     display: flex;
     flex-direction: column;
+    width: 100%;
+    height: 90%;
+    overflow: scroll;
 }
 .heading{
-    font-size: 14px;
+    font-size: 16px;
     color: rgb(94, 94, 102);
     margin: 10px;
 }
