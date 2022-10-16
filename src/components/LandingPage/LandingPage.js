@@ -4,10 +4,6 @@ import Button from 'react-bootstrap/Button';
 import React, { useState } from "react";
 import  Navbar  from "../NavBar/NavBar";
 
-
-
-
-
 export default function LandingPage(){
     const [showLogin, setShowLogin] = useState(false);
 	const [showReg, setShowReg] = useState(false);
@@ -20,6 +16,7 @@ export default function LandingPage(){
 		setShowReg(false);
 		setShowLogin(true);
 	};
+
     return (
         <>
 			<Navbar handleLogin={handleLogin} />

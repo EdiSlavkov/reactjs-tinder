@@ -1,0 +1,6 @@
+div[class="slide prev-cloned"],
+div[class="slide"],
+div[class="slide slide-current slide-visible"],
+div[class="slide slide-visible"] {
+    width: 0 !important;
+}
