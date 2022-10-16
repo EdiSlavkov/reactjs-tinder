@@ -7,7 +7,7 @@ export default function NavBar(props) {
 
   return (
      <Navbar className={styles.navBar} collapseOnSelect expand="lg" bg="dark" variant="dark">
-        <Navbar.Brand><img className={styles.navLogo} src={navLogo}></img></Navbar.Brand>
+        <Navbar.Brand><img className={styles.navLogo} src={navLogo} alt="navLogo"></img></Navbar.Brand>
           <Button onClick={props.handleLogin} className={styles.logBtn} size="lg" variant="light">Log in</Button>
     </Navbar>
   );

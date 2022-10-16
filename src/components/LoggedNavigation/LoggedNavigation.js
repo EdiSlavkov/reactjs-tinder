@@ -1,6 +1,6 @@
 import { TbListSearch } from "react-icons/tb";
 import { RiHeartFill } from "react-icons/ri";
-import { Link, Routes } from "react-router-dom";
+import { Link } from "react-router-dom";
 import style from './LoggedNavigation.module.css'
 
 
@@ -9,7 +9,7 @@ export default function LoggedNavigation(){
         <div className={style.navigationController}>
 
         <Link to='/main/profile' className={style.linkProfile}>
-            <img src='https://pfpmaker.com/_nuxt/img/profile-2.d5d0ad9.png'style={{width: '40px', marginRight: '3px'}}></img>
+            <img src='https://pfpmaker.com/_nuxt/img/profile-2.d5d0ad9.png'style={{width: '40px', marginRight: '3px'}} alt="img"></img>
             Гъргулин
         </Link>
         <Link to='/main/explore' className={style.linkBTN}>

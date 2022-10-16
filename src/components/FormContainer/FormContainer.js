@@ -18,7 +18,7 @@ export default function FormContainer(props) {
       <div className={styles.form}>
         <Form>
           <CloseButton onClick={handleClose} className={styles.closeBtn} />
-          <img className={styles.logo} src={logo}></img>
+          <img className={styles.logo} src={logo} alt="logo"></img>
           <Form.Group className="mb-3" controlId="Email">
             <Form.Label>Email address</Form.Label>
             <Form.Control type="email" placeholder="Enter email" />
@@ -40,9 +40,9 @@ export default function FormContainer(props) {
               {props.buttonName}
             </Button>
             {props.passConfirm ? (
-              <span>Already registered? <a onClick={() => {props.goToLog();}}href="#">Go to Login!</a></span>
+              <span>Already registered? <span className={styles.link} onClick={() => {props.goToLog();}}>Go to Login!</span></span>
             ) : (
-              <span>Don't have an account? <a onClick={() => {props.goToReg();}}href="#">Register here!</a></span>
+              <span>Don't have an account? <span className={styles.link} onClick={() => {props.goToReg();}}>Register here!</span></span>
             )}
           </div>
         </Form>

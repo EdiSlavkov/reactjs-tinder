@@ -22,3 +22,9 @@
   top: 15px;
   right: 15px;
 }
+
+.link {
+  cursor: pointer;
+  text-decoration: underline;
+  color: blue;
+}
