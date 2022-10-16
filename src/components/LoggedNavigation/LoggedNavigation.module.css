@@ -38,6 +38,7 @@
     justify-content:space-between;
     background-image: linear-gradient(45deg,#fd267a,#ff6036);
     height: 87px;
+    width: 100%;
 }
 .linkBTN{
     /* display: inline-block; */

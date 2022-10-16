@@ -1,0 +1,18 @@
+.ProfilePage{
+    display: flex;
+    
+}
+.LoggedNavigation{
+    background-color: rgb(240,242,244);
+    width: 490px;
+    border-right: 1px solid rgba(160, 160, 164, 0.3);
+}
+.ProfilePreferences{
+    display: flex;
+    flex-direction: column;
+}
+.heading{
+    font-size: 14px;
+    color: rgb(94, 94, 102);
+    margin: 10px;
+}

@@ -1,0 +1,30 @@
+.matchContainer{
+    display: flex;
+    flex-direction: row;
+}
+.exploreSection{
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 475px !important;
+    
+}
+.exploreOptions{
+    display: flex;
+    flex-direction: row;
+    height: 90%;
+    flex-wrap: wrap;
+    overflow: scroll;
+}
+.MatchAndChatContainer{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 90%;
+    overflow: scroll;
+    
+}
+.containerControllers{
+    padding: 5px;
+}
