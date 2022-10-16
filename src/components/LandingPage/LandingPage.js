@@ -37,7 +37,7 @@ export default function LandingPage(){
 					buttonName="Register"
 					goToLog={handleLogin}
 				/>
-				<div className={styles.sloganContainer}>
+				<div id="ebanie" className={styles.sloganContainer}>
 					<h1 className={styles.slogan}>Swipe Right®</h1>
 					<Button variant="danger" size="lg" className={styles.createAcc} onClick={handleReg}>Create account</Button>
 				</div>

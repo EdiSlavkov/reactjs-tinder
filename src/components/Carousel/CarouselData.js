@@ -20,7 +20,7 @@ export const comments = (function () {
     },
 
     {
-      name: "Victoria and Bayleigh Rodriquez ❤️",
+      name: "Victoria and Bayleigh Rodriquez",
       text: "THANK YOU for making it possible for me to meet my soulmate. Five minutes into our first conversation, my now-wife mentioned how we would have an amazing wedding.",
     },
 
