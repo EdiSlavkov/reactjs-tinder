@@ -7,6 +7,7 @@ export default function SmallCard(props) {
   const prevent = (e)=> e.preventDefault();
 
   return (
+
 <Card className={styles.smallContainer} style={{ backgroundImage:`url(${props.img})`}}>
       <Card.Body className={styles.smallCardBody}>
         <div className={styles.smallTitleContainer}>

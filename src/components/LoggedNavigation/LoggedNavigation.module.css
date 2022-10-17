@@ -1,4 +1,4 @@
-.linkProfile{
+.linkProfileInactive{
     display: inline-block;
     width: 120px;
     padding: 2px;
@@ -8,10 +8,19 @@
     text-decoration: none;
     color: white;
 }
-.linkProfile:hover{
-    background-color: rgba(120, 120, 120, 60%);
+.linkProfileActive{
+    display: inline-block;
+    width: 120px;
+    padding: 2px;
+    margin: 10px;
+    border: 1px solid transparent;
+    border-radius: 30px;
+    text-decoration: none;
+    background-color: rgba(38, 29, 29, 0.6);
+    color: white;
+
 }
-.navButton{
+.navButtonInactive{
     font-size: 25px;
     color: whitesmoke;
     width: 40px;
@@ -19,16 +28,17 @@
     border-radius: 50%;
     padding: 4px;
     margin-right: 20px;
-
-
 }
-.navButton:hover{
+.navButtonActive{
+    font-size: 25px;
     background-color: rgba(38, 29, 29, 0.6);
     width: 40px;
     height: 40px;
     border-radius: 50%;
     padding: 4px;
-    color: rgb(255, 68, 88)
+    color: rgb(255, 68, 88);
+    margin-right: 20px;
+    
 
 
 }

@@ -7,6 +7,7 @@ import Loader from "./components/Loader/Loader";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
 
 
+
 function App() {
   const [loader, setLoader] = useState(false);
 
@@ -24,6 +25,7 @@ function App() {
 				<Route path='recs' element= {<Matches></Matches>}></Route>
 				<Route path='explore' element= { <Explore></Explore>}></Route>
 				<Route path='profile' element= {<ProfilePage></ProfilePage>}></Route>
+				{/* <Route path="/details" element={}></Route> */}
 			</Route>
 		</Routes> : <Loader/>
 			

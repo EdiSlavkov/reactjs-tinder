@@ -11,7 +11,7 @@ export default function SwipeCard() {
 //   vremenno placeholderche
   return (
     <div className={style.swipeCardContainer}>
-        <Carousel activeIndex={index} onSelect={handleSelect}>
+        <Carousel activeIndex={index} onSelect={handleSelect} interval={null}>
       <Carousel.Item>
         <img
           className="d-block w-100"

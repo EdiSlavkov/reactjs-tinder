@@ -26,18 +26,15 @@ import imgSelfCare from "../../images/smallSelfCareImg.webp";
 export function Matches() {
     return (
         <div className={style.matchContainer}>
-            {/* kontrol panela lqvo */}
             <div className={style.exploreSection}>
                 <LoggedNavigation></LoggedNavigation>
                 <div className={style.MatchAndChatContainer}>
                     <div className={style.containerControllers}>
-                    <MatchMessageBTN content='Matches'></MatchMessageBTN>
-                    <MatchMessageBTN content='Messages'></MatchMessageBTN>
+                    <MatchMessageBTN></MatchMessageBTN>
                     </div>
                 </div>
 
             </div>
-            {/* kartichka posredata s bug ot react components :D */}
             <ProfileCard></ProfileCard>
         </div>
     )
@@ -46,7 +43,6 @@ export function Matches() {
 export function Explore() {
     return (
         <div className={style.matchContainer}>
-            {/* kontrol panela lqvo */}
             <div className={style.exploreSection}>
                 <LoggedNavigation></LoggedNavigation>
                 <div className={style.exploreOptions}>
@@ -69,11 +65,8 @@ export function Explore() {
                     <SmallCard title={"Explore The World With Them"} subtitle={"Passions"} button={"Wanderlust"} img={imgWander}/>
                     <SmallCard title={"Ready For A Spa Date?"} subtitle={"Passions"} button={"Self Care"} img={imgSelfCare}/>
                 </div>
-
             </div>
-            {/* kartichka posredata s bug ot react components :D */}
             <ProfileCard></ProfileCard>
-
         </div>
     )
 }
