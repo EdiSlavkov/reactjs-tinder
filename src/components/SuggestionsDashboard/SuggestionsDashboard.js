@@ -10,13 +10,11 @@ import ProfileCard from '../ProfilePage/ProfileCard'
 export function Matches() {
     return (
         <div className={style.matchContainer}>
-            {/* kontrol panela lqvo */}
             <div className={style.exploreSection}>
                 <LoggedNavigation></LoggedNavigation>
                 <div className={style.MatchAndChatContainer}>
                     <div className={style.containerControllers}>
-                    <MatchMessageBTN content='Matches'></MatchMessageBTN>
-                    <MatchMessageBTN content='Messages'></MatchMessageBTN>
+                    <MatchMessageBTN></MatchMessageBTN>
                     </div>
                 </div>
 
@@ -29,7 +27,6 @@ export function Matches() {
 export function Explore() {
     return (
         <div className={style.matchContainer}>
-            {/* kontrol panela lqvo */}
             <div className={style.exploreSection}>
                 <LoggedNavigation></LoggedNavigation>
                 <div className={style.exploreOptions}>
