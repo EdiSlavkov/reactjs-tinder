@@ -3,7 +3,7 @@ import LandingPage from "./components/LandingPage/LandingPage";
 import { Matches, Explore } from "./components/SuggestionsDashboard/SuggestionsDashboard";
 import React, { useState, useEffect } from "react";
 import Loader from "./components/Loader/Loader";
-import CarouselComments from "./components/Carousel/Carousel";
+
 import ProfilePage from "./components/ProfilePage/ProfilePage";
 
 
@@ -18,7 +18,7 @@ function App() {
 
 	return (
 			loader ? <Routes>
-			<Route path="/" element={<><LandingPage></LandingPage><CarouselComments/></>}></Route>
+			<Route path="/" element={<LandingPage/>}></Route>
 			<Route path='/app' element={<Outlet></Outlet>}>
 				<Route index element={<Navigate to='recs'></Navigate>}></Route>
 				<Route path='recs' element= {<Matches></Matches>}></Route>

@@ -81,6 +81,7 @@ export default function FormContainer(props) {
   return (
     <Modal show={props.handleAction} onHide={handleClose} animation={false}>
       <div className={styles.form}>
+        {props.buttonName === "Login" ? <h3>Lets get started</h3> : <h3>Create account</h3>}
         {successMsg && <div>{successMsg}</div>}
         <Form onSubmit={handleSubmit}>
           <CloseButton onClick={handleClose} className={styles.closeBtn} />

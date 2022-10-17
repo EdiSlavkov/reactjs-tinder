@@ -32,3 +32,10 @@
 .error {
   color: red;
 }
+
+.form h3 {
+  position: absolute;
+  top: 13%;
+  left: 28%;
+  font-weight: 700;
+}

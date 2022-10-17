@@ -4,12 +4,12 @@ import quotationLogo from "../../images/grey-quotation.webp";
 export default function CarouselCard(props) {
   return (
     <Card
-      style={{ padding: "0 1rem 9rem 1rem", height: "50vh", margin: "10px" }}
+      style={{ height: "50vh", margin: "10px", boxShadow: "0px 1px 2px 0px #8080808f" }}
     >
       <Card.Body>
         <img
           style={{
-            width: "40px",
+            width: "13%",
             position: "absolute",
             top: "10px",
             right: "8px",

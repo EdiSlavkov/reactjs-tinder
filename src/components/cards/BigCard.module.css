@@ -1,0 +1,48 @@
+.titlesContainer {
+    position: absolute;
+    bottom: 0;
+    color:white;
+}
+
+.btn {
+    bottom: 10%;
+     position: absolute; 
+     right: 3%;
+     background: white;
+    color: black;
+    border: none;
+    border-radius: 18px;
+    padding: 1% 5%;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+.btn:active {
+    background: white !important;
+    color: black !important;
+}
+
+.btn:hover {
+    background: rgb(241, 219, 219);
+    color: black;
+}
+
+.cardContainer {
+    width: 22rem;
+    margin: 10px;
+    background-size: contain;
+    height: 13rem;
+    cursor:pointer;
+}
+
+.title {
+    width: 69%;
+}
+
+.smallTitles {
+    font-size:1.1rem;
+}
+
+.bigTitle {
+    font-size: 2rem;
+    margin-bottom: 6%;
+}

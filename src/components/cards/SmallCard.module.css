@@ -1,0 +1,36 @@
+.smallContainer {
+    width: 10rem;
+    margin: 13px;
+    background-size: contain;
+    height: 13rem;
+    background-size: cover;
+    cursor:pointer;
+}
+
+.smallCardBody {
+    padding: 3% !important;
+}
+
+.smallBtn {
+    background: #cc0909;
+    color: white;
+    border: none;
+    border-radius: 18px;
+    display: block;
+    top: 50%;
+    margin: 50% auto;
+}
+
+.smallBtn:hover {
+    background: rgb(171 12 12);
+}
+
+.smallBtn:active {
+    background: #cc0909 !important;
+}
+
+.smallTitleContainer {
+    position: absolute;
+    bottom: 0;
+    color:white;
+}

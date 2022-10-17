@@ -5,7 +5,8 @@ import "./Carousel.module.css";
 
 export default function CarouselComments() {
   return (
-    <div style={{ width: "90%", margin: "0 5%" }}>
+    
+      <>
       <Carousel
         style={{ gap: "35px", marginTop: " 2%" }}
         autoplay={true}
@@ -18,6 +19,7 @@ export default function CarouselComments() {
           <CarouselCard key={comment.name} name={comment.name} text={comment.text} />
         ))}
       </Carousel>
-    </div>
+      </>
+    
   );
 }

@@ -1,17 +1,20 @@
 import Card from 'react-bootstrap/Card';
+import styles from './SmallCard.module.css';
+import Button from 'react-bootstrap/Button';
 
-export default function SmallCard() {
+export default function SmallCard(props) {
+
+  const prevent = (e)=> e.preventDefault();
+
   return (
-    <Card style={{ width: '10rem', margin: '10px'}}>
-      <Card.Body>
-        <Card.Title>Card Title</Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
-        <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </Card.Text>
-        <Card.Link href="#">Card Link</Card.Link>
-        <Card.Link href="#">Another Link</Card.Link>
+<Card className={styles.smallContainer} style={{ backgroundImage:`url(${props.img})`}}>
+      <Card.Body className={styles.smallCardBody}>
+        <div className={styles.smallTitleContainer}>
+        <Card.Title className={styles.bigTitle}>{props.bigTitle}</Card.Title>
+        <Card.Title className={styles.smallTitles}>{props.title}</Card.Title>
+        <Card.Subtitle className="mb-2 text-muted">{props.subtitle}</Card.Subtitle>
+        </div>
+        {props.button&&<Button onClick={prevent} className={styles.smallBtn}>{props.button}</Button>}
       </Card.Body>
     </Card>
   );

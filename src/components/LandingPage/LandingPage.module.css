@@ -30,3 +30,8 @@
     left: 25%;
     top: 120%;
 }
+
+.carouselWrapper {
+    width: 90%; 
+    margin: 0 5%;
+}
