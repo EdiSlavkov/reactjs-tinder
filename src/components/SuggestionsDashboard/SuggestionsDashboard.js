@@ -1,5 +1,4 @@
 import style from './SuggestionsDashboard.module.css'
-import SwipeCard from '../SwipeCard/SwipeCard'
 import LoggedNavigation from '../LoggedNavigation/LoggedNavigation'
 import BigCard from '../cards/BigCard'
 import SmallCard from '../cards/SmallCard'
@@ -22,7 +21,6 @@ export function Matches() {
                 </div>
 
             </div>
-            {/* kartichka posredata s bug ot react components :D */}
             <ProfileCard></ProfileCard>
         </div>
     )
@@ -36,7 +34,8 @@ export function Explore() {
                 <LoggedNavigation></LoggedNavigation>
                 <div className={style.exploreOptions}>
                     <BigCard></BigCard>
-                    <SmallCard></SmallCard>
+                    <SmallCard>
+                    </SmallCard>
                     <SmallCard></SmallCard>
                     <BigCard></BigCard>
                     <BigCard></BigCard>
@@ -46,7 +45,6 @@ export function Explore() {
                 </div>
 
             </div>
-            {/* kartichka posredata s bug ot react components :D */}
             <ProfileCard></ProfileCard>
 
         </div>
