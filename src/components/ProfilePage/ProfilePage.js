@@ -46,11 +46,6 @@ export default function ProfilePage() {
                     <ProfilePreference component={'Ants'} placeholder={'Pets'}></ProfilePreference>
                     <ProfilePreference component={'Man'} placeholder={'Gender'}></ProfilePreference>
                     <ProfilePreference component={'Straight'} placeholder={'Sexual Orientation'}></ProfilePreference>
-
-
-
-
-
                 </div>
             </div>
             {editProfile ? <NewUserInfo/> : <ProfileCard editProfile={setEditProfile}/>}

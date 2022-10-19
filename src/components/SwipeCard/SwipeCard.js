@@ -17,6 +17,7 @@ export default function SwipeCard() {
           className="d-block w-100"
           src="https://thispersondoesnotexist.com/image"
           alt="First slide"
+          draggable='false'
         />
       </Carousel.Item>
       <Carousel.Item>
@@ -24,6 +25,7 @@ export default function SwipeCard() {
           className="d-block w-100"
           src="https://thispersondoesnotexist.com/image"
           alt="Second slide"
+          draggable='false'
         />
       </Carousel.Item>
       <Carousel.Item>
@@ -31,6 +33,8 @@ export default function SwipeCard() {
           className="d-block w-100"
           src="https://thispersondoesnotexist.com/image"
           alt="Third slide"
+          draggable='false'
+
         />
       </Carousel.Item>
     </Carousel>

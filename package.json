@@ -13,6 +13,7 @@
     "@testing-library/user-event": "^13.5.0",
     "aos": "^3.0.0-beta.6",
     "bootstrap": "^5.2.2",
+    "framer-motion": "^7.6.1",
     "mdb-react-ui-kit": "^4.2.0",
     "nuka-carousel": "^5.4.0",
     "react": "^18.2.0",
