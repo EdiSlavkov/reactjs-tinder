@@ -3,7 +3,10 @@ import SwipeCard from '../SwipeCard/SwipeCard'
 import { BiBuildings } from "react-icons/bi";
 
 
-export default function ProfileCard(params) {
+export default function ProfileCard(props) {
+
+    const handleProfileEdit = ()=>{props.editProfile(true)};
+
     return (
         <div className={style.ProfileContainer}>
             <div className={style.ProfileCard}>
@@ -29,7 +32,7 @@ export default function ProfileCard(params) {
                         </div>
                     </div>
                 </div>
-                <button className={style.EditBTN}>Edit Info</button>
+                <button onClick={handleProfileEdit} className={style.EditBTN}>Edit Info</button>
             </div>
         </div>
     )

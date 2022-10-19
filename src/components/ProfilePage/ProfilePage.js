@@ -4,14 +4,15 @@ import { AgeSliderComponent, DistanceSliderComponent } from "../SliderComponent/
 import Switch from "../Switch/Switch";
 import style from './ProfilePage.module.css'
 import ProfileCard from "./ProfileCard";
-
-
+import { useState } from "react";
+import NewUserInfo from "../NewUserInfo/NewUserInfo";
 
 
 
 
 export default function ProfilePage() {
 
+    const [editProfile, setEditProfile] = useState(false);
 
     return (
         <div className={style.ProfilePage}>
@@ -52,7 +53,7 @@ export default function ProfilePage() {
 
                 </div>
             </div>
-            <ProfileCard></ProfileCard>
+            {editProfile ? <NewUserInfo/> : <ProfileCard editProfile={setEditProfile}/>}
 
 
         </div>
