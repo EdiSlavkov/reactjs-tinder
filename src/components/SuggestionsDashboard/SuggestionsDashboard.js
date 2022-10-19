@@ -22,6 +22,7 @@ import imgNightOut from "../../images/smallNightOutImg.webp";
 import imgThrill from "../../images/smallThrillImg.webp";
 import imgWander from "../../images/smallWanderLustImg.webp";
 import imgSelfCare from "../../images/smallSelfCareImg.webp";
+import ChatHeadsContainer from '../ChatHeadsContainer/ChatHeadsContainer'
 
 export function Matches() {
     return (
@@ -31,6 +32,7 @@ export function Matches() {
                 <div className={style.MatchAndChatContainer}>
                     <div className={style.containerControllers}>
                     <MatchMessageBTN></MatchMessageBTN>
+                    <ChatHeadsContainer></ChatHeadsContainer>
                     </div>
                 </div>
 

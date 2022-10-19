@@ -14,8 +14,23 @@ border-radius: 8px;
 }
 
 
-.container p {
-    text-align: center;
+
+.container {
+    margin: auto;
+    width: 360px;
+    overflow-y: scroll;
+    height: 71vh;
+    scrollbar-width: none;
+    /* hide scrollbar but allow scrolling */
+    -ms-overflow-style: none;
+    /* for Internet Explorer, Edge */
+    scrollbar-width: none;
+    /* for Firefox */
+    overflow-y: scroll;
+}
+.container::-webkit-scrollbar {
+    display: none;
+    /* for Chrome, Safari, and Opera */
 }
 
 .container section {

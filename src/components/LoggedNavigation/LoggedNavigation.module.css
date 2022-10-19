@@ -1,6 +1,8 @@
 .linkProfileInactive{
-    display: inline-block;
-    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
     padding: 2px;
     margin: 10px;
     border: 1px solid transparent;
@@ -9,8 +11,10 @@
     color: white;
 }
 .linkProfileActive{
-    display: inline-block;
-    width: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
     padding: 2px;
     margin: 10px;
     border: 1px solid transparent;
