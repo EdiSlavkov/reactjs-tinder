@@ -46,10 +46,14 @@ export function Explore() {
             <div className={style.exploreSection}>
                 <LoggedNavigation></LoggedNavigation>
                 <div className={style.exploreOptions}>
+                    <h3 style={{width: '100%', fontSize: '18px', fontWeight: '600', margin: '10px'}}>Welcome to Explore</h3>
+                    <h5 style={{fontSize: '14px', fontWeight: '300', marginLeft: '10px'}}>My Vibe...</h5>
                     <BigCard title={"Get Verified on Tinder"} subtitle={"Photo Verified"} button={"TRY NOW"} img={bigCardImgOne}/>
                     <SmallCard bigTitle={"Free Tonight"} title={"Down for something spontaneus"} subtitle={"Discover"} img={imgFreeTonight}/>
                     <SmallCard bigTitle={"Let's be Friends"} title={"Maybe even besties"} subtitle={"Discover"} img={imgLetsBeFriends}/>
                     <BigCard bigTitle={"Coffee Date"} title={"Take me to your favorite cafe"} subtitle={"Discover"} button={"JOIN NOW"} img={bigCardImgTwo}/>
+                    <h3 style={{width: '100%', fontSize: '18px', fontWeight: '600', margin: '10px'}}>For You</h3>
+                    <h5 style={{fontSize: '14px', fontWeight: '300', marginLeft: '10px'}}>Recommendations based on your profile</h5>
                     <SmallCard title={"Go Out With Someone IRL"} subtitle={"Passions"} button={"Date Night"} img={imgDateNight}/>
                     <SmallCard title={"Tell me what to watch tonight"} subtitle={"Passions"} button={"Bringe Watchers"} img={imgBringe}/>
                     <SmallCard title={"Get On Their Level"} subtitle={"Passions"} button={"Gamers"} img={imgGamers}/>
