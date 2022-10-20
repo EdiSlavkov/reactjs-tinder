@@ -26,17 +26,49 @@ import ChatHeadsContainer from '../ChatHeadsContainer/ChatHeadsContainer'
 import { motion, useDragControls } from 'framer-motion';
 import { useState } from 'react'
 import SuggestedUser from '../SuggestedUser/SuggestedUser'
+import { ConstructionOutlined } from '@mui/icons-material'
 
 export function Matches() {
     const [angle, setAngle] = useState(0)
+    const [axisMovementDirection, setAxisMovementDirection] = useState('')
+    const [axisMovementDistance, setAxisMovementDistance] = useState(0)
+    const [likeUser, setLikeUSer] = useState(false)
+    const [disLikeUser, setDisLikeUser] = useState(false)
+    const [superLikeUser, setSuperLikeUser] = useState(false)
+
     const incrementAngle = (offsetX) => {
         const newAngle = Math.floor(offsetX /= 20)
         setAngle(newAngle)
     }
     const releaseDrag = () => {
         setAngle(0)
-    }
+        setLikeUSer(false)
+        setDisLikeUser(false)
+        setSuperLikeUser(false)
 
+    }
+    const directionSetter = (axis) => {
+        setAxisMovementDirection(axis)
+    } 
+    const getDistanceAndDirection = (offSet) => {
+        console.log(axisMovementDirection);
+        if (axisMovementDirection === 'x') {
+            if(offSet.x <= -50){
+                setDisLikeUser(true)
+            }else if(offSet.x > -50){
+                setDisLikeUser(false)
+            }
+            if (offSet.x >= 50) {
+                setLikeUSer(true)
+            } else if (offSet.x < 50){
+                setLikeUSer(false)
+            }
+        } else if(axisMovementDirection === 'y' && offSet.y < -50){
+            setSuperLikeUser(true)
+
+            console.log('direction: ' + axisMovementDirection + 'offset:' + offSet.y);
+        }
+    }
     const rot = 0
 
 
@@ -53,20 +85,23 @@ export function Matches() {
 
             </div>
             <motion.div className={style.matchSuggestion}
+                dragDirectionLock
+                onDirectionLock={axis => directionSetter(axis)}
                 animate={{
                     rotate: angle
                 }}
                 drag
                 onDrag={
                     (event, info) => {
+                        getDistanceAndDirection(info.offset)
                         incrementAngle(info.offset.x)
                     }
                 }
-                dragSnapToOrigin= 'true'
+                dragSnapToOrigin='true'
                 onDragEnd={() => {
                     releaseDrag()
                 }}>
-                <SuggestedUser></SuggestedUser>
+                <SuggestedUser like={likeUser} dislike={disLikeUser} superLike={superLikeUser}></SuggestedUser>
             </motion.div>
         </div>
     )
@@ -123,7 +158,7 @@ export function Explore() {
                         incrementAngle(info.offset.x)
                     }
                 }
-                dragSnapToOrigin= 'true'
+                dragSnapToOrigin='true'
                 onDragEnd={() => {
                     releaseDrag()
                 }}>
