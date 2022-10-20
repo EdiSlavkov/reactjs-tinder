@@ -2,12 +2,20 @@ import { useState } from "react";
 import styles from "./NewUserInfo.module.css";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { v4 as uuidv4 } from "uuid";
+import * as utils from "../../utils";
+import Selfie from "../Selfie/Selfie";
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
+import VerifiedIcon from '@mui/icons-material/Verified';
 
 export default function NewUserInfo() {
+
+  const [show, setShow] = useState(false);
+  const [forUpload, setForUpload] = useState([]);
   const [UserDetails, setUserDetails] = useState({
     firstName: "",
     lastName: "",
     pictures: [],
+    verified: [],
     age: "",
     phoneNumber: "",
     gender: "",
@@ -28,10 +36,15 @@ export default function NewUserInfo() {
     console.log("submit");
   };
 
+  const handleShowSelfie = ()=> setShow(!show);
+
   const handleDelete = (picture) => {
     const images = UserDetails.pictures;
     const index = images.findIndex((e) => e.id === picture);
     images.splice(index, 1);
+    const imgsUpload = forUpload;
+    imgsUpload.splice(index, 1);
+    setForUpload(imgsUpload);
     setUserDetails((oldData) => ({
       ...oldData,
       [images]: images,
@@ -45,10 +58,24 @@ export default function NewUserInfo() {
 
     if (file.type === "image/png" || file.type === "image/jpeg") {
       setError("");
+
+      let id = uuidv4();
       let img = URL.createObjectURL(file);
+
       if (allImgs.length < 9) {
+        const imageUpload = (image, id) => {
+          const file = image;
+          const copy = forUpload;
+          utils.convert(file).then((convertedImg) => {
+            copy.push({ img: convertedImg, id: id });
+            setForUpload(copy);
+          });
+        };
+
         setError("");
-        allImgs.push({ img: img, id: file.name });
+        allImgs.push({ img: img, id: id });
+
+        imageUpload(file, id);
         setUserDetails((oldData) => ({
           ...oldData,
           [name]: allImgs,
@@ -72,7 +99,9 @@ export default function NewUserInfo() {
   };
 
   return (
+
     <div className={styles.editProfileContainer}>
+      {show&&<Selfie data={UserDetails} save={setUserDetails} show={handleShowSelfie}/>}
       <div className={styles.btnsContainer}>
         <button>Edit</button>
         <button>Preview</button>
@@ -93,6 +122,15 @@ export default function NewUserInfo() {
               </div>
             );
           })}
+          <div className={styles.imgWrapper}>
+          {UserDetails.verified[0]&&<VerifiedIcon className={styles.verifiedIcon}/>}
+          <CameraAltIcon
+                  onClick={handleShowSelfie}
+                  color="error"
+                  className={styles.btn}
+                />
+                <img src={UserDetails.verified[0]} alt=""></img>
+          </div>
         </div>
         <p>
           Add a video, pic, or Loop to get 4% closer to completing your profile

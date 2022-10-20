@@ -1,0 +1,53 @@
+.picturesWrapper {
+    display: flex;
+    justify-content: space-around;
+}
+
+.picturesWrapper>div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+}
+
+.streamBtn {
+    text-align: center;
+}
+
+.picturesWrapper button {
+    width: 40%;
+    align-self: center;
+    font-size: 18px;
+    font-weight: 600;
+    border: 1px solid transparent;
+    background-image: linear-gradient(45deg, #fd267a, #ff6036);
+    border-radius: 30px;
+    color: white;
+}
+
+.videoStream {
+    height: 150px;
+}
+
+.videoStream button {
+    text-align: center;
+}
+
+.canvas {
+    width: 200px;
+    height: 150px;
+}
+
+.controllerBtns {
+    display: flex;
+    gap: 10px;
+    justify-content: space-evenly;
+}
+
+.canvas,
+.videoStream {
+    border-radius: 14px;
+    box-shadow: 0px 1px 12px 5px #a18e8e;
+}
