@@ -23,20 +23,66 @@ import imgThrill from "../../images/smallThrillImg.webp";
 import imgWander from "../../images/smallWanderLustImg.webp";
 import imgSelfCare from "../../images/smallSelfCareImg.webp";
 import ChatHeadsContainer from '../ChatHeadsContainer/ChatHeadsContainer'
-import { motion, useDragControls } from 'framer-motion';
+import { AnimatePresence, motion, useDragControls } from 'framer-motion';
 import { useState } from 'react'
 import SuggestedUser from '../SuggestedUser/SuggestedUser'
+import LikeBtnsSuite from '../LikeBtnsSuite/LikeBtnsSuite'
 
 export function Matches() {
     const [angle, setAngle] = useState(0)
+    const [axisMovementDirection, setAxisMovementDirection] = useState('')
+    const [axisXMovementDistance, setAxisXMovementDistance] = useState(0)
+    const [axisYMovementDistance, setAxisYMovementDistance] = useState(0)
+    const [likeUser, setLikeUSer] = useState(false)
+    const [disLikeUser, setDisLikeUser] = useState(false)
+    const [superLikeUser, setSuperLikeUser] = useState(false)
+
     const incrementAngle = (offsetX) => {
         const newAngle = Math.floor(offsetX /= 20)
         setAngle(newAngle)
     }
     const releaseDrag = () => {
         setAngle(0)
-    }
+        setLikeUSer(false)
+        setDisLikeUser(false)
+        setSuperLikeUser(false)
 
+    }
+    const animateSwipeCard = (info) => {
+        const directionY = info.offset.y < 0 ? 'up' : null
+        const directionX = info.offset.x < 0 ? 'left' : 'right'
+        if (directionY) {
+            setAxisYMovementDistance(-1200)
+            console.log('nagore');
+        } else if (directionX === 'left') {
+            setAxisXMovementDistance(-1200)
+            console.log('left');
+        } else if (directionX === 'right') {
+            setAxisXMovementDistance(1200)
+            console.log('right');
+        }
+        console.log(info);
+        console.log(axisMovementDirection);
+    }
+    const directionSetter = (axis) => {
+        setAxisMovementDirection(axis)
+    }
+    const getDistanceAndDirection = (offSet) => {
+        if (axisMovementDirection === 'x') {
+            if (offSet.x <= -50) {
+                setDisLikeUser(true)
+            } else if (offSet.x > -50) {
+                setDisLikeUser(false)
+            }
+            if (offSet.x >= 50) {
+                setLikeUSer(true)
+            } else if (offSet.x < 50) {
+                setLikeUSer(false)
+            }
+        } else if (axisMovementDirection === 'y' && offSet.y < -50) {
+            setSuperLikeUser(true)
+        }
+    }
     const rot = 0
 
 
@@ -52,22 +98,55 @@ export function Matches() {
                 </div>
 
             </div>
-            <motion.div className={style.matchSuggestion}
-                animate={{
-                    rotate: angle
-                }}
-                drag
-                onDrag={
-                    (event, info) => {
-                        incrementAngle(info.offset.x)
+            <AnimatePresence>
+                <motion.div className={style.matchSuggestion}
+                    dragDirectionLock
+                    onDirectionLock={axis => directionSetter(axis)}
+                    initial={{ x: 0, y: 0 }}
+                    animate={{
+                        rotate: angle,
+                        x: axisXMovementDistance,
+                        y: axisYMovementDistance,
+                    }}
+                    drag
+                    onDrag={
+                        (event, info) => {
+                            getDistanceAndDirection(info.offset)
+                            incrementAngle(info.offset.x)
+                        }
                     }
-                }
-                dragSnapToOrigin= 'true'
-                onDragEnd={() => {
-                    releaseDrag()
-                }}>
-                <SuggestedUser></SuggestedUser>
-            </motion.div>
+                    dragSnapToOrigin='true'
+                    onDragEnd={(e, info) => {
+                        releaseDrag()
+                        animateSwipeCard(info)
+
+                    }}>
+                    <SuggestedUser like={likeUser} dislike={disLikeUser} superLike={superLikeUser}></SuggestedUser>
+
+                </motion.div>
+                {/* <button onClick={() => {
+                    setAxisXMovementDistance(1200)
+
+
+                }}>like</button>
+                <button onClick={() => {
+                    setAxisXMovementDistance(-1200)
+
+
+                }}>dislike</button>
+                <button onClick={() => {
+                    setAxisYMovementDistance(-1200)
+
+                }}
+                >superLike</button> */}
+                
+            </AnimatePresence>
+            <LikeBtnsSuite like={() => setAxisXMovementDistance(1200)}
+                dislike={() => setAxisXMovementDistance(-1200)}
+                superLike = {() =>setAxisYMovementDistance(-1200)
+}
+            />
+
         </div>
     )
 }
@@ -123,7 +202,7 @@ export function Explore() {
                         incrementAngle(info.offset.x)
                     }
                 }
-                dragSnapToOrigin= 'true'
+                dragSnapToOrigin='true'
                 onDragEnd={() => {
                     releaseDrag()
                 }}>

@@ -1,0 +1,45 @@
+.likeStamp{
+    position: absolute;
+    display: inline-block;
+    height: fit-content;
+    width: fit-content;
+    top: 70px;
+    left: 30px;
+    rotate: -35deg;
+
+    font-size: 25px;
+    font-weight: bold;
+    color: green;
+    border: 2px solid green;
+    border-radius: 5px;
+}
+.nopeStamp{
+    position: absolute;
+    right: 50px;
+    top: 50px;
+    rotate: 25deg;
+    display: inline-block;
+    height: fit-content;
+    width: fit-content;
+    font-size: 25px;
+    font-weight: bold;
+    color: red;
+    border: 2px solid red;
+    border-radius: 5px;
+}
+.superLikeStamp{
+    position: absolute;
+    bottom: 450px;
+    left: 100px;
+    display: inline-block;
+    height: fit-content;
+    width: fit-content;
+    font-size: 25px;
+    padding: 4px;
+    font-weight: bold;
+    color: lightskyblue;
+    border: 2px solid lightskyblue;
+    justify-self: start;
+    border-radius: 5px;
+    rotate: 15deg;
+}
