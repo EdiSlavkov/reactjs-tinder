@@ -1,4 +1,4 @@
-const zodiacSigns = [
+export const zodiacSigns = [
     'Aries',
     'Taurus',
     'Gemini',
@@ -12,7 +12,7 @@ const zodiacSigns = [
     'Aquarius',
     'Pisces',
 ]
-const PASSIONS = [
+export const PASSIONS = [
     'Harry Potter',
     'Spa',
     'Camping',
@@ -41,4 +41,20 @@ const PASSIONS = [
     'Reading',
     'Self Care',
     'Sushi'
+]
+
+export const PETS = [
+    "Dog",
+    "Cat",
+    "Amphibian",
+    "Reptile",
+    "Pet-free",
+    "All the pets"
+]
+
+export const SMOKING = [
+    "Social smoker",
+    "When drinking",
+    "Non-smoker",
+    "Smoker"
 ]

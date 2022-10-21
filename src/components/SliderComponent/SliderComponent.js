@@ -1,21 +1,23 @@
 import { Slider } from "@mui/material"
-import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { temporaryData } from "../../store/ActiveUserSlice";
 
 export function AgeSliderComponent() {
-    const [SliderValue, setSliderValue] = useState([20, 26]);
+
+    const user = useSelector(state => state.activeUser);
+    const dispatch = useDispatch();
 
 
     const handleChange = (e) => {
-        setSliderValue(e.target.value)
-        //slider value for display
-        console.log(SliderValue);
+        let value = e.target.value
+        dispatch(temporaryData(["agePreference", value]))
     }
 
     return (
         <Slider
             size="big"
             getAriaLabel={() => 'Temperature range'}
-            value={SliderValue}
+            value={[user.agePreference[0], user.agePreference[1]]}
             min={18}
             max={100}
             onChange={handleChange}
@@ -25,20 +27,20 @@ export function AgeSliderComponent() {
     )
 }
 export function DistanceSliderComponent(){
-    const [SliderValue, setSliderValue] = useState(20);
 
+    const user = useSelector(state => state.activeUser);
+    const dispatch = useDispatch();
 
     const handleChange = (e) => {
-        setSliderValue(e.target.value)
-            //slider value for display
-        console.log(SliderValue);
+        let value = e.target.value;
+        dispatch(temporaryData(["distancePreference", value]));
     }
 
     return (
         <Slider
             size="big"
             getAriaLabel={() => 'Temperature range'}
-            value={SliderValue}
+            value={user.distancePreference}
             min={0}
             max={161}
             onChange={handleChange}

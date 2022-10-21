@@ -1,21 +1,27 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { getLoggedUser, updateData } from '../server/server';
 
-const initialState = {
-  userName: 'Гъргулинка'
-}
+const initialState = getLoggedUser();
 
 export const activeUserSlice = createSlice({
   name: 'activeUser',
   initialState,
   reducers: {
-    changeUserName: (state, action) => {
+    changeUserData: (state) => {
+      updateData(state);
 
-      state.userName = action.userName
-    }
+    },
+    temporaryData : (state, action) => {
+      const [key, value] = action.payload;
+      return {
+        ...state,
+        [key]:value
+      }
+  }
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { changeUserName } = activeUserSlice.actions
+export const { changeUserData, temporaryData } = activeUserSlice.actions
 
 export default activeUserSlice.reducer

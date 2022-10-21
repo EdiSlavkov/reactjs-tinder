@@ -1,16 +1,20 @@
 import { useEffect, useRef } from "react";
 import Modal from 'react-bootstrap/Modal';
 import styles from './Selfie.module.css';
+import { useSelector, useDispatch } from "react-redux";
+import { temporaryData } from "../../store/ActiveUserSlice";
 
 export default function Selfie(props) {
   const videoRef = useRef(null);
   const photoRef = useRef(null);
+  const user = useSelector(state => state.activeUser);
+  const dispatch = useDispatch();
 
   const savePhoto = () => {
-    let copy = props.data;
+    let copy = [];
     let selfie = document.getElementById("canvas").toDataURL();
-    copy.verified.splice(0, 1, selfie);
-    props.save(copy);
+    copy.splice(0, 1, selfie);
+    dispatch(temporaryData(["verified", copy]));
   };
 
   const takePhoto = () => {

@@ -6,80 +6,57 @@ import * as utils from "../../utils";
 import Selfie from "../Selfie/Selfie";
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import VerifiedIcon from '@mui/icons-material/Verified';
+import notVerified from "../../images/notVerified.png";
+import { useSelector, useDispatch } from "react-redux";
+import { temporaryData, changeUserData } from "../../store/ActiveUserSlice";
+import { AgeSliderComponent, DistanceSliderComponent } from "../SliderComponent/SliderComponent";
+import Select from "./Select";
+import {PETS, SMOKING, zodiacSigns, PASSIONS} from "../../consts";
+import UserProperties from "./Accordion";
+
 
 export default function NewUserInfo() {
 
+  const user = useSelector(state => state.activeUser);
+  const dispatch = useDispatch();
   const [show, setShow] = useState(false);
-  const [forUpload, setForUpload] = useState([]);
-  const [UserDetails, setUserDetails] = useState({
-    firstName: "",
-    lastName: "",
-    pictures: [],
-    verified: [],
-    age: "",
-    phoneNumber: "",
-    gender: "",
-    genderPreference: "",
-    location: "",
-    agePreferenceFrom: "",
-    agePreferenceTo: "",
-    distancePreference: "",
-    profileDescription: "",
-    zodiacSign: "",
-    smoking: "",
-    pets: "",
-  });
-
   const [error, setError] = useState("");
 
-  const handleSubmit = () => {
-    console.log("submit");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(changeUserData());
   };
 
   const handleShowSelfie = ()=> setShow(!show);
 
   const handleDelete = (picture) => {
-    const images = UserDetails.pictures;
+    let images = [...user.pictures];
     const index = images.findIndex((e) => e.id === picture);
     images.splice(index, 1);
-    const imgsUpload = forUpload;
-    imgsUpload.splice(index, 1);
-    setForUpload(imgsUpload);
-    setUserDetails((oldData) => ({
-      ...oldData,
-      [images]: images,
-    }));
+    dispatch(temporaryData(["pictures", images]));
   };
 
   const handleUpload = (e) => {
     const file = e.target.files[0];
     const name = e.target.name;
-    const allImgs = [...UserDetails.pictures];
+    let allImgs = [...user.pictures];
 
     if (file.type === "image/png" || file.type === "image/jpeg") {
       setError("");
-
       let id = uuidv4();
-      let img = URL.createObjectURL(file);
 
-      if (allImgs.length < 9) {
+      if (allImgs.length < 8) {
         const imageUpload = (image, id) => {
           const file = image;
-          const copy = forUpload;
           utils.convert(file).then((convertedImg) => {
-            copy.push({ img: convertedImg, id: id });
-            setForUpload(copy);
+            allImgs.push({ img: convertedImg, id: id });
+            dispatch(temporaryData([name, allImgs]));
           });
         };
 
         setError("");
-        allImgs.push({ img: img, id: id });
-
         imageUpload(file, id);
-        setUserDetails((oldData) => ({
-          ...oldData,
-          [name]: allImgs,
-        }));
+
       } else {
         setError("You can upload only 9 pictures!");
       }
@@ -92,16 +69,13 @@ export default function NewUserInfo() {
     const value = e.target.value;
     const name = e.target.name;
 
-    setUserDetails((oldData) => ({
-      ...oldData,
-      [name]: value,
-    }));
+    dispatch(temporaryData([name, value]))
   };
 
   return (
 
     <div className={styles.editProfileContainer}>
-      {show&&<Selfie data={UserDetails} save={setUserDetails} show={handleShowSelfie}/>}
+      {show&&<Selfie show={handleShowSelfie}/>}
       <div className={styles.btnsContainer}>
         <button>Edit</button>
         <button>Preview</button>
@@ -110,7 +84,7 @@ export default function NewUserInfo() {
       <div className={styles.container}>
         <span className={styles.error}>{error}</span>
         <div className={styles.pictureContainer}>
-          {UserDetails.pictures.map((picture) => {
+          {user.pictures&&user.pictures.map((picture) => {
             return (
               <div key={uuidv4()} id={uuidv4()} className={styles.imgWrapper}>
                 <DeleteIcon
@@ -123,13 +97,13 @@ export default function NewUserInfo() {
             );
           })}
           <div className={styles.imgWrapper}>
-          {UserDetails.verified[0]&&<VerifiedIcon className={styles.verifiedIcon}/>}
+          {user.verified&&user.verified[0] ? <VerifiedIcon className={styles.verifiedIcon}/> : <></>}
           <CameraAltIcon
                   onClick={handleShowSelfie}
                   color="error"
                   className={styles.btn}
                 />
-                <img src={UserDetails.verified[0]} alt=""></img>
+                {user.verified&&user.verified[0] ? <img src={user.verified[0]} alt=""></img> : <img src={notVerified} alt="notVerified"></img>}
           </div>
         </div>
         <p>
@@ -152,32 +126,32 @@ export default function NewUserInfo() {
           <section>
             <div className={styles.namesWrapper}>
               <div>
-                <label htmlFor="firstName">First Name:</label>
+                <label htmlFor="username">Names:</label>
                 <input
-                  id="firstName"
+                  id="username"
                   type="text"
-                  name="firstName"
-                  placeholder="First Name"
+                  name="username"
+                  placeholder="Names"
                   required={true}
-                  value={UserDetails.firstName}
+                  value={user.username}
                   onChange={handleChange}
                 />
               </div>
 
               <div>
-                <label htmlFor="lastName">Last Name:</label>
+                <label htmlFor="email">Email:</label>
                 <input
-                  id="lastName"
-                  type="text"
-                  name="lastName"
-                  placeholder="Last Name"
-                  required={true}
-                  value={UserDetails.lastName}
+                  id="email"
+                  type="email"
+                  name="email"
+                  placeholder="email"
+                  disabled={true}
+                  required={false}
+                  value={user.email}
                   onChange={handleChange}
                 />
               </div>
             </div>
-
             <div className={styles.agesAndPhoneWrapper}>
               <div>
                 <label htmlFor="age">Age:</label>
@@ -187,7 +161,7 @@ export default function NewUserInfo() {
                   name="age"
                   placeholder="Age"
                   required={true}
-                  value={UserDetails.age}
+                  value={user.age}
                   onChange={handleChange}
                 />
               </div>
@@ -196,10 +170,10 @@ export default function NewUserInfo() {
                 <input
                   id="phoneNumber"
                   type="number"
-                  name="phoneNumber"
+                  name="phone"
                   placeholder="Phone"
                   required={true}
-                  value={UserDetails.phoneNumber}
+                  value={user.phone}
                   onChange={handleChange}
                 />
               </div>
@@ -211,8 +185,8 @@ export default function NewUserInfo() {
                 id="man_gender"
                 type="radio"
                 name="gender"
-                value="man"
-                checked={UserDetails.gender === "man" ? true : false}
+                value={"man"}
+                checked={user.gender === "man" ? true : false}
                 onChange={handleChange}
               />
               <label htmlFor="man_gender">Man</label>
@@ -220,8 +194,8 @@ export default function NewUserInfo() {
                 id="woman_gender"
                 type="radio"
                 name="gender"
-                value="woman"
-                checked={UserDetails.gender === "woman" ? true : false}
+                value={"woman"}
+                checked={user.gender === "woman" ? true : false}
                 onChange={handleChange}
               />
               <label htmlFor="woman_gender">Woman</label>
@@ -233,8 +207,8 @@ export default function NewUserInfo() {
                 id="man_genderPreference"
                 type="radio"
                 name="genderPreference"
-                value="man"
-                checked={UserDetails.genderPreference === "man" ? true : false}
+                value={"man"}
+                checked={user.genderPreference === "man" ? true : false}
                 onChange={handleChange}
               />
               <label htmlFor="man_genderPreference">Man</label>
@@ -242,9 +216,9 @@ export default function NewUserInfo() {
                 id="woman_genderPreference"
                 type="radio"
                 name="genderPreference"
-                value="woman"
+                value={"woman"}
                 checked={
-                  UserDetails.genderPreference === "woman" ? true : false
+                  user.genderPreference === "woman" ? true : false
                 }
                 onChange={handleChange}
               />
@@ -253,8 +227,8 @@ export default function NewUserInfo() {
                 id="both_genderPreference"
                 type="radio"
                 name="genderPreference"
-                value="both"
-                checked={UserDetails.genderPreference === "both" ? true : false}
+                value={"both"}
+                checked={user.genderPreference === "both" ? true : false}
                 onChange={handleChange}
               />
               <label htmlFor="both_genderPreference">Both</label>
@@ -264,118 +238,72 @@ export default function NewUserInfo() {
               id="location"
               type="text"
               name="location"
-              value={UserDetails.location}
+              value={user.location}
               placeholder="Location"
               required={true}
               onChange={handleChange}
             />
 
             <label>Age Preference:</label>
-            <div className={styles.distanceContainer}>
-              <label htmlFor="agePreferenceFrom">From:</label>
-              <input
-                id="agePreferenceFrom"
-                type="range"
-                min="18"
-                max="90"
-                name="agePreferenceFrom"
-                value={UserDetails.agePreferenceFrom}
-                required={false}
-                onChange={handleChange}
-              />
-
-              <label htmlFor="agePreferenceTo">To:</label>
-              <input
-                id="agePreferenceTo"
-                type="range"
-                min="19"
-                max="90"
-                name="agePreferenceTo"
-                value={UserDetails.agePreferenceTo}
-                required={false}
-                onChange={handleChange}
-              />
-            </div>
-
+                <div className={styles.slider}>
+                <AgeSliderComponent />
+                </div>
+            
             <label htmlFor="distance">Distance preference:</label>
-            <input
-              id="distance"
-              type="range"
-              min="2"
-              max="200"
-              name="distancePreference"
-              value={UserDetails.distancePreference}
-              required={false}
-              onChange={handleChange}
-            />
+
+            <div className={styles.slider}><DistanceSliderComponent/></div>
+
             <label htmlFor="profileDescription">About me:</label>
             <textarea
               id="profileDescription"
-              name="profileDescription"
-              value={UserDetails.profileDescription}
-              required={false}
+              name="description"
+              value={user.description}
+              required={true}
               onChange={handleChange}
             />
-
+            <UserProperties label={"Passions"} data={PASSIONS} name={"passions"} property={user.passions}/>
             <div className={styles.selectWrapper}>
               <div>
                 <label htmlFor="zodiacSign">Zodiac sign:</label>
-                <select
-                  id="zodiacSign"
-                  name="zodiacSign"
-                  value={UserDetails.zodiacSign}
-                  required={false}
-                  onChange={handleChange}
-                >
-                  <option value="Aries">Aries</option>
-                  <option value="Taurus">Taurus</option>
-                  <option value="Gemini">Gemini</option>
-                  <option value="Cancer">Cancer</option>
-                  <option value="Leo">Leo</option>
-                  <option value="Virgo">Virgo</option>
-                  <option value="Libra">Libra</option>
-                  <option value="Scorpio">Scorpio</option>
-                  <option value="Sagittarius">Sagittarius</option>
-                  <option value="Capricorn">Capricorn</option>
-                  <option value="Aquarius">Aquarius</option>
-                  <option value="Pisces">Pisces</option>
-                </select>
+                <Select 
+                id={"zodiacSign"}
+                name={"zodiacSign"}
+                value={user.zodiacSign}
+                required={false}
+                function={handleChange}
+                data={zodiacSigns}
+                />
               </div>
 
               <div>
                 <label htmlFor="smoking">Smoking:</label>
-                <select
-                  id="smoking"
-                  name="smoking"
-                  value={UserDetails.smoking}
-                  required={false}
-                  onChange={handleChange}
-                >
-                  <option value="true">Yes</option>
-                  <option value="false">No</option>
-                </select>
+                <Select
+                id={"smoking"}
+                name={"smoking"}
+                value={user.smoking}
+                required={false}
+                function={handleChange}
+                data={SMOKING}
+                />
               </div>
 
               <div>
-                <label htmlFor="pets">Pets:</label>
-                <select
-                  id="pets"
-                  name="pets"
-                  value={UserDetails.pets}
-                  required={false}
-                  onChange={handleChange}
-                >
-                  <option value="dogs">Dogs</option>
-                  <option value="cats">Cats</option>
-                  <option value="others">Others</option>
-                </select>
+                <label htmlFor="pets">Pet:</label>
+                <Select
+                id={"pet"}
+                name={"pet"}
+                value={user.pet}
+                required={false}
+                function={handleChange}
+                data={PETS}
+                />
               </div>
             </div>
           </section>
-        </form>
-        <button onClick={handleSubmit} className={styles.saveBtn}>
+          <button type="submit" className={styles.saveBtn}>
           Save
         </button>
+        </form>
       </div>
     </div>
   );

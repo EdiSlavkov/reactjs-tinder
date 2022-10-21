@@ -3,6 +3,7 @@
     margin: 5% auto 0 auto;
     box-shadow: 0px 0px 5px 0px #80808061;
     border-radius: 8px;
+
 }
 
 .container {
@@ -11,8 +12,17 @@
     overflow-y: scroll;
     height: 71vh;
     scrollbar-width: none;
+    -ms-overflow-style: none;
+    /* for Internet Explorer, Edge */
+    scrollbar-width: none;
+    /* for Firefox */
+    overflow-y: scroll;
 }
 
+.container::-webkit-scrollbar {
+    display: none;
+    /* for Chrome, Safari, and Opera */
+}
 
 .container p {
     text-align: center;
@@ -183,7 +193,7 @@ input[type=number] {
     display: flex;
     gap: 14px;
     text-align: center;
-    gap: 18px;
+    gap: 4px;
 }
 
 .selectWrapper div {
@@ -192,18 +202,19 @@ input[type=number] {
     text-align: center;
 }
 
-input[type="radio"] {
+.radioWrapper input[type="radio"] {
     opacity: 0;
     position: fixed;
     width: 0;
 }
 
-input[type="radio"]:checked+label {
+.radioWrapper input[type="radio"]:checked+label {
     background: linear-gradient(45deg, #fd267a, #ff6036);
     border-color: #f4d6d6a6;
     ;
     color: white;
 }
+
 
 .radioWrapper label {
     display: inline-block;
@@ -223,4 +234,8 @@ input[type="radio"]:checked+label {
     position: absolute;
     right: 0;
     color: blue;
+}
+
+.slider {
+    width: 90% !important;
 }

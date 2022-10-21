@@ -1,3 +1,5 @@
+import User from "../classes/User.js";
+
 const getUsers = ()=>{
     return JSON.parse(localStorage.getItem("tinderUsers")) || [];
 }
@@ -8,7 +10,7 @@ export const createAccount = (email, password)=>{
     if(isTaken){
         return false;
     } else {
-        users.push({email:email, password:password});
+        users.push(new User(email, password));
         localStorage.setItem("tinderUsers", JSON.stringify(users));
         return true;
     }
@@ -32,14 +34,10 @@ export const logout = ()=>{
     localStorage.removeItem("tinderLogged");
 } 
 
+export const getLoggedUser = ()=>{
+    return JSON.parse(localStorage.getItem("tinderLogged")) || {};
+}
 
-// Test functions for image upload to local storage:
-
-// export const upload = (img)=>{
-//     localStorage.setItem("UploadImgs", img);
-// }
-
-// export const get = ()=>{
-//     return localStorage.getItem("UploadImgs");
-// }
-
+export const updateData = (currentUser)=>{
+    localStorage.setItem("tinderLogged", JSON.stringify(currentUser));
+}

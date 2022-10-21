@@ -1,0 +1,33 @@
+.accordionBody {
+    display: flex;
+flex-wrap: wrap;
+gap: 27px;
+}
+
+input[type="checkbox"] {
+    opacity: 0;
+    position: fixed;
+    width: 0;
+}
+
+input[type="checkbox"]:checked+label {
+    background: linear-gradient(45deg, #fd267a, #ff6036) !important;
+    border-color: #f4d6d6a6 !important;
+    color: white !important;
+}
+
+.wrapper label{
+  
+        display: inline-block;
+        background-color: #fff;
+        padding: 10px 20px;
+        font-family: sans-serif, Arial;
+        font-size: 16px;
+        border: 2px solid #bdbdbd;
+        border-radius: 4px;
+        font-size: 13px;
+        font-weight: 600;
+        color: rgb(106, 85, 85);
+        ;
+    
+}
