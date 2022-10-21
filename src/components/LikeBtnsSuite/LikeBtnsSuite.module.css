@@ -48,8 +48,8 @@
 
 .suiteContainer{
     position: absolute;
-    bottom: 200px;
-    left: 1050px;
+    bottom: 9%;
+    left: 56%;
     display: flex;
     flex-direction: row;
     gap: 20px;

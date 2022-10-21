@@ -11,7 +11,7 @@ export default function SuggestedUser(props) {
     const handleProfileEdit = () => { props.editProfile(true) };
 
     return (
-        <div className={style.ProfileCard}>
+        <div className={style.SuggesterUser}>
             <div className={style.ProfilePhotoContainer}>
                 <SwipeCard className={style.ProfilePicture} draggable='false'></SwipeCard>
             </div>

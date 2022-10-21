@@ -144,9 +144,8 @@ export function Matches() {
             <LikeBtnsSuite like={() => setAxisXMovementDistance(1200)}
                 dislike={() => setAxisXMovementDistance(-1200)}
                 superLike = {() =>setAxisYMovementDistance(-1200)
-}
+            }
             />
-
         </div>
     )
 }
