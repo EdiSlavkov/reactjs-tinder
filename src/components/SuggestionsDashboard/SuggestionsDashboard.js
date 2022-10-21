@@ -24,67 +24,97 @@ import imgWander from "../../images/smallWanderLustImg.webp";
 import imgSelfCare from "../../images/smallSelfCareImg.webp";
 import ChatHeadsContainer from '../ChatHeadsContainer/ChatHeadsContainer'
 import { AnimatePresence, motion, useDragControls } from 'framer-motion';
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import SuggestedUser from '../SuggestedUser/SuggestedUser'
 import LikeBtnsSuite from '../LikeBtnsSuite/LikeBtnsSuite'
 
 export function Matches() {
+    const [showCard, setShowCard] = useState(true)
+
     const [angle, setAngle] = useState(0)
-    const [axisMovementDirection, setAxisMovementDirection] = useState('')
+
     const [axisXMovementDistance, setAxisXMovementDistance] = useState(0)
     const [axisYMovementDistance, setAxisYMovementDistance] = useState(0)
+
     const [likeUser, setLikeUSer] = useState(false)
     const [disLikeUser, setDisLikeUser] = useState(false)
     const [superLikeUser, setSuperLikeUser] = useState(false)
+    useEffect(() => {
+        if (axisXMovementDistance || axisYMovementDistance) {
+            setTimeout(setShowCard, 500)
+        }
+    }, [axisXMovementDistance, axisYMovementDistance])
 
+    useEffect(() => {
+        if(!showCard){
+            //reset stamps flags in case swithed from buttons
+            setLikeUSer(false)
+            setDisLikeUser(false)
+            setSuperLikeUser(false)
+            //align card in center
+            setAxisXMovementDistance(0)
+            setAxisYMovementDistance(0)
+            //generate new card
+            setShowCard(true)
+        }
+    },[showCard])
     const incrementAngle = (offsetX) => {
+        //getting the current position of the component and adjusting the angle 
         const newAngle = Math.floor(offsetX /= 20)
         setAngle(newAngle)
+        console.log(newAngle);
     }
     const releaseDrag = () => {
+        //actions after releasing the component
         setAngle(0)
         setLikeUSer(false)
         setDisLikeUser(false)
         setSuperLikeUser(false)
-
     }
-    const animateSwipeCard = (info) => {
-        const directionY = info.offset.y < 0 ? 'up' : null
-        const directionX = info.offset.x < 0 ? 'left' : 'right'
-        if (directionY) {
-            setAxisYMovementDistance(-1200)
-            console.log('nagore');
-        } else if (directionX === 'left') {
-            setAxisXMovementDistance(-1200)
-            console.log('left');
-        } else if (directionX === 'right') {
-            setAxisXMovementDistance(1200)
-            console.log('right');
+    const animateSwipeCard = () => {
+        // removing the card in the corresponding direction
+        if (superLikeUser) {
+            //function if we superLike the user
+            superLikeThisUser()
+        } else if (disLikeUser) {
+            //function if we remove the user
+            dislikeThisUser()
+        } else if (likeUser) {
+            //function if we like the user
+            likeThisUser()
         }
-        console.log(info);
-        console.log(axisMovementDirection);
     }
-    const directionSetter = (axis) => {
-        setAxisMovementDirection(axis)
+
+    const superLikeThisUser = () => {
+        setSuperLikeUser(true)
+        setAxisYMovementDistance(-1200)
+    }
+    const likeThisUser = () => {
+        setLikeUSer(true)
+        setAxisXMovementDistance(1200)
+    }
+    const dislikeThisUser = () => {
+        setDisLikeUser(true)
+        setAxisXMovementDistance(-1200)
     }
     const getDistanceAndDirection = (offSet) => {
-        if (axisMovementDirection === 'x') {
-            if (offSet.x <= -50) {
-                setDisLikeUser(true)
-            } else if (offSet.x > -50) {
-                setDisLikeUser(false)
-            }
-            if (offSet.x >= 50) {
-                setLikeUSer(true)
-            } else if (offSet.x < 50) {
-                setLikeUSer(false)
-            }
-        } else if (axisMovementDirection === 'y' && offSet.y < -50) {
+        //move adjusted logic to decide what action we need to take on release
+        if (offSet.x <= -100) {
+            setDisLikeUser(true)
+        } else if (offSet.x > -100) {
+            setDisLikeUser(false)
+        }
+        if (offSet.x >= 100) {
+            setLikeUSer(true)
+        } else if (offSet.x < 100) {
+            setLikeUSer(false)
+        }
+        if (offSet.x > -100 && offSet.x < 100 && offSet.y < -100) {
             setSuperLikeUser(true)
+        } else if (offSet.y > -100) {
+            setSuperLikeUser(false)
         }
     }
-    const rot = 0
-
 
     return (
         <div className={style.matchContainer}>
@@ -98,16 +128,16 @@ export function Matches() {
                 </div>
 
             </div>
-            <AnimatePresence>
+            {showCard ? <AnimatePresence>
                 <motion.div className={style.matchSuggestion}
-                    dragDirectionLock
-                    onDirectionLock={axis => directionSetter(axis)}
                     initial={{ x: 0, y: 0 }}
-                    animate={{
+                     animate={{
                         rotate: angle,
                         x: axisXMovementDistance,
                         y: axisYMovementDistance,
+
                     }}
+                    tran
                     drag
                     onDrag={
                         (event, info) => {
@@ -115,36 +145,20 @@ export function Matches() {
                             incrementAngle(info.offset.x)
                         }
                     }
+
                     dragSnapToOrigin='true'
                     onDragEnd={(e, info) => {
                         releaseDrag()
-                        animateSwipeCard(info)
+                        animateSwipeCard()
 
                     }}>
                     <SuggestedUser like={likeUser} dislike={disLikeUser} superLike={superLikeUser}></SuggestedUser>
-
                 </motion.div>
-                {/* <button onClick={() => {
-                    setAxisXMovementDistance(1200)
-
-
-                }}>like</button>
-                <button onClick={() => {
-                    setAxisXMovementDistance(-1200)
-
-
-                }}>dislike</button>
-                <button onClick={() => {
-                    setAxisYMovementDistance(-1200)
-
-                }}
-                >superLike</button> */}
-                
-            </AnimatePresence>
-            <LikeBtnsSuite like={() => setAxisXMovementDistance(1200)}
-                dislike={() => setAxisXMovementDistance(-1200)}
-                superLike = {() =>setAxisYMovementDistance(-1200)
-            }
+            </AnimatePresence> : null}
+            <LikeBtnsSuite like={() => likeThisUser()}
+                dislike={() => dislikeThisUser()}
+                superLike={() => superLikeThisUser()
+                }
             />
         </div>
     )
@@ -159,8 +173,6 @@ export function Explore() {
     const releaseDrag = () => {
         setAngle(0)
     }
-
-    const rot = 0
 
     return (
         <div className={style.matchContainer}>
