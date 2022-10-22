@@ -45,3 +45,71 @@ export const updateData = (currentUser)=>{
     localStorage.setItem("tinderLogged", JSON.stringify(currentUser));
     localStorage.setItem("tinderUsers", JSON.stringify(users))
 }
+
+export const fakeUsers = ()=>{
+   return [
+        {
+            name:"Penka",
+            age:30,
+            pet:"mravka",
+            zodiac:"lion",
+            email:"penka@abv.bg"
+    
+        },
+        {
+            name:"Ivan",
+            age:40,
+            pet:"slon",
+            zodiac:"kesten",
+            email:"ivan@abv.bg"
+    
+        },
+        {
+            name:"Vasko Jabata",
+            age:20,
+            pet:"jiraf",
+            zodiac:"vodolei",
+            email:"vasko@abv.bg"
+    
+        },
+        {
+            name:"Kiro",
+            age:80,
+            pet:"ciganin",
+            zodiac:"nz",
+            email:"kiro@abv.bg"
+    
+        },
+        {
+            name:"Stanka",
+            age:65,
+            pet:"vulk",
+            zodiac:"ribi",
+            email:"stanka@abv.bg"
+    
+        },
+        {
+            name:"Slavi",
+            age:44,
+            pet:"zaek",
+            zodiac:"deva",
+            email:"slavi@abv.bg"
+    
+        },
+    
+    ]
+}
+
+export const notSwipedUsers = (array)=>{
+    let users = fakeUsers();
+    let copy = [...array];
+    let boxOfUsers = [];
+
+    users.forEach(user=> {
+        let alreadyLiked = copy.find(obj => obj.email === user.email);
+        if(!alreadyLiked){
+            boxOfUsers.push(user);
+        }
+    })
+    return boxOfUsers[Math.floor(Math.random()*boxOfUsers.length)]
+    }
