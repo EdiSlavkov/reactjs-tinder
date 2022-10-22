@@ -16,7 +16,7 @@ import UserProperties from "./Accordion";
 
 
 export default function NewUserInfo() {
-
+  
   const user = useSelector(state => state.activeUser);
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);

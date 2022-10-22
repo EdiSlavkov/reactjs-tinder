@@ -9,39 +9,48 @@ export const validateEmail = (email)=>{
 export const validatePassword = (password)=>{
 
     const symbols = "~`!@#$%^&*()_+{}|:';/.>?<,1234567890№€§ ";
-    const passwordMinLength = 6;
+    const passwordMinLength = 7;
 
     if(password){
-        let upperCase = false;
-        let lowerCase = false;
-        let symbol = false;
+        let upperCase = 1;
+        let lowerCase = 1;
+        let symbol = 1;
 
         password.split("").forEach(e => {
             if (e.includes(e.toUpperCase()) && !symbols.includes(e)) {
-                upperCase = true;
+                upperCase = 0;
               }
               if (e.includes(e.toLowerCase()) && !symbols.includes(e)) {
-                lowerCase = true;
+                lowerCase = 0;
               }
               if (symbols.includes(e)) {
-                symbol = true;
+                symbol = 0;
               }
         })
-        
-          if (
-            !(symbol && upperCase && lowerCase)
-          ) {
-            return "Password must contain atleast 1 uppercase, 1 lowercase and 1 symbol or number!";
-          } else if (
+         let msgUpper = upperCase ? ` 1 uppercase` : "";
+        let msgLower = lowerCase ? ` 1 lowercase` : "";
+        let msgSymb = symbol ? ` 1 symbol` : "";
+        let msg = `Enter${msgUpper}${msgLower}${msgSymb}!`;
+          if(upperCase === 1){
+            return msg;
+          }
+           if(lowerCase === 1){
+            return msg;
+          } if(symbol === 1){
+            return msg
+          } if (
             password.length > 0 &&
             password.length < passwordMinLength
-          ) {
-            return `You must enter atleast ${passwordMinLength - password.length} symbols more!`;
+            
+          ) 
+          {
+            
+            return `You must enter atleast ${passwordMinLength} symbols! ${passwordMinLength - password.length} symbols remaining!`;
           } else {
             return true;
           }
     } else {
-       return "Password is required!";
+       return `Enter ${passwordMinLength} symbols! 1 uppercase, 1 lowercase, 1 symbol!`;
     }
 }
 

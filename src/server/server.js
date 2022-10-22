@@ -39,5 +39,9 @@ export const getLoggedUser = ()=>{
 }
 
 export const updateData = (currentUser)=>{
+    let users = getUsers();
+    const index = users.findIndex(user => user.email === currentUser.email);
+    users.splice(index,1, currentUser)
     localStorage.setItem("tinderLogged", JSON.stringify(currentUser));
+    localStorage.setItem("tinderUsers", JSON.stringify(users))
 }

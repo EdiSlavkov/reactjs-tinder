@@ -33,6 +33,7 @@ export default function LandingPage() {
         />
         <FormContainer
           handleAction={handleReg}
+          showLogin={handleLogin}
           show={showReg}
           setShow={setShowReg}
           passConfirm={true}

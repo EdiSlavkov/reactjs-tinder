@@ -17,11 +17,15 @@ export const activeUserSlice = createSlice({
         ...state,
         [key]:value
       }
+  },
+  update: (state, action)=>{
+    const obj = action.payload;
+    return obj
   }
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { changeUserData, temporaryData } = activeUserSlice.actions
+export const { changeUserData, temporaryData, update } = activeUserSlice.actions
 
 export default activeUserSlice.reducer

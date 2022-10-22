@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -8,12 +8,14 @@ import CloseButton from "react-bootstrap/CloseButton";
 import Modal from "react-bootstrap/Modal";
 import * as utils from "../../utils";
 import * as server from "../../server/server";
-import { useNavigate  } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux/es/exports";
+import { update } from "../../store/ActiveUserSlice";
 
 export default function FormContainer(props) {
 
-  
-
+  const dispatch = useDispatch();
+  const promise = Promise.resolve();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -27,54 +29,87 @@ export default function FormContainer(props) {
   const [msg, setMsg] = useState("");
   const [error, setError] = useState("");
 
-
-  const handleEmailChange = (e)=>{
+  const handleEmailChange = (e) => {
     setEmailError("");
     setEmail(e.target.value);
-  }
+    props.buttonName === "Register" &&
+      setEmailError(utils.validateEmail(e.target.value));
+  };
 
-  const handlePasswordChange = (e)=>{
+  const handlePasswordChange = (e) => {
+    utils.confirmPasswords(e.target.value, confirmPassword)&&setConfirmPasswordErr("");
+
     setPasswordError("");
     setPassword(e.target.value);
-  }
+    props.buttonName === "Register" &&
+      setPasswordError(utils.validatePassword(e.target.value));
+  };
 
-  const handleConfPassChange = (e)=>{
+  const handleConfPassChange = (e) => {
+    e.stopPropagation();
     setConfirmPasswordErr("");
     setConfirmPassword(e.target.value);
+    setConfirmPasswordErr(utils.confirmPasswords(e.target.value, password));
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    server.login(email, password)
+      ? promise.then(dispatch(update(server.getLoggedUser()))).then(navigate("/app"))
+      : setMsg("Wrong Credentials!");
+    setEmail("");
+    setPassword("");
+    setTimeout(() => {
+      setMsg("");
+    }, 3000);
+  };
+
+  const handleRegBtn = (e) =>{
+    let btn = document.getElementById("regBtn");
+    e.stopPropagation();
+    utils.validateEmail(email) === true
+      ? utils.validatePassword(password) === true
+        ? utils.confirmPasswords(password, confirmPassword) === true
+          ?  btn.disabled = false
+
+          : btn.disabled = true
+        : btn.disabled = true
+      : btn.disabled = true
+
   }
 
-  const handleLogin = (e) =>{
-    e.preventDefault();
-    server.login(email, password) ? 
-    navigate("/app"):
-    setMsg("Wrong Credentials!");
-    
-    setTimeout(() => {
-      setMsg("")
-    }, 3000);
-  }
-
-  const handleRegistration = (e)=>{
-
+  const handleRegistration = (e) => {
     e.preventDefault();
 
-    utils.validateEmail(email) === true ? 
-    utils.validatePassword(password) === true ?
-    utils.confirmPasswords(password, confirmPassword) === true ?
-    server.createAccount(email,password) ?
-    setMsg("Registration was successfull! You can log now!") :
-    setError("Email is already taken!") :
-    setConfirmPasswordErr(utils.confirmPasswords(password, confirmPassword)) :
-    setPasswordError(utils.validatePassword(password)) :
-    setEmailError(utils.validateEmail(email))
+    server.createAccount(email, password)
+            ? promise
+            .then(setMsg("Successfull! Redirecting to login!"))
+            .then(setTimeout(() => {
+              props.setShow(false)
+            props.showLogin()
+            setMsg("");
+            }, 3000))
     
-    setTimeout(() => {
-      setEmailError("")
-      setPasswordError("")
-      setConfirmPasswordErr("")
-      setError("")
-      setMsg("")
-    }, 3000);
+            : promise
+            .then(setError("Email is already taken!"))
+            .then(setTimeout(() => {
+              setError("");
+            }, 3000));
+
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+  };
+
+  const clear = ()=>{
+    setEmail("");
+    setEmailError("");
+    setPassword("");
+    setPasswordError("");
+    setConfirmPassword("");
+    setConfirmPasswordErr("");
+    setMsg("");
+    setError("");
   }
 
   if (!props.show) return <></>;
@@ -84,38 +119,120 @@ export default function FormContainer(props) {
   return (
     <Modal show={props.handleAction} onHide={handleClose} animation={false}>
       <div className={styles.form}>
-        {props.buttonName === "Login" ? <h3>Lets get started</h3> : <h3>Create account</h3>}
-        {(msg && <div className={styles.success}>{msg}</div>) || (error && <div className={styles.generalError}>{error}</div>)}
-        <Form onSubmit={props.buttonName === "Login" ? handleLogin : handleRegistration}>
+        {props.buttonName === "Login" ? (
+          <h3>Lets get started</h3>
+        ) : (
+          <h3>Create account</h3>
+        )}
+        {(msg && <div className={styles.success}>{msg}</div>) ||
+          (error && <div className={styles.generalError}>{error}</div>)}
+        <Form
+          onSubmit={
+            props.buttonName === "Login" ? handleLogin : handleRegistration
+          }
+          onBlur={props.buttonName === "Register" ? ()=>
+          promise
+          .then(setPasswordError(utils.validatePassword(password)))
+          .then(setConfirmPasswordErr(utils.confirmPasswords(confirmPassword, password)))
+          .then(setEmailError(utils.validateEmail(email)))
+          : null}
+          onKeyUp={props.buttonName === "Register" ? handleRegBtn : null}
+        >
           <CloseButton onClick={handleClose} className={styles.closeBtn} />
-          <img className={styles.logo} src={logo} alt="logo" draggable={false}></img>
+          <img
+            className={styles.logo}
+            src={logo}
+            alt="logo"
+            draggable={false}
+          ></img>
           <Form.Group className="mb-3" controlId="Email">
             <Form.Label>Email address</Form.Label>
-            <Form.Control value={email} type="email" onChange={handleEmailChange} placeholder="Enter email" />
-            {emailError&&<span className={styles.error}>{emailError}</span>}
+            <Form.Control
+              value={email}
+              type="email"
+              onChange={handleEmailChange}
+              placeholder="Enter email"
+            />
+            {emailError && (
+              <span className={styles.emailError}>{emailError}</span>
+            )}
           </Form.Group>
-          <Form.Group className="mb-3" controlId="Password">
-            <Form.Label>Password</Form.Label>
-            <Form.Control value={password} type="password" onChange={handlePasswordChange} placeholder="Password" />
-            {passwordError&&<span className={styles.error}>{passwordError}</span>}
-          </Form.Group>
-          {props.passConfirm ? (
-            <Form.Group className="mb-3" controlId="ConfirmPassword">
+          <div className={styles.passWrapper}>
+            <Form.Group className="mb-3 passWrapper" controlId="Password">
               <Form.Label>Password</Form.Label>
-              <Form.Control value={confirmPassword} onChange={handleConfPassChange} type="password" placeholder="Confirm Password" />
-              {confirmPasswordErr&&<span className={styles.error}>{confirmPasswordErr}</span>}
+              <Form.Control
+                value={password}
+                type="password"
+                onChange={handlePasswordChange}
+                onClick={props.buttonName === "Register" ? handlePasswordChange : null}
+                onBlur={()=>setPasswordError("")}
+                placeholder="Password"
+              />
+              {passwordError && (
+                <span className={styles.error}>{passwordError}</span>
+              )}
             </Form.Group>
+          </div>
+          {props.passConfirm ? (
+            <div className={styles.passConfirmWrapper}>
+              <Form.Group className="mb-3" controlId="ConfirmPassword">
+                <Form.Label>Confirm password</Form.Label>
+                <Form.Control
+                  value={confirmPassword}
+                  onChange={handleConfPassChange}
+                  onClick={(e)=>setConfirmPasswordErr(utils.confirmPasswords(e.target.value, password))}
+                  type="password"
+                  placeholder="Confirm Password"
+                />
+                {confirmPasswordErr && (
+                  <span className={styles.passConfirmError}>
+                    {confirmPasswordErr}
+                  </span>
+                )}
+              </Form.Group>
+            </div>
           ) : (
             <></>
           )}
           <div className="d-grid gap-2">
-            <Button variant="danger" size="lg" type="submit">
+            <Button
+              id="regBtn"
+              className={
+                props.buttonName === "Register" ? styles.registerBtn : ""
+              }
+              disabled={props.buttonName === "Register" ? true : false}
+              variant="danger"
+              size="lg"
+              type="submit"
+            >
               {props.buttonName}
             </Button>
             {props.passConfirm ? (
-              <span>Already registered? <span className={styles.link} onClick={() => {props.goToLog();}}>Go to Login!</span></span>
+              <span>
+                Already registered?{" "}
+                <span
+                  className={styles.link}
+                  onClick={() => {
+                    clear();
+                    props.goToLog();
+                  }}
+                >
+                  Go to Login!
+                </span>
+              </span>
             ) : (
-              <span>Don't have an account? <span className={styles.link} onClick={() => {props.goToReg();}}>Register here!</span></span>
+              <span>
+                Don't have an account?{" "}
+                <span
+                  className={styles.link}
+                  onClick={() => {
+                    clear();
+                    props.goToReg();
+                  }}
+                >
+                  Register here!
+                </span>
+              </span>
             )}
           </div>
         </Form>
