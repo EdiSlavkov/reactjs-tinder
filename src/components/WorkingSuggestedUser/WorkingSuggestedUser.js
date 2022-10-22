@@ -36,8 +36,6 @@ export default function WorkingSuggestedUser(props) {
                     <GiCigarette className={style.info}/>
                     Мара
                 </span>
-                {/* on click next view */}
-                <span className={style.detailedInfo}><BsInfoCircleFill/></span>
             </div>
             {props.dislike ? <NopeStamp/> : null}
             {props.like ? <LikeStamp /> : null}

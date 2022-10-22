@@ -26,6 +26,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react'
 import LikeBtnsSuite from '../LikeBtnsSuite/LikeBtnsSuite'
 import WorkingSuggestedUser from '../WorkingSuggestedUser/WorkingSuggestedUser'
+import DetailedInfoSuggestionUser from '../DetailedInfoSuggestionUser/DetailedInfoSuggestionUser'
 
 export function Matches() {
     const [showCard, setShowCard] = useState(true)
@@ -129,7 +130,7 @@ export function Matches() {
             </div>
             <div className={style.matchSuggestion}>
                 <div className={style.userAndBtnContainer}>
-                    {showCard ? <AnimatePresence>
+                    {/* {showCard ? <AnimatePresence>
                         <motion.div className={style.matchSuggestion}
                             initial={{ x: 0, y: 0 }}
                             animate={{
@@ -138,7 +139,6 @@ export function Matches() {
                                 y: axisYMovementDistance,
 
                             }}
-                            tran
                             drag
                             onDrag={
                                 (event, info) => {
@@ -154,8 +154,11 @@ export function Matches() {
 
                             }}>
                             <WorkingSuggestedUser like={likeUser} dislike={disLikeUser} superLike={superLikeUser} />
-                        </motion.div>
-                    </AnimatePresence> : null}
+
+                            {/* <SuggestedUser like={likeUser} dislike={disLikeUser} superLike={superLikeUser}></SuggestedUser> */}
+                        {/* </motion.div>
+                    </AnimatePresence> : null} }*/}
+                    <DetailedInfoSuggestionUser></DetailedInfoSuggestionUser>
                     <LikeBtnsSuite like={() => likeThisUser()}
                         dislike={() => dislikeThisUser()}
                         superLike={() => superLikeThisUser()
@@ -297,7 +300,6 @@ export function Explore() {
                                 y: axisYMovementDistance,
 
                             }}
-                            tran
                             drag
                             onDrag={
                                 (event, info) => {
@@ -314,6 +316,7 @@ export function Explore() {
                             }}>
                             <WorkingSuggestedUser like={likeUser} dislike={disLikeUser} superLike={superLikeUser} />
 
+                            {/* <SuggestedUser like={likeUser} dislike={disLikeUser} superLike={superLikeUser}></SuggestedUser> */}
                         </motion.div>
                     </AnimatePresence> : null}
                     <LikeBtnsSuite like={() => likeThisUser()}

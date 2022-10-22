@@ -8,7 +8,7 @@ export default function ChatHeadsContainer() {
     const chatContainer = (<div className={style.chatsContainer}>
         
     </div>)
-    const matchesContainer =         <div className= {style.headsContainer}>
+    const matchesContainer = <div className= {style.headsContainer}>
             
     </div>
 

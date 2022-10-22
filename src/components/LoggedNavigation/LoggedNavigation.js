@@ -1,8 +1,7 @@
 import { TbListSearch } from "react-icons/tb";
 import { RiHeartFill } from "react-icons/ri";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import style from './LoggedNavigation.module.css'
-import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import profileLogo from "../../images/profile_placeholder.png"
 
