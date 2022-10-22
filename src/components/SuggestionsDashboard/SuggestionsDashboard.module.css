@@ -3,6 +3,9 @@
     display: flex;
     flex-direction: row;
 }
+.userAndBtnContainer{
+    height: 80%;
+}
 
 .exploreSection {
     width: 375px;

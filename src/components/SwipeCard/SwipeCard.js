@@ -10,11 +10,11 @@ export default function SwipeCard() {
   };
 //   vremenno placeholderche
   return (
-    <div className={style.swipeCardContainer}>
+    <div className={style.swipeCardContainer} style={{width: 'fit-content'}}>
         <Carousel activeIndex={index} onSelect={handleSelect} interval={null}>
       <Carousel.Item>
         <img
-          className="d-block w-100"
+          className="" 
           src="https://thispersondoesnotexist.com/image"
           alt="First slide"
           draggable='false'
