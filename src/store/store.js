@@ -5,6 +5,6 @@ import chatToggleReducer from './ChatToggleSlice'
 export const store = configureStore({
   reducer: {
     activeUser:  activeUserReducer,
-    activeChat: chatToggleReducer
+    activeChat: chatToggleReducer,
   },
 })

@@ -18,7 +18,6 @@ export default class User{
                 this.genderPreference = ""
                 this.passions = []
                 this.likedPeople = []
-                this.dislikedPeople = []
                 this.MatchedPeople = []
                 this.chats = []
             }

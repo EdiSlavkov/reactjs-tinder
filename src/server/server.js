@@ -1,6 +1,8 @@
 import User from "../classes/User.js";
+import { useSelector } from "react-redux";
+import { json } from "react-router-dom";
 
-const getUsers = ()=>{
+export const getUsers = () =>{
     return JSON.parse(localStorage.getItem("tinderUsers")) || [];
 }
 
@@ -100,16 +102,16 @@ export const fakeUsers = ()=>{
     ]
 }
 
-export const notSwipedUsers = (array)=>{
-    let users = fakeUsers();
-    let copy = [...array];
+export const NotSwipedUsers = ()=>{
+    let users = getUsers();
+    let ActiveUser = JSON.parse(localStorage.getItem('tinderLogged'));
     let boxOfUsers = [];
 
     users.forEach(user=> {
-        let alreadyLiked = copy.find(obj => obj.email === user.email);
-        if(!alreadyLiked){
+        let alreadyLiked = ActiveUser.likedPeople.find(obj => obj === user.email);
+        if(!alreadyLiked && user.email !== ActiveUser.email){
             boxOfUsers.push(user);
         }
     })
-    return boxOfUsers[Math.floor(Math.random()*boxOfUsers.length)]
-    }
+    localStorage.setItem('currentUser', JSON.stringify(boxOfUsers[Math.floor(Math.random()*boxOfUsers.length)] || {}))
+}

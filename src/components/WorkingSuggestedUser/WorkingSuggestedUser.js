@@ -12,29 +12,29 @@ import { BsInfoCircleFill } from "react-icons/bs";
 
 export default function WorkingSuggestedUser(props) {
 
-
+    
 
 
     return (
-        <div className={style.suggestedUserContainer}>
+        <div className={style.suggestedUserContainer} style={{backgroundImage: `url(${props.user.pictures[0].img})`}}>
             <div className={style.nameAge}>
                 <span className={style.name}>
-                    Martina
+                    {props.user.username}
                 </span>
-                <span className={style.age}>19</span>
+                <span className={style.age}>{props.user.age}</span>
             </div>
             <div className={style.basicInfo}>
                 <span className={style.info}>
                     <RiMoonClearLine className={style.info}/>
-                    Жаба
+                    {props.user.zodiacSign}
                 </span>
                 <span className={style.info}>
                     <FaPaw className={style.info}/>
-                    Кестен
+                    {props.user.pet}
                 </span>
                 <span className={style.info}>
                     <GiCigarette className={style.info}/>
-                    Мара
+                    {props.user.smoking}
                 </span>
             </div>
             {props.dislike ? <NopeStamp/> : null}

@@ -2,16 +2,18 @@ import style from './DetailedInfoSuggestionUser.module.css'
 import { FaPaw } from "react-icons/fa";
 import { GiCigarette } from "react-icons/gi";
 import { RiMoonClearLine } from "react-icons/ri";
-
+import { useSelector } from 'react-redux';
 
 export default function DetailedInfoSuggestionUser() {
-
+    
 
     return (
         // same parameters as 1st look
         <div className={style.frame}>
             <div className={style.detailedInfoContainer}>
-                <div className={style.photosContainer}></div>
+                <div className={style.photosContainer}>
+                    
+                </div>
                 <div className={style.nameAge}>
                     <span className={style.name}>
                         Martina

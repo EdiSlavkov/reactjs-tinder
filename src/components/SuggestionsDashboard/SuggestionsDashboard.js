@@ -27,11 +27,15 @@ import { useEffect, useState } from 'react'
 import LikeBtnsSuite from '../LikeBtnsSuite/LikeBtnsSuite'
 import WorkingSuggestedUser from '../WorkingSuggestedUser/WorkingSuggestedUser'
 import DetailedInfoSuggestionUser from '../DetailedInfoSuggestionUser/DetailedInfoSuggestionUser'
+import { NotSwipedUsers } from '../../server/server'
+import { useSelector, useDispatch } from 'react-redux'
+import { temporaryData, changeUserData } from '../../store/ActiveUserSlice'
+
 
 export function Matches() {
     const [showCard, setShowCard] = useState(true)
-
     const [angle, setAngle] = useState(0)
+
 
     const [axisXMovementDistance, setAxisXMovementDistance] = useState(0)
     const [axisYMovementDistance, setAxisYMovementDistance] = useState(0)
@@ -44,10 +48,14 @@ export function Matches() {
             setTimeout(setShowCard, 500)
         }
     }, [axisXMovementDistance, axisYMovementDistance])
-
+    // useEffect(() => {
+    //     if (JSON.stringify(currentUser) === '{}'){
+    //         dispatch(getNewSelectedUser())
+    //     }
+    // }, [currentUser])
     useEffect(() => {
         if (!showCard) {
-            //reset stamps flags in case swithed from buttons
+            //reset stamps flags in case switched from buttons
             setLikeUSer(false)
             setDisLikeUser(false)
             setSuperLikeUser(false)
@@ -156,9 +164,9 @@ export function Matches() {
                             <WorkingSuggestedUser like={likeUser} dislike={disLikeUser} superLike={superLikeUser} />
 
                             {/* <SuggestedUser like={likeUser} dislike={disLikeUser} superLike={superLikeUser}></SuggestedUser> */}
-                        {/* </motion.div>
+                    {/* </motion.div>
                     </AnimatePresence> : null} }*/}
-                    <DetailedInfoSuggestionUser></DetailedInfoSuggestionUser>
+                    <DetailedInfoSuggestionUser ></DetailedInfoSuggestionUser>
                     <LikeBtnsSuite like={() => likeThisUser()}
                         dislike={() => dislikeThisUser()}
                         superLike={() => superLikeThisUser()
@@ -173,8 +181,18 @@ export function Matches() {
 }
 
 export function Explore() {
-    const [showCard, setShowCard] = useState(true)
+    if (!localStorage.getItem('currentUser')) {
+        NotSwipedUsers()
 
+    }
+
+    const currentActiveUser = useSelector(state => state.activeUser)
+
+    const dispatch = useDispatch()
+
+
+    const [showCard, setShowCard] = useState(true)
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('currentUser')))
     const [angle, setAngle] = useState(0)
 
     const [axisXMovementDistance, setAxisXMovementDistance] = useState(0)
@@ -183,6 +201,7 @@ export function Explore() {
     const [likeUser, setLikeUSer] = useState(false)
     const [disLikeUser, setDisLikeUser] = useState(false)
     const [superLikeUser, setSuperLikeUser] = useState(false)
+
     useEffect(() => {
         if (axisXMovementDistance || axisYMovementDistance) {
             setTimeout(setShowCard, 500)
@@ -206,7 +225,6 @@ export function Explore() {
         //getting the current position of the component and adjusting the angle 
         const newAngle = Math.floor(offsetX /= 20)
         setAngle(newAngle)
-        console.log(newAngle);
     }
     const releaseDrag = () => {
         //actions after releasing the component
@@ -232,14 +250,28 @@ export function Explore() {
     const superLikeThisUser = () => {
         setSuperLikeUser(true)
         setAxisYMovementDistance(-1200)
+        NotSwipedUsers()
+        setUser(JSON.parse(localStorage.getItem('currentUser')))
+
     }
     const likeThisUser = () => {
         setLikeUSer(true)
         setAxisXMovementDistance(1200)
+        let likedArray = [...currentActiveUser.likedPeople]
+        likedArray.push(user.email)
+        dispatch(temporaryData(['likedPeople', likedArray]))
+        dispatch(changeUserData())
+        console.log(currentActiveUser);
+        NotSwipedUsers()
+        setUser(JSON.parse(localStorage.getItem('currentUser')))
+
     }
     const dislikeThisUser = () => {
         setDisLikeUser(true)
         setAxisXMovementDistance(-1200)
+        NotSwipedUsers()
+        setUser(JSON.parse(localStorage.getItem('currentUser')))
+
     }
     const getDistanceAndDirection = (offSet) => {
         //move adjusted logic to decide what action we need to take on release
@@ -314,9 +346,7 @@ export function Explore() {
                                 animateSwipeCard()
 
                             }}>
-                            <WorkingSuggestedUser like={likeUser} dislike={disLikeUser} superLike={superLikeUser} />
-
-                            {/* <SuggestedUser like={likeUser} dislike={disLikeUser} superLike={superLikeUser}></SuggestedUser> */}
+                            <WorkingSuggestedUser user={user} like={likeUser} dislike={disLikeUser} superLike={superLikeUser} />
                         </motion.div>
                     </AnimatePresence> : null}
                     <LikeBtnsSuite like={() => likeThisUser()}

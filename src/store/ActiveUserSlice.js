@@ -7,6 +7,7 @@ export const activeUserSlice = createSlice({
   name: 'activeUser',
   initialState,
   reducers: {
+    //updates the loggedUser and all registered users in local storage
     changeUserData: (state) => {
       updateData(state);
 
