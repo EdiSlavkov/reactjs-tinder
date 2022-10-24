@@ -23,6 +23,7 @@ export default function WorkingSuggestedUser(props) {
                 </span>
                 <span className={style.age}>{props.user.age}</span>
             </div>
+            <span className={style.location}>{props.user.location}</span>
             <div className={style.basicInfo}>
                 <span className={style.info}>
                     <RiMoonClearLine className={style.info}/>
@@ -36,6 +37,7 @@ export default function WorkingSuggestedUser(props) {
                     <GiCigarette className={style.info}/>
                     {props.user.smoking}
                 </span>
+                <BsInfoCircleFill onClick={props.changeLook}/>
             </div>
             {props.dislike ? <NopeStamp/> : null}
             {props.like ? <LikeStamp /> : null}

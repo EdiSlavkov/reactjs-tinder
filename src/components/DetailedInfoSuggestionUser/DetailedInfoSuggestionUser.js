@@ -3,9 +3,19 @@ import { FaPaw } from "react-icons/fa";
 import { GiCigarette } from "react-icons/gi";
 import { RiMoonClearLine } from "react-icons/ri";
 import { useSelector } from 'react-redux';
+import { ImArrowDown } from "react-icons/im";
 
-export default function DetailedInfoSuggestionUser() {
+
+export default function DetailedInfoSuggestionUser(props) {
     
+    const ActiveUSer = useSelector(state => state.activeUser)
+
+    const passions =props.user.passions ?  props.user.passions.map(pass => {
+        if(ActiveUSer.passions.indexOf(pass) !== -1){
+            return <span key={pass} className={style.passionItem}>{pass}</span>
+        }
+        return <span key={pass} className={style.commonPassionItem}>{pass}</span>
+    }) : ''
 
     return (
         // same parameters as 1st look
@@ -16,35 +26,31 @@ export default function DetailedInfoSuggestionUser() {
                 </div>
                 <div className={style.nameAge}>
                     <span className={style.name}>
-                        Martina
+                    {props.user.username}
                     </span>
-                    <span className={style.age}>19</span>
+                    <span className={style.age}>{props.user.age}</span>
+                    <ImArrowDown className={style.firstLookIcon} onClick={props.changeLook}/>
                 </div>
-                <span className={style.location}>Sofiq</span>
-                <div className={style.userDescription}>На китарата Васко Жабата, той ще свири, драги гости само за вас. /х2 Чуете мелодии, хора, народни песни, цигански кючеци, всичките са лесни. /х2</div>
+                <span className={style.location}>{props.user.location}</span>
+                <div className={style.userDescription}>{props.user.description}</div>
                 <div className={style.basicInfo}>
                     <span className={style.info}>
                         <RiMoonClearLine />
-                        Жаба
+                        {props.user.zodiacSign}
                     </span>
                     <span className={style.info}>
                         <FaPaw />
-                        Кестен
+                        {props.user.pet}
                     </span>
                     <span className={style.info}>
                         <GiCigarette />
-                        Мара
+                        {props.user.smoking}
                     </span>
                 </div>
                 <div className={style.passionContainer}>
                     <h5>Passions</h5>
                     <div className={style.passionList}>
-                        <span className={style.passionItem}>koali</span>
-                        <span className={style.passionItem}>korali</span>
-                        <span className={style.passionItem}>kokali</span>
-                        <span className={style.passionItem}>kolani</span>
-                        <span className={style.passionItem}>kurami</span>
-                        <span className={style.passionItem}>kapani</span>
+                        {passions}
                     </div>
                 </div>
             </div>

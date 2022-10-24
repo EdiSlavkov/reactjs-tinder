@@ -30,100 +30,10 @@ import DetailedInfoSuggestionUser from '../DetailedInfoSuggestionUser/DetailedIn
 import { NotSwipedUsers } from '../../server/server'
 import { useSelector, useDispatch } from 'react-redux'
 import { temporaryData, changeUserData } from '../../store/ActiveUserSlice'
+import SwipebleCard from '../SwipebleCard/SwipebleCard'
 
 
 export function Matches() {
-    const [showCard, setShowCard] = useState(true)
-    const [angle, setAngle] = useState(0)
-
-
-    const [axisXMovementDistance, setAxisXMovementDistance] = useState(0)
-    const [axisYMovementDistance, setAxisYMovementDistance] = useState(0)
-
-    const [likeUser, setLikeUSer] = useState(false)
-    const [disLikeUser, setDisLikeUser] = useState(false)
-    const [superLikeUser, setSuperLikeUser] = useState(false)
-    useEffect(() => {
-        if (axisXMovementDistance || axisYMovementDistance) {
-            setTimeout(setShowCard, 500)
-        }
-    }, [axisXMovementDistance, axisYMovementDistance])
-    // useEffect(() => {
-    //     if (JSON.stringify(currentUser) === '{}'){
-    //         dispatch(getNewSelectedUser())
-    //     }
-    // }, [currentUser])
-    useEffect(() => {
-        if (!showCard) {
-            //reset stamps flags in case switched from buttons
-            setLikeUSer(false)
-            setDisLikeUser(false)
-            setSuperLikeUser(false)
-            //align card in center
-            setAxisXMovementDistance(0)
-            setAxisYMovementDistance(0)
-            //generate new card
-            setShowCard(true)
-        }
-    }, [showCard])
-    const incrementAngle = (offsetX) => {
-        //getting the current position of the component and adjusting the angle 
-        const newAngle = Math.floor(offsetX /= 20)
-        setAngle(newAngle)
-        console.log(newAngle);
-    }
-    const releaseDrag = () => {
-        //actions after releasing the component
-        setAngle(0)
-        setLikeUSer(false)
-        setDisLikeUser(false)
-        setSuperLikeUser(false)
-    }
-    const animateSwipeCard = () => {
-        // removing the card in the corresponding direction
-        if (superLikeUser) {
-            //function if we superLike the user
-            superLikeThisUser()
-        } else if (disLikeUser) {
-            //function if we remove the user
-            dislikeThisUser()
-        } else if (likeUser) {
-            //function if we like the user
-            likeThisUser()
-        }
-    }
-
-    const superLikeThisUser = () => {
-        setSuperLikeUser(true)
-        setAxisYMovementDistance(-1200)
-    }
-    const likeThisUser = () => {
-        setLikeUSer(true)
-        setAxisXMovementDistance(1200)
-    }
-    const dislikeThisUser = () => {
-        setDisLikeUser(true)
-        setAxisXMovementDistance(-1200)
-    }
-    const getDistanceAndDirection = (offSet) => {
-        //move adjusted logic to decide what action we need to take on release
-        if (offSet.x <= -100) {
-            setDisLikeUser(true)
-        } else if (offSet.x > -100) {
-            setDisLikeUser(false)
-        }
-        if (offSet.x >= 100) {
-            setLikeUSer(true)
-        } else if (offSet.x < 100) {
-            setLikeUSer(false)
-        }
-        if (offSet.x > -100 && offSet.x < 100 && offSet.y < -100) {
-            setSuperLikeUser(true)
-        } else if (offSet.y > -100) {
-            setSuperLikeUser(false)
-        }
-    }
-
     return (
         <div className={style.matchContainer}>
             <div className={style.exploreSection}>
@@ -134,164 +44,13 @@ export function Matches() {
                         <ChatHeadsContainer></ChatHeadsContainer>
                     </div>
                 </div>
-
             </div>
-            <div className={style.matchSuggestion}>
-                <div className={style.userAndBtnContainer}>
-                    {/* {showCard ? <AnimatePresence>
-                        <motion.div className={style.matchSuggestion}
-                            initial={{ x: 0, y: 0 }}
-                            animate={{
-                                rotate: angle,
-                                x: axisXMovementDistance,
-                                y: axisYMovementDistance,
-
-                            }}
-                            drag
-                            onDrag={
-                                (event, info) => {
-                                    getDistanceAndDirection(info.offset)
-                                    incrementAngle(info.offset.x)
-                                }
-                            }
-
-                            dragSnapToOrigin='true'
-                            onDragEnd={(e, info) => {
-                                releaseDrag()
-                                animateSwipeCard()
-
-                            }}>
-                            <WorkingSuggestedUser like={likeUser} dislike={disLikeUser} superLike={superLikeUser} />
-
-                            {/* <SuggestedUser like={likeUser} dislike={disLikeUser} superLike={superLikeUser}></SuggestedUser> */}
-                    {/* </motion.div>
-                    </AnimatePresence> : null} }*/}
-                    <DetailedInfoSuggestionUser ></DetailedInfoSuggestionUser>
-                    <LikeBtnsSuite like={() => likeThisUser()}
-                        dislike={() => dislikeThisUser()}
-                        superLike={() => superLikeThisUser()
-                        }
-                    />
-                </div>
-            </div>
-
-
+        <SwipebleCard/>
         </div>
     )
 }
 
 export function Explore() {
-    if (!localStorage.getItem('currentUser')) {
-        NotSwipedUsers()
-
-    }
-
-    const currentActiveUser = useSelector(state => state.activeUser)
-
-    const dispatch = useDispatch()
-
-
-    const [showCard, setShowCard] = useState(true)
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem('currentUser')))
-    const [angle, setAngle] = useState(0)
-
-    const [axisXMovementDistance, setAxisXMovementDistance] = useState(0)
-    const [axisYMovementDistance, setAxisYMovementDistance] = useState(0)
-
-    const [likeUser, setLikeUSer] = useState(false)
-    const [disLikeUser, setDisLikeUser] = useState(false)
-    const [superLikeUser, setSuperLikeUser] = useState(false)
-
-    useEffect(() => {
-        if (axisXMovementDistance || axisYMovementDistance) {
-            setTimeout(setShowCard, 500)
-        }
-    }, [axisXMovementDistance, axisYMovementDistance])
-
-    useEffect(() => {
-        if (!showCard) {
-            //reset stamps flags in case swithed from buttons
-            setLikeUSer(false)
-            setDisLikeUser(false)
-            setSuperLikeUser(false)
-            //align card in center
-            setAxisXMovementDistance(0)
-            setAxisYMovementDistance(0)
-            //generate new card
-            setShowCard(true)
-        }
-    }, [showCard])
-    const incrementAngle = (offsetX) => {
-        //getting the current position of the component and adjusting the angle 
-        const newAngle = Math.floor(offsetX /= 20)
-        setAngle(newAngle)
-    }
-    const releaseDrag = () => {
-        //actions after releasing the component
-        setAngle(0)
-        setLikeUSer(false)
-        setDisLikeUser(false)
-        setSuperLikeUser(false)
-    }
-    const animateSwipeCard = () => {
-        // removing the card in the corresponding direction
-        if (superLikeUser) {
-            //function if we superLike the user
-            superLikeThisUser()
-        } else if (disLikeUser) {
-            //function if we remove the user
-            dislikeThisUser()
-        } else if (likeUser) {
-            //function if we like the user
-            likeThisUser()
-        }
-    }
-
-    const superLikeThisUser = () => {
-        setSuperLikeUser(true)
-        setAxisYMovementDistance(-1200)
-        NotSwipedUsers()
-        setUser(JSON.parse(localStorage.getItem('currentUser')))
-
-    }
-    const likeThisUser = () => {
-        setLikeUSer(true)
-        setAxisXMovementDistance(1200)
-        let likedArray = [...currentActiveUser.likedPeople]
-        likedArray.push(user.email)
-        dispatch(temporaryData(['likedPeople', likedArray]))
-        dispatch(changeUserData())
-        console.log(currentActiveUser);
-        NotSwipedUsers()
-        setUser(JSON.parse(localStorage.getItem('currentUser')))
-
-    }
-    const dislikeThisUser = () => {
-        setDisLikeUser(true)
-        setAxisXMovementDistance(-1200)
-        NotSwipedUsers()
-        setUser(JSON.parse(localStorage.getItem('currentUser')))
-
-    }
-    const getDistanceAndDirection = (offSet) => {
-        //move adjusted logic to decide what action we need to take on release
-        if (offSet.x <= -100) {
-            setDisLikeUser(true)
-        } else if (offSet.x > -100) {
-            setDisLikeUser(false)
-        }
-        if (offSet.x >= 100) {
-            setLikeUSer(true)
-        } else if (offSet.x < 100) {
-            setLikeUSer(false)
-        }
-        if (offSet.x > -100 && offSet.x < 100 && offSet.y < -100) {
-            setSuperLikeUser(true)
-        } else if (offSet.y > -100) {
-            setSuperLikeUser(false)
-        }
-    }
-
     return (
         <div className={style.matchContainer}>
             <div className={style.exploreSection}>
@@ -321,41 +80,7 @@ export function Explore() {
                     <SmallCard title={"Ready For A Spa Date?"} subtitle={"Passions"} button={"Self Care"} img={imgSelfCare} />
                 </div>
             </div>
-            <div className={style.matchSuggestion}>
-                <div className={style.userAndBtnContainer}>
-                    {showCard ? <AnimatePresence>
-                        <motion.div className={style.matchSuggestion}
-                            initial={{ x: 0, y: 0 }}
-                            animate={{
-                                rotate: angle,
-                                x: axisXMovementDistance,
-                                y: axisYMovementDistance,
-
-                            }}
-                            drag
-                            onDrag={
-                                (event, info) => {
-                                    getDistanceAndDirection(info.offset)
-                                    incrementAngle(info.offset.x)
-                                }
-                            }
-
-                            dragSnapToOrigin='true'
-                            onDragEnd={(e, info) => {
-                                releaseDrag()
-                                animateSwipeCard()
-
-                            }}>
-                            <WorkingSuggestedUser user={user} like={likeUser} dislike={disLikeUser} superLike={superLikeUser} />
-                        </motion.div>
-                    </AnimatePresence> : null}
-                    <LikeBtnsSuite like={() => likeThisUser()}
-                        dislike={() => dislikeThisUser()}
-                        superLike={() => superLikeThisUser()
-                        }
-                    />
-                </div>
-            </div>
+            <SwipebleCard/>
         </div>
     )
 }
