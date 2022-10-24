@@ -22,18 +22,15 @@ import imgThrill from "../../images/smallThrillImg.webp";
 import imgWander from "../../images/smallWanderLustImg.webp";
 import imgSelfCare from "../../images/smallSelfCareImg.webp";
 import ChatHeadsContainer from '../ChatHeadsContainer/ChatHeadsContainer'
-import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react'
-import LikeBtnsSuite from '../LikeBtnsSuite/LikeBtnsSuite'
-import WorkingSuggestedUser from '../WorkingSuggestedUser/WorkingSuggestedUser'
-import DetailedInfoSuggestionUser from '../DetailedInfoSuggestionUser/DetailedInfoSuggestionUser'
-import { NotSwipedUsers } from '../../server/server'
-import { useSelector, useDispatch } from 'react-redux'
-import { temporaryData, changeUserData } from '../../store/ActiveUserSlice'
+import { useSelector } from 'react-redux'
 import SwipebleCard from '../SwipebleCard/SwipebleCard'
+import ChatWithUser from '../ChatWithUser/ChatWithUser'
 
 
 export function Matches() {
+    const activeChat = useSelector(state => state.activeChat.ChatBtnActive)
+
     return (
         <div className={style.matchContainer}>
             <div className={style.exploreSection}>
@@ -45,7 +42,7 @@ export function Matches() {
                     </div>
                 </div>
             </div>
-        <SwipebleCard/>
+            {activeChat ? <ChatWithUser/> : <SwipebleCard/> }
         </div>
     )
 }
