@@ -26,6 +26,7 @@ function App() {
       if (checkUserData()) {
         return (
           <Routes>
+            <Route path="/" element={<ProfilePage/>}></Route>
             <Route path="/app" element={<Outlet></Outlet>}>
               <Route index element={<Navigate to="profile"></Navigate>}></Route>
               <Route path="recs" element={<Matches></Matches>}></Route>
