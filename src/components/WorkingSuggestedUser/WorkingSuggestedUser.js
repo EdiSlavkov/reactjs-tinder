@@ -16,7 +16,7 @@ export default function WorkingSuggestedUser(props) {
 
 
     return (
-        <div className={style.suggestedUserContainer} style={{backgroundImage: `url(${props.user.pictures[0].img})`}}>
+        <div className={style.suggestedUserContainer} style={{backgroundImage: `url(${props.user?.pictures[0]?.img})`}}>
             <div className={style.nameAge}>
                 <span className={style.name}>
                     {props.user.username}

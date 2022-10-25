@@ -59,3 +59,13 @@ export const NotSwipedUsers = ()=>{
     })
     localStorage.setItem('currentUser', JSON.stringify(boxOfUsers[Math.floor(Math.random()*boxOfUsers.length)] || {}))
 }
+
+
+  export const checkUserData = ()=>{
+    const user = JSON.parse(localStorage.getItem('tinderLogged'));
+    if(user.username&&user.age&&user.phone){
+        return true;
+        
+    }
+    return false
+  }

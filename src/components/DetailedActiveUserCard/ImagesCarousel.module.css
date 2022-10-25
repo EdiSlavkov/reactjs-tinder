@@ -1,0 +1,10 @@
+.imgCarousel{
+    border-radius:8px;
+    width:100%;
+    height:66vh;
+}
+
+.carousel {
+    gap:35px;
+    margin-top:2%;
+}

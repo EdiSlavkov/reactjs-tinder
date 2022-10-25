@@ -96,7 +96,6 @@ export default function SwipebleCard() {
         likedArray.push(user.email)
         dispatch(temporaryData(['likedPeople', likedArray]))
         dispatch(changeUserData())
-        console.log(currentActiveUser);
         NotSwipedUsers()
         setUser(JSON.parse(localStorage.getItem('currentUser')))
 

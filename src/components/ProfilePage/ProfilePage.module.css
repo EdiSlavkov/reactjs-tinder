@@ -32,6 +32,19 @@
     /* for Chrome, Safari, and Opera */
 }
 
+.profileErr{
+    position: fixed;
+    left: 50%;
+    font-size: 16px;
+    font-weight: 700;
+    color: red;
+    top: 2%;
+}
+
+.hide{
+    display:none;
+}
+
 .heading {
     font-size: 16px;
     color: rgb(94, 94, 102);

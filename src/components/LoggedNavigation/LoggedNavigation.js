@@ -7,7 +7,7 @@ import profileLogo from "../../images/profile_placeholder.png"
 
 
 
-export default function LoggedNavigation() {
+export default function LoggedNavigation(props) {
     
 
     const user = useSelector(state => state.activeUser)
@@ -16,7 +16,7 @@ export default function LoggedNavigation() {
     return (<div className={style.navigationController}>
 
 
-        <NavLink to='/app/profile' className={({ isActive }) =>
+        <NavLink to='/app/profile' onClick={props.show} className={({ isActive }) =>
               isActive ? style.linkProfileActive : style.linkProfileInactive}>
             {user?.pictures[0] ? <img src={user?.pictures[0].img} className={style.profileImg} alt="img"></img> : <img src={profileLogo} className={style.profileImg} alt="img"></img>}
             {user?.username&&user?.username}

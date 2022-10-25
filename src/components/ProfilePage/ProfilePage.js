@@ -1,33 +1,34 @@
 import LoggedNavigation from "../LoggedNavigation/LoggedNavigation";
 import ProfilePreference from "../ProfilePreference/ProfilePreference";
 import { AgeSliderComponent, DistanceSliderComponent } from "../SliderComponent/SliderComponent";
+import { update } from "../../store/ActiveUserSlice";
 import Switch from "../Switch/Switch";
 import style from './ProfilePage.module.css'
 import ProfileCard from "./ProfileCard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NewUserInfo from "../NewUserInfo/NewUserInfo";
 import { useSelector, useDispatch } from "react-redux";
-import { temporaryData, changeUserData } from "../../store/ActiveUserSlice";
-import { logout } from "../../server/server";
+import { logout, checkUserData } from "../../server/server";
 import { useNavigate } from "react-router-dom";
 
 export default function ProfilePage() {
 
-
     const user = useSelector(state => state.activeUser);
-    const dispatch = useDispatch();
     const [editProfile, setEditProfile] = useState(false);
+    const [showErr, setShowErr] = useState(checkUserData());
     const navigate = useNavigate();
-    
+
     const handleLogout = ()=>{
         logout();
         navigate("/")
     }
 
     return (
+        <>
+        {showErr ? null : <span className={style.profileErr}>Please fill required information to unlock all pages!</span>}
         <div className={style.ProfilePage}>
             <div className={style.LoggedNavigation}>
-                <LoggedNavigation></LoggedNavigation>
+                <LoggedNavigation show={()=>setEditProfile(false)}></LoggedNavigation>
                 <div className={style.ProfilePreferences}>
                     <h6 className={style.heading}>ACCOUNT SETTINGS</h6>
                     <ProfilePreference component={user.email} placeholder={'Email'}></ProfilePreference>
@@ -56,9 +57,10 @@ export default function ProfilePage() {
                     
                 </div>
             </div>
-            {editProfile ? <NewUserInfo/> : <ProfileCard editProfile={setEditProfile}/>}
+            {editProfile ? <NewUserInfo showErr={setShowErr}/> : <ProfileCard editProfile={setEditProfile}/>}
 
 
         </div>
+        </>
     )
 }

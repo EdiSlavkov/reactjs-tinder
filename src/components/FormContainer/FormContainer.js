@@ -14,20 +14,28 @@ import { update } from "../../store/ActiveUserSlice";
 
 export default function FormContainer(props) {
 
+  const [disable, setDisable] = useState(true);
   const dispatch = useDispatch();
-  const promise = Promise.resolve();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
-
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
   const [confirmPassword, setConfirmPassword] = useState("");
   const [confirmPasswordErr, setConfirmPasswordErr] = useState("");
-
   const [msg, setMsg] = useState("");
   const [error, setError] = useState("");
+
+  const clear = ()=>{
+    setEmail("");
+    setEmailError("");
+    setPassword("");
+    setPasswordError("");
+    setConfirmPassword("");
+    setConfirmPasswordErr("");
+    setMsg("");
+    setError("");
+  }
 
   const handleEmailChange = (e) => {
     setEmailError("");
@@ -54,66 +62,55 @@ export default function FormContainer(props) {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    server.login(email, password)
-      ? (()=>{dispatch(update(server.getLoggedUser()))
-        navigate("/app/profile")})()
-      : setMsg("Wrong Credentials!");
-    setEmail("");
+    if(server.login(email, password)){
+      dispatch(update(server.getLoggedUser()));
+      navigate("/app/profile");
+    } else {
+      setMsg("Wrong Credentials!");
+       setEmail("");
     setPassword("");
     setTimeout(() => {
       setMsg("");
     }, 3000);
   };
+  }
+   
 
-  const handleRegBtn = (e) =>{
-    let btn = document.getElementById("regBtn");
-    e.stopPropagation();
-    utils.validateEmail(email) === true
-      ? utils.validatePassword(password) === true
-        ? utils.confirmPasswords(password, confirmPassword) === true
-          ?  btn.disabled = false
+  const handleRegBtn = () =>{
 
-          : btn.disabled = true
-        : btn.disabled = true
-      : btn.disabled = true
-
+    if(utils.validateEmail(email) === true &&
+    utils.validatePassword(password) === true &&
+    utils.confirmPasswords(password, confirmPassword) === true
+    ){
+      setDisable(false)
+    } else {
+      setDisable(true)
+    }
   }
 
   const handleRegistration = (e) => {
     e.preventDefault();
 
-    server.createAccount(email, password)
-            ? (()=>{
-              setMsg("Successfull! Redirecting to login!");
-              (setTimeout(() => {
-              props.setShow(false)
-            props.showLogin()
-            setMsg("");
-            }, 3000))
-            })()
-    
-            : (()=>{
-              setError("Email is already taken!");
-            setTimeout(() => {
-              setError("");
-            }, 3000)
-            })()
-
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
-  };
-
-  const clear = ()=>{
-    setEmail("");
-    setEmailError("");
-    setPassword("");
-    setPasswordError("");
-    setConfirmPassword("");
-    setConfirmPasswordErr("");
+    if(server.createAccount(email, password)){
+      setMsg("Successfull! Redirecting to login!");
+      setTimeout(() => {
+      props.setShow(false)
+    props.showLogin()
+    clear();
     setMsg("");
-    setError("");
-  }
+    }, 3000)
+    } else {
+      setError("Email is already taken!");
+      setTimeout(() => {
+        setError("");
+      }, 3000)
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+    }
+    
+    
+  };
 
   if (!props.show) return <></>;
 
@@ -133,13 +130,13 @@ export default function FormContainer(props) {
           onSubmit={
             props.buttonName === "Login" ? handleLogin : handleRegistration
           }
-          onBlur={props.buttonName === "Register" ? ()=>
-          promise
-          .then(setPasswordError(utils.validatePassword(password)))
-          .then(setConfirmPasswordErr(utils.confirmPasswords(confirmPassword, password)))
-          .then(setEmailError(utils.validateEmail(email)))
-          : null}
-          onKeyUp={props.buttonName === "Register" ? handleRegBtn : null}
+          onKeyUp={props.buttonName === "Register" ? (e)=>{
+            handleRegBtn();
+            setPasswordError(utils.validatePassword(password));
+            setConfirmPasswordErr(utils.confirmPasswords(confirmPassword, password));
+            setEmailError(utils.validateEmail(email));
+            handleRegBtn();
+          } : null}
         >
           <CloseButton onClick={handleClose} className={styles.closeBtn} />
           <img
@@ -203,7 +200,7 @@ export default function FormContainer(props) {
               className={
                 props.buttonName === "Register" ? styles.registerBtn : ""
               }
-              disabled={props.buttonName === "Register" ? true : false}
+              disabled={props.buttonName === "Register"&&disable ? true : false}
               variant="danger"
               size="lg"
               type="submit"

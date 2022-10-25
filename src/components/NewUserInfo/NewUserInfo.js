@@ -19,8 +19,9 @@ import DetailedActiveUserCard from "../DetailedActiveUserCard/DetailedActiveUser
 import { validateLength } from "../../utils";
 import LoadingBtn from "./LoadingBtn";
 import { hide, reveal } from "../../store/DetailedInfoSlice";
+import { checkUserData } from "../../server/server";
 
-export default function NewUserInfo() {
+export default function NewUserInfo(props) {
   const user = useSelector((state) => state.activeUser);
   const detailedInfo = useSelector((state) => state.detailedInfo);
   const dispatch = useDispatch();
@@ -29,7 +30,6 @@ export default function NewUserInfo() {
   const [saving, setSaving] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [showEdit, setShowEdit] = useState(true);
-  const promise = Promise.resolve();
 
   useEffect(() => {
     dispatch(hide());
@@ -141,6 +141,7 @@ export default function NewUserInfo() {
   };
 
   return (
+    
     <div
       className={
         detailedInfo
@@ -153,7 +154,10 @@ export default function NewUserInfo() {
         <button
           className={showEdit ? styles.active : ""}
           onClick={() =>
-            promise.then(setShowEdit(true)).then(setShowPreview(false))
+            {
+              setShowEdit(true);
+              setShowPreview(false);
+            }
           }
         >
           Edit
@@ -161,10 +165,11 @@ export default function NewUserInfo() {
         <button
           className={showPreview ? styles.active : ""}
           onClick={() =>
-            promise
-              .then(setShowPreview(true))
-              .then(setShowEdit(false))
-              .then(dispatch(reveal()))
+            {
+              setShowPreview(true)
+              setShowEdit(false)
+              dispatch(reveal())
+            }
           }
         >
           Preview
@@ -269,6 +274,7 @@ export default function NewUserInfo() {
                     <label htmlFor="age">Age:</label>
                     <input
                       id="age"
+                      min={18}
                       pattern="^[0-9]*$"
                       type="number"
                       name="age"
@@ -502,6 +508,7 @@ export default function NewUserInfo() {
                   disabled={validateRequirements()}
                   id="saveBtn"
                   type="submit"
+                  onClick={()=>props.showErr(true)}
                   className={
                     validateRequirements()
                       ? styles.saveBtnDisabled
