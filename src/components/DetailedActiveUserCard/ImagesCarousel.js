@@ -50,7 +50,7 @@ export default function ImagesCarousel(props) {
         })} */}
        
         {props.user?.pictures.length > 0 
-        ? props.user.pictures.map((img,i)=><img key={i} style={{width:"100%", height:"66vh"}} src={img.img} alt="pic"></img>)
+        ? props.user.pictures.map((img,i)=><img key={i} style={{width:"100%", height:"450px"}} src={img.img} alt="pic"></img>)
         : <img src={noPhoto} style={{width:"100%", height:"66vh"}} alt="defaultPic"></img>}
       </Carousel>
       </>

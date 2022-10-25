@@ -59,3 +59,15 @@ export const NotSwipedUsers = ()=>{
     })
     localStorage.setItem('currentUser', JSON.stringify(boxOfUsers[Math.floor(Math.random()*boxOfUsers.length)] || {}))
 }
+
+export const findWhoLikesMe = () => {
+    let loggedTinderUser = getLoggedUser()
+    let allTinderUsers = getUsers()
+    let usersLikedBy = []
+    allTinderUsers.forEach(user => {
+        if (user.likedPeople.some(email=> email === loggedTinderUser.email && loggedTinderUser.likedPeople.indexOf(user.email) === -1 )){
+            usersLikedBy.push(user)
+        }
+    })
+    return usersLikedBy
+}

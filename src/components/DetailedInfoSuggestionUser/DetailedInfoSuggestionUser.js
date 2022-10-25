@@ -4,6 +4,7 @@ import { GiCigarette } from "react-icons/gi";
 import { RiMoonClearLine } from "react-icons/ri";
 import { useSelector } from 'react-redux';
 import { ImArrowDown } from "react-icons/im";
+import ImagesCarousel from '../DetailedActiveUserCard/ImagesCarousel';
 
 
 export default function DetailedInfoSuggestionUser(props) {
@@ -22,7 +23,7 @@ export default function DetailedInfoSuggestionUser(props) {
         <div className={style.frame}>
             <div className={style.detailedInfoContainer}>
                 <div className={style.photosContainer}>
-                    
+                    <ImagesCarousel user={props.user}/>
                 </div>
                 <div className={style.nameAge}>
                     <span className={style.name}>
