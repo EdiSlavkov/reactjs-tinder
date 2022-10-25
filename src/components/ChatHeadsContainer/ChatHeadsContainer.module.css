@@ -11,10 +11,12 @@
 }
 .headsContainer{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
-    width: 200%;
-    height: 100%;
+    width: 100%;
+    row-gap: 20px;
+    column-gap: 20px;
+    height: 85vh;
     background-image: url('../../images/Lovepik_com-401456344-light-pink-love-bubble.png');
     background-size:80%;
     background-repeat: no-repeat;

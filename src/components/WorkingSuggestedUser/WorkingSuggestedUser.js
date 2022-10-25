@@ -4,6 +4,7 @@ import { RiMoonClearLine } from "react-icons/ri";
 import { FaPaw } from "react-icons/fa";
 import { GiCigarette } from "react-icons/gi";
 import { BsInfoCircleFill } from "react-icons/bs";
+import ImagesCarousel from '../DetailedActiveUserCard/ImagesCarousel';
 
 
 
@@ -16,7 +17,8 @@ export default function WorkingSuggestedUser(props) {
 
 
     return (
-        <div className={style.suggestedUserContainer} style={{backgroundImage: `url(${props.user?.pictures[0]?.img})`}}>
+        <div className={style.suggestedUserContainer}>
+            <ImagesCarousel user={props.user}/>
             <div className={style.nameAge}>
                 <span className={style.name}>
                     {props.user.username}
@@ -37,7 +39,7 @@ export default function WorkingSuggestedUser(props) {
                     <GiCigarette className={style.info}/>
                     {props.user.smoking}
                 </span>
-                <BsInfoCircleFill onClick={props.changeLook}/>
+                <BsInfoCircleFill style={{cursor: 'pointer'}} onClick={props.changeLook}/>
             </div>
             {props.dislike ? <NopeStamp/> : null}
             {props.like ? <LikeStamp /> : null}

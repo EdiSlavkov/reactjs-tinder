@@ -1,0 +1,8 @@
+
+
+.likedByPic{
+    height: 120px;
+    width: 100px;
+    padding: 10px;
+    filter: blur(15px);
+}
