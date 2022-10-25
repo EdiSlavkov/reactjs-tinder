@@ -8,8 +8,8 @@ import { useState } from "react";
 import NewUserInfo from "../NewUserInfo/NewUserInfo";
 import { useSelector, useDispatch } from "react-redux";
 import { temporaryData, changeUserData } from "../../store/ActiveUserSlice";
-
-
+import { logout } from "../../server/server";
+import { useNavigate } from "react-router-dom";
 
 export default function ProfilePage() {
 
@@ -17,6 +17,12 @@ export default function ProfilePage() {
     const user = useSelector(state => state.activeUser);
     const dispatch = useDispatch();
     const [editProfile, setEditProfile] = useState(false);
+    const navigate = useNavigate();
+    
+    const handleLogout = ()=>{
+        logout();
+        navigate("/")
+    }
 
     return (
         <div className={style.ProfilePage}>
@@ -46,6 +52,7 @@ export default function ProfilePage() {
                     <ProfilePreference component={user.smoking} placeholder={'Smoking'}></ProfilePreference>
                     <ProfilePreference component={user.pet} placeholder={'Pets'}></ProfilePreference>
                     <ProfilePreference component={user.gender} placeholder={'Gender'}></ProfilePreference>
+                    <div onClick={handleLogout} className={style.logoutBtn} ><ProfilePreference placeholder={'Logout'}></ProfilePreference></div>
                     
                 </div>
             </div>

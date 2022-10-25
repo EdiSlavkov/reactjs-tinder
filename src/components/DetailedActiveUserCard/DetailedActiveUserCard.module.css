@@ -1,4 +1,4 @@
-.detailedInfoContainer{
+.detailedInfoContainer,.detailedInfoContainerSmall{
     display: flex;
     flex-direction: column;
     padding-bottom: 60px;
@@ -7,12 +7,14 @@
     color: black;
     background-color: white;
     font-size: 16px;
+    position: relative;
 }
 
 .frame{
     height: 600px;
     width: 375px;
     overflow: scroll;
+    border-radius: 8px;
     /* hide scrollbar but allow scrolling */
     -ms-overflow-style: none;
     /* for Internet Explorer, Edge */
@@ -32,9 +34,10 @@
     height: 450px;
     background-size:cover;
 }
-.nameAge{
+.nameAge, .nameAgeInfo{
     padding-left: 10px;
     font-size: 20px;
+    position: relative;
 }
 .name{
     font-size: 25px;
@@ -53,7 +56,7 @@
     margin-top: 10px;
     border-top: 1px solid gray;
 }
-.passionList{
+.passionList, .passionListInfo{
     padding: 20px 0 0 0;
     font-size: 16px;
     font-weight: 300;
@@ -74,16 +77,103 @@
     border: 1px solid gray;
     border-radius: 40px;
 }
+
+.passionItemInfo{
+    background: #000000b8;
+    border: none;
+    font-weight: 500;
+    padding: 0px 10px;
+    font-size: 13px;
+    border-radius: 40px;
+}
 .basicInfo{
     display: flex;
     font-size: 16px;
     padding: 10px 0 0 10px;
     margin-top: 10px;
     border-top: 1px solid gray;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 .info{
     margin-right: 5px;
     padding: 0px 15px;
     border: 1px solid gray;
     border-radius: 40px;
+}
+
+.verifiedIcon, .unVerifiedIcon {
+    position: absolute;
+    color: blue;
+}
+
+.unVerifiedIcon {
+    color: gray;
+}
+
+.InfoBtn{
+    position: absolute;
+    right: 40px;
+    bottom: 23px;
+    color: black;
+    border-radius: 18px;
+    background: white;
+    cursor: pointer;
+    font-size: 30px;
+}
+
+.fullInfoBtn {
+    position: absolute;
+    right: 40px;
+    color: white;
+    border-radius: 18px;
+    background-image: linear-gradient(45deg,#fd267a,#ff6036);
+    cursor: pointer;
+    font-size: 38px;
+    top: 393px;
+    left: 300px;
+    z-index: 1;
+}
+
+.fullInfoBtn:hover{
+    
+    font-size: 41px;
+    right: 39px;
+}
+
+.InfoBtn:hover{
+    
+    font-size: 33px;
+    right: 38px;
+}
+
+.mainWrapper div {
+    margin-top: 0 !important;
+}
+
+.infoWrapper{
+    position: absolute;
+    bottom: 8px;
+}
+
+.infoWrapper div {
+    border-top: none !important;
+}
+
+.infoWrapper span {
+    color: white;
+}
+
+.nameAgeInfo span {
+    color: white ;
+    font-weight: 700 ;
+    font-size: 30px ;
+}
+
+.passionListInfo{
+    width: 275px;
+}
+
+.detailedInfoContainerSmall{
+    padding: 0;
 }

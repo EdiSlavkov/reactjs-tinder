@@ -100,16 +100,16 @@ export const fakeUsers = ()=>{
     ]
 }
 
-export const notSwipedUsers = (array)=>{
-    let users = fakeUsers();
-    let copy = [...array];
-    let boxOfUsers = [];
+    export const notSwipedUsers = (array)=>{
+        let users = fakeUsers();
+        let copy = [...array];
+        let boxOfUsers = [];
 
-    users.forEach(user=> {
-        let alreadyLiked = copy.find(obj => obj.email === user.email);
-        if(!alreadyLiked){
-            boxOfUsers.push(user);
+        users.forEach(user=> {
+            let alreadyLiked = copy.find(obj => obj.email === user.email);
+            if(!alreadyLiked){
+                boxOfUsers.push(user);
+            }
+        })
+        return boxOfUsers[Math.floor(Math.random()*boxOfUsers.length)]
         }
-    })
-    return boxOfUsers[Math.floor(Math.random()*boxOfUsers.length)]
-    }

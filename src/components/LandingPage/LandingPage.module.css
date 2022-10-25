@@ -6,6 +6,12 @@ html {
     scrollbar-width: none;
     /* for Firefox */
     overflow-y: scroll;
+    background-color: rgb(240, 242, 244);
+    user-select: none;
+}
+
+*{
+    user-select: none;
 }
 
 html::-webkit-scrollbar {
@@ -44,6 +50,11 @@ html::-webkit-scrollbar {
     position: absolute;
     left: 25%;
     top: 120%;
+    background-image: linear-gradient(45deg, #fd267a, #ff6036);
+}
+
+.createAcc:hover{
+    background-image: linear-gradient(45deg, #fd267a, #9d533e);
 }
 
 .carouselWrapper {

@@ -55,7 +55,8 @@ export default function FormContainer(props) {
   const handleLogin = (e) => {
     e.preventDefault();
     server.login(email, password)
-      ? promise.then(dispatch(update(server.getLoggedUser()))).then(navigate("/app"))
+      ? (()=>{dispatch(update(server.getLoggedUser()))
+        navigate("/app/profile")})()
       : setMsg("Wrong Credentials!");
     setEmail("");
     setPassword("");
@@ -82,19 +83,21 @@ export default function FormContainer(props) {
     e.preventDefault();
 
     server.createAccount(email, password)
-            ? promise
-            .then(setMsg("Successfull! Redirecting to login!"))
-            .then(setTimeout(() => {
+            ? (()=>{
+              setMsg("Successfull! Redirecting to login!");
+              (setTimeout(() => {
               props.setShow(false)
             props.showLogin()
             setMsg("");
             }, 3000))
+            })()
     
-            : promise
-            .then(setError("Email is already taken!"))
-            .then(setTimeout(() => {
+            : (()=>{
+              setError("Email is already taken!");
+            setTimeout(() => {
               setError("");
-            }, 3000));
+            }, 3000)
+            })()
 
     setEmail("");
     setPassword("");

@@ -1,9 +1,13 @@
-.editProfileContainer {
+.editProfileContainer, .editProfileContainerSmall {
     position: relative;
     margin: 5% auto 0 auto;
     box-shadow: 0px 0px 5px 0px #80808061;
     border-radius: 8px;
 
+}
+
+.editProfileContainerSmall {
+    height: 51vh;
 }
 
 .container {
@@ -58,19 +62,32 @@ select {
 }
 
 .namesWrapper,
-.agesAndPhoneWrapper {
+.agesAndPhoneWrapper,
+.jobWrapper {
     display: flex;
     gap: 35px;
 }
 
 .namesWrapper div,
-.agesAndPhoneWrapper div {
+.agesAndPhoneWrapper div,
+.jobWrapper div,
+.companyWrapper {
     display: flex;
     flex-direction: column;
     width: 145px;
     margin: 0 auto;
     text-align: center;
     gap: 7px;
+}
+
+.companyWrapper{
+    position: relative;
+    left: -88px;
+    margin-bottom: 28px;
+}
+
+input:focus, textarea{
+    outline: none;
 }
 
 .distanceContainer {
@@ -88,13 +105,16 @@ select {
 
 textarea {
     resize: none;
+    min-width: 271px;
+    min-height: 21vh;
     border: none;
-    box-shadow: 0px 1px 5px 0px gray;
+    box-shadow: 0px 1px 5px 0px grey;
     border-radius: 8px;
+    margin-bottom: 10px;
 }
 
 .addMedia,
-.saveBtn {
+.saveBtn, .saveBtnLoading, .saveBtnDisabled  {
     cursor: pointer;
     color: white;
     width: fit-content;
@@ -103,11 +123,31 @@ textarea {
     margin-top: 15px;
     font-size: 18px;
     font-weight: 600;
-    border: 1px solid transparent;
+    border: 1px solid transparent!important;
     background-image: linear-gradient(45deg, #fd267a, #ff6036);
     border-radius: 30px;
     position: relative;
     left: 8%;
+}
+
+.saveBtnDisabled {
+   background-image: linear-gradient(45deg, #808080, rgb(106 85 85 / 63%));
+   position: absolute !important;
+   bottom: 1% !important;
+   left: 39% !important;
+   padding: 9px 24px !important;
+}
+
+.saveBtnLoading {
+    left: 33% !important;
+    position: absolute !important;
+    bottom: 1% !important;
+    padding: 9px 24px !important;
+}
+
+.required{
+    font-size: 12px;
+    font-style: italic;
 }
 
 .addMedia input,
@@ -189,7 +229,12 @@ input[type=number] {
     -moz-appearance: textfield;
 }
 
+input, textarea {
+    color:rgb(106, 85, 85);
+}
+
 .selectWrapper {
+    margin-bottom: 8px;
     display: flex;
     gap: 14px;
     text-align: center;
@@ -209,10 +254,10 @@ input[type=number] {
 }
 
 .radioWrapper input[type="radio"]:checked+label {
-    background: linear-gradient(45deg, #fd267a, #ff6036);
-    border-color: #f4d6d6a6;
+    background: linear-gradient(45deg, #fd267a, #ff6036) !important;
+    border-color: #f4d6d6a6 !important;
     ;
-    color: white;
+    color: white !important;
 }
 
 
@@ -238,4 +283,40 @@ input[type=number] {
 
 .slider {
     width: 90% !important;
+}
+
+.accordionWrapper{
+    width: 100%;
+    font-size: 17px;
+    color: rgb(106, 85, 85);
+}
+
+.passionsWrapper{
+    background: #8080802b;
+    border-top: 1px solid #80808054;
+    border-bottom: 1px solid #80808054;
+    display: flex;
+    justify-content: center;
+    gap: 3px;
+    padding: 10px;
+}
+
+.active{
+    color:red;
+}
+
+.bonus, .bonusGender {
+    position: absolute;
+    color: red;
+    font-size: 12px;
+    top: 4px;
+}
+
+.inputWrapper{
+    position: relative;
+}
+
+.bonusGender{
+    top: 3px;
+    left: -47px;
 }

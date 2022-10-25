@@ -67,3 +67,12 @@ export const convert = (file) => {
        reader.readAsDataURL(file);
     });
   }
+
+
+  export const validateLength = (value, length) => {
+    if(value.split("").length > length){
+      return false;
+    } else {
+      return true;
+    }
+  }

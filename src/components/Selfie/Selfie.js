@@ -1,14 +1,15 @@
 import { useEffect, useRef } from "react";
 import Modal from 'react-bootstrap/Modal';
 import styles from './Selfie.module.css';
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { temporaryData } from "../../store/ActiveUserSlice";
 
 export default function Selfie(props) {
   const videoRef = useRef(null);
   const photoRef = useRef(null);
-  const user = useSelector(state => state.activeUser);
+
   const dispatch = useDispatch();
+
 
   const savePhoto = () => {
     let copy = [];
@@ -43,7 +44,11 @@ export default function Selfie(props) {
       .then((stream) => {
         let video = videoRef.current;
         video.srcObject = stream;
-        video.play();
+        let playPromise = video.play();
+        if(playPromise !== undefined){
+          playPromise.then()
+          .catch(err => console.log())
+        }
       })
       .catch((error) => console.log(error));
   };
@@ -51,6 +56,8 @@ export default function Selfie(props) {
   useEffect(() => {
     getUserCamera();
   }, [videoRef]);
+
+  
 
   return (
     <>

@@ -16,6 +16,9 @@ export default class User{
                 this.smoking = ""
                 this.description = ""
                 this.genderPreference = ""
+                this.school = ""
+                this.job = ""
+                this.company = ""
                 this.passions = []
                 this.likedPeople = []
                 this.dislikedPeople = []

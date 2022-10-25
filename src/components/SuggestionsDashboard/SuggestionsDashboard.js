@@ -26,7 +26,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react'
 import LikeBtnsSuite from '../LikeBtnsSuite/LikeBtnsSuite'
 import WorkingSuggestedUser from '../WorkingSuggestedUser/WorkingSuggestedUser'
-import DetailedInfoSuggestionUser from '../DetailedInfoSuggestionUser/DetailedInfoSuggestionUser'
+import DetailedActiveUserCard from '../DetailedActiveUserCard/DetailedActiveUserCard'
 
 export function Matches() {
     const [showCard, setShowCard] = useState(true)
@@ -158,7 +158,7 @@ export function Matches() {
                             {/* <SuggestedUser like={likeUser} dislike={disLikeUser} superLike={superLikeUser}></SuggestedUser> */}
                         {/* </motion.div>
                     </AnimatePresence> : null} }*/}
-                    <DetailedInfoSuggestionUser></DetailedInfoSuggestionUser>
+                    <DetailedActiveUserCard></DetailedActiveUserCard>
                     <LikeBtnsSuite like={() => likeThisUser()}
                         dislike={() => dislikeThisUser()}
                         superLike={() => superLikeThisUser()

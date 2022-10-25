@@ -37,3 +37,12 @@
     color: rgb(94, 94, 102);
     margin: 10px;
 }
+
+.logoutBtn{
+    cursor: pointer ;
+}
+.logoutBtn label {
+    position: relative;
+    left: 150px;
+    cursor: pointer;
+}

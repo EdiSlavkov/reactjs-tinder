@@ -18,8 +18,8 @@ export default function LoggedNavigation() {
 
         <NavLink to='/app/profile' className={({ isActive }) =>
               isActive ? style.linkProfileActive : style.linkProfileInactive}>
-            {user.pictures[0] ? <img src={user.pictures[0].img} className={style.profileImg} alt="img"></img> : <img src={profileLogo} className={style.profileImg} alt="img"></img>}
-            {user.email}
+            {user?.pictures[0] ? <img src={user?.pictures[0].img} className={style.profileImg} alt="img"></img> : <img src={profileLogo} className={style.profileImg} alt="img"></img>}
+            {user?.username&&user?.username}
         </NavLink>
         <NavLink to='/app/explore' className={({ isActive }) =>
               isActive ? style.linkBtnActive : style.linkBtnInactive}>
