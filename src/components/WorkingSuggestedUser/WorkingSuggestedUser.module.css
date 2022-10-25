@@ -6,7 +6,7 @@
     padding-bottom: 60px;
     width: 375px;
     height: 600px;
-    background-image: url('https://thispersondoesnotexist.com/image');
+    /* background-image: url('https://thispersondoesnotexist.com/image'); */
     background-repeat: no-repeat;
     background-position: center;
     background-size:cover;
@@ -34,4 +34,10 @@
 }
 .detailedInfo{
     cursor: pointer;;
+}
+.location{
+    font-size: 18px;
+    color: white;
+    z-index: 1;
+    padding-left: 20px;
 }

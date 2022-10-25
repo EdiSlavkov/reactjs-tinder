@@ -21,7 +21,6 @@ export default class User{
                 this.company = ""
                 this.passions = []
                 this.likedPeople = []
-                this.dislikedPeople = []
                 this.MatchedPeople = []
                 this.chats = []
             }
