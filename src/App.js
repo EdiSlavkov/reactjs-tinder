@@ -41,6 +41,7 @@ function App() {
       } else {
         return (
           <Routes>
+            <Route path="/" element={<ProfilePage/>}></Route>
             <Route path="/app" element={<Outlet></Outlet>}>
               <Route index element={<Navigate to="profile"></Navigate>}></Route>
               <Route path="*" element={<ProfilePage></ProfilePage>}></Route>
