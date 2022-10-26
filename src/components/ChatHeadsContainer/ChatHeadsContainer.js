@@ -13,7 +13,9 @@ export default function ChatHeadsContainer() {
     const likedByUsers = findWhoLikesMe()
     const activeChat = useSelector(state => state.activeChat.ChatBtnActive);
     const chatContainer = (<div className={style.chatsContainer}>
+
         {user.MatchedPeople.map(person => <ChatPath onClick={handleChatWindow(person)}/>)}
+
     </div>)
 
     const handleChatWindow = (buddy)=>{
