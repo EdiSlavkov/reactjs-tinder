@@ -25,7 +25,7 @@ export default function DetailedActiveUserCard(props) {
     const user = useSelector(state=>state.activeUser)
     return (
         // same parameters as 1st look
-        <div className={!show&&style.frame}>
+        <div className={style.frame}>
             <div className={show ? style.detailedInfoContainer : style.detailedInfoContainerSmall}>
                 <div className={style.mainWrapper}>
                     <ImagesCarousel user={user}/>

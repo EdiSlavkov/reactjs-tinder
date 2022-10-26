@@ -103,6 +103,7 @@ export default function FormContainer(props) {
       setMsg("Successfull! Redirecting to login...");
       setLoader(true);
       setTimeout(() => {
+        setDisable(true);
       setLoader(false);
       props.setShow(false)
       props.showLogin()
