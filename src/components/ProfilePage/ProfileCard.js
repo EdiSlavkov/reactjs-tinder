@@ -1,6 +1,4 @@
 import style from './ProfileCard.module.css'
-import SwipeCard from '../SwipeCard/SwipeCard'
-import { BiBuildings } from "react-icons/bi";
 import { useSelector } from 'react-redux';
 import DetailedActiveUserCard from '../DetailedActiveUserCard/DetailedActiveUserCard';
 

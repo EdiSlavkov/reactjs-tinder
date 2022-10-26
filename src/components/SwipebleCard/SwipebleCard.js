@@ -4,9 +4,10 @@ import { useEffect, useState } from 'react'
 import LikeBtnsSuite from '../LikeBtnsSuite/LikeBtnsSuite'
 import WorkingSuggestedUser from '../WorkingSuggestedUser/WorkingSuggestedUser'
 import DetailedInfoSuggestionUser from '../DetailedInfoSuggestionUser/DetailedInfoSuggestionUser'
-import { NotSwipedUsers } from '../../server/server'
+import { checkForMatch, NotSwipedUsers } from '../../server/server'
 import { useSelector, useDispatch } from 'react-redux'
 import { temporaryData, changeUserData } from '../../store/ActiveUserSlice'
+import MatchModal from '../MatchModal/MatchModal';
 
 export default function SwipebleCard() {
     if (!localStorage.getItem('currentUser')) {
@@ -18,6 +19,7 @@ export default function SwipebleCard() {
 
     const dispatch = useDispatch()
 
+    const [matchEvent, setMatchEvent] = useState(false)
 
     const [showCard, setShowCard] = useState(true)
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('currentUser')))
@@ -96,6 +98,12 @@ export default function SwipebleCard() {
         likedArray.push(user.email)
         dispatch(temporaryData(['likedPeople', likedArray]))
         dispatch(changeUserData())
+        if (checkForMatch(currentActiveUser, user)){
+            setMatchEvent(true)
+            setTimeout(() => {
+                setMatchEvent(false)
+            }, 4000);
+        }
         NotSwipedUsers()
         setUser(JSON.parse(localStorage.getItem('currentUser')))
 
@@ -135,6 +143,7 @@ export default function SwipebleCard() {
 
     return (
         <div className={style.matchSuggestion}>
+            {matchEvent ? <MatchModal/> : null}
             <div className={style.userAndBtnContainer}>
                 {showCard ? <AnimatePresence>
                     {firstLook ? <motion.div className={style.matchSuggestion}

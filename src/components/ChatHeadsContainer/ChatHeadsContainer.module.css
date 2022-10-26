@@ -2,12 +2,12 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    width: 200%;
+    width: 100%;
     height: 100%;
     background-image: url('../../images/Lovepik_com-401409083-transparent-bubble-chat-bubble\ copy.png');
-    background-size:80%;
+    background-size:100%;
     background-repeat: no-repeat;
-    background-position: 10%;
+    background-position: 0%;
 }
 .headsContainer{
     display: flex;
@@ -18,7 +18,7 @@
     column-gap: 20px;
     height: 85vh;
     background-image: url('../../images/Lovepik_com-401456344-light-pink-love-bubble.png');
-    background-size:80%;
+    background-size:100%;
     background-repeat: no-repeat;
-    background-position: 10%;
+    background-position: 0%;
 }

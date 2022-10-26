@@ -80,3 +80,10 @@ export const findWhoLikesMe = () => {
     })
     return usersLikedBy
 }
+
+export const checkForMatch = (activeUser, swipedUser) => {
+    if (swipedUser.likedPeople.indexOf(activeUser.email) !== -1){
+        return true
+    }
+    return false
+}
