@@ -1,0 +1,26 @@
+.chatPath{
+    width: 100%;
+    height: 90px;
+    display: flex;
+    cursor: pointer;
+}
+
+
+.chatWithPic{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
+.chatWithName{
+    font-size: 18px;
+    font-weight: 400;
+}
+.nameAndLastMessage{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+.lastMessage{
+    font-size: 14px;
+    color: gray;
+}

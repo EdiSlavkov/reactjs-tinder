@@ -76,22 +76,16 @@ export const checkUserData = () => {
 };
 
 export const findWhoLikesMe = () => {
-  let loggedTinderUser = getLoggedUser();
-  let allTinderUsers = getUsers();
-  let usersLikedBy = [];
-  allTinderUsers.forEach((user) => {
-    if (
-      user.likedPeople.some(
-        (email) =>
-          email === loggedTinderUser.email &&
-          loggedTinderUser.likedPeople.indexOf(user.email) === -1
-      )
-    ) {
-      usersLikedBy.push(user);
-    }
-  });
-  return usersLikedBy;
-};
+  let loggedTinderUser = getLoggedUser()
+  let allTinderUsers = getUsers()
+  let usersLikedBy = []
+  allTinderUsers.forEach(user => {
+      if (user.likedPeople.some(email=> email === loggedTinderUser.email && loggedTinderUser.likedPeople.indexOf(user.email) === -1 )){
+          usersLikedBy.push(user)
+      }
+  })
+  return usersLikedBy
+}
 
 export const findChat = (buddy) => {
   const loggedUser = getLoggedUser();
@@ -101,3 +95,12 @@ export const findChat = (buddy) => {
   );
   return chat.chatHistory;
 };
+
+
+export const checkForMatch = (activeUser, swipedUser) => {
+    if (swipedUser.likedPeople.indexOf(activeUser.email) !== -1){
+        return true
+    }
+    return false
+}
+

@@ -2,6 +2,7 @@ import style from './ChatHeadsContainer.module.css'
 import { useSelector } from "react-redux";
 import LikedBy from '../LikedBy/LikedBy';
 import { findWhoLikesMe } from '../../server/server'
+import ChatPath from '../ChatPath/ChatPath';
 
 
 
@@ -9,8 +10,16 @@ export default function ChatHeadsContainer() {
     const likedByUsers = findWhoLikesMe()
     const activeChat = useSelector(state => state.activeChat.ChatBtnActive);
     const chatContainer = (<div className={style.chatsContainer}>
-
+        <ChatPath></ChatPath>
+        <ChatPath></ChatPath>
+        <ChatPath></ChatPath>
+        <ChatPath></ChatPath>
+        <ChatPath></ChatPath>
     </div>)
+
+
+
+
     const matchesContainer = <div className={style.headsContainer}>
         {likedByUsers.map((user, i) => {
             
