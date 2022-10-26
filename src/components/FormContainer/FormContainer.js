@@ -15,6 +15,7 @@ import { update } from "../../store/ActiveUserSlice";
 export default function FormContainer(props) {
 
   const [disable, setDisable] = useState(true);
+  const [loader, setLoader] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -63,8 +64,15 @@ export default function FormContainer(props) {
   const handleLogin = (e) => {
     e.preventDefault();
     if(server.login(email, password)){
-      dispatch(update(server.getLoggedUser()));
+      setMsg("Success! Redirecting...")
+      setLoader(true);
+      setTimeout(() => {
+        setMsg("");
+        setLoader(false);
+        dispatch(update(server.getLoggedUser()));
       navigate("/app/profile");
+      }, 2500);
+      
     } else {
       setMsg("Wrong Credentials!");
        setEmail("");
@@ -92,13 +100,15 @@ export default function FormContainer(props) {
     e.preventDefault();
 
     if(server.createAccount(email, password)){
-      setMsg("Successfull! Redirecting to login!");
+      setMsg("Successfull! Redirecting to login...");
+      setLoader(true);
       setTimeout(() => {
+      setLoader(false);
       props.setShow(false)
-    props.showLogin()
-    clear();
+      props.showLogin()
+      clear();
     setMsg("");
-    }, 3000)
+    }, 2500)
     } else {
       setError("Email is already taken!");
       setTimeout(() => {
@@ -145,7 +155,31 @@ export default function FormContainer(props) {
             alt="logo"
             draggable={false}
           ></img>
-          <Form.Group className="mb-3" controlId="Email">
+          {loader ?
+           <div className={styles.loaderWrapper}>
+            <div className={styles.loader}>
+            <div class="spinner-border text-danger"  role="status">
+            </div>
+            </div>
+            <div className={props.buttonName === "Login" ? styles.btnLoader : styles.btnLoaderReg}>
+            <div className="d-grid gap-2">
+                        <Button
+                        id="regBtn"
+                        className={
+                          props.buttonName === "Register" ? styles.registerBtn : ""
+                        }
+                        disabled={props.buttonName === "Register"&&disable ? true : false || loader ? true : false}
+                        variant="danger"
+                        size="lg"
+                        type="submit"
+                      >
+                        {props.buttonName}
+                      </Button>
+            </div>
+            </div>
+           </div>
+         : <>
+            <Form.Group className="mb-3" controlId="Email">
             <Form.Label>Email address</Form.Label>
             <Form.Control
               value={email}
@@ -235,6 +269,7 @@ export default function FormContainer(props) {
               </span>
             )}
           </div>
+          </>}
         </Form>
       </div>
     </Modal>

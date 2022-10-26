@@ -39,14 +39,17 @@ export default function ProfilePage() {
                     <ProfilePreference component={user.genderPreference} placeholder={'Looking for'}></ProfilePreference>
                     <div style={{ padding: '15px', backgroundColor: 'white', margin: '2px' }}>
                         <label htmlFor="AgeSlider">Age Preference</label>
+                        <span className={style.agePreference}>{`${user.agePreference[0]} - ${user.agePreference[1]} years`}</span>
                         <AgeSliderComponent id='AgeSlider'></AgeSliderComponent>
                     </div>
                     <div style={{ padding: '15px', backgroundColor: 'white', margin: '1px 0' }}>
                         <label htmlFor="DistanceSlider">Distance Preference</label>
+                        <span className={style.distancePreference}>{`${user.distancePreference} km`}</span>
                         <DistanceSliderComponent id='DistanceSlider'></DistanceSliderComponent>
                     </div>
-                    <ProfilePreference component={<div style={{display:'flex', flexDirection: 'column'}}>
-                        <h6 className={style.heading}>ABOUT {user.username}</h6>
+                    <h6 className={style.heading}>ABOUT {user.username}</h6>
+                    <ProfilePreference component={<div style={{display:'flex', flexDirection: 'column', wordBreak: "break-word"}}>
+                        
                         <div>{user.description}</div>
                     </div>} placeholder={''}></ProfilePreference>
                     <ProfilePreference component={user.zodiacSign} placeholder={'Zodiac sign'}></ProfilePreference>

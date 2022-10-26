@@ -8,6 +8,32 @@
   margin: 10px auto 0 auto;
 }
 
+.loaderWrapper{
+    display: flex;
+    flex-direction: column;
+    height: 355px;
+    justify-content: space-between;
+}
+
+.loader{
+  align-self: center;
+    margin-top: 45px;
+
+}
+
+.loader div {
+  padding: 25px;
+}
+
+.btnLoader, .btnLoaderReg{
+  bottom: 130px;
+  position: relative;
+}
+
+.btnLoaderReg{
+  bottom:22px
+}
+
 .logo {
   width: 28px;
   margin: 0 auto;

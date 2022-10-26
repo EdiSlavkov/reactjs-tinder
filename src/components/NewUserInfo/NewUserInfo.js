@@ -19,7 +19,6 @@ import DetailedActiveUserCard from "../DetailedActiveUserCard/DetailedActiveUser
 import { validateLength } from "../../utils";
 import LoadingBtn from "./LoadingBtn";
 import { hide, reveal } from "../../store/DetailedInfoSlice";
-import { checkUserData } from "../../server/server";
 
 export default function NewUserInfo(props) {
   const user = useSelector((state) => state.activeUser);
@@ -81,20 +80,6 @@ export default function NewUserInfo(props) {
     }
   };
 
-  const validateRequirements = () => {
-    if (
-      user.username.trim().length > 2 &&
-      user.age.length > 1 &&
-      user.phone.trim().length >= 10 &&
-      user.phone[0] === "0" &&
-      user.phone[1] === "8"
-    ) {
-      return false;
-    } else {
-      return true;
-    }
-  };
-
   const handleChange = (e) => {
     let target = e.currentTarget;
     const value = e.target.value.trimStart();
@@ -126,7 +111,7 @@ export default function NewUserInfo(props) {
       } else if (name === "age") {
         if (validateLength(value, 2)) {
           dispatch(temporaryData([name, value]));
-          if (value.length < 2) {
+          if (value.length < 2 || value < "18") {
             target.style.background = "#ff0000b8";
           } else {
             target.style.background = "";
@@ -274,7 +259,6 @@ export default function NewUserInfo(props) {
                     <label htmlFor="age">Age:</label>
                     <input
                       id="age"
-                      min={18}
                       pattern="^[0-9]*$"
                       type="number"
                       name="age"
@@ -284,7 +268,7 @@ export default function NewUserInfo(props) {
                       onChange={handleChange}
                     />
                     <span className={styles.required}>
-                      *Required! Need 2 digits!
+                      *Required! 18 years minimum!
                     </span>
                   </div>
                   <div className={styles.inputWrapper}>
@@ -373,12 +357,13 @@ export default function NewUserInfo(props) {
                 />
 
                 <label>Age Preference:</label>
+                <span>{`${user.agePreference[0]} - ${user.agePreference[1]} years`}</span>
                 <div className={styles.slider}>
                   <AgeSliderComponent />
                 </div>
 
                 <label htmlFor="distance">Distance preference:</label>
-
+                <span>{`${user.distancePreference} km`}</span>
                 <div className={styles.slider}>
                   <DistanceSliderComponent />
                 </div>
@@ -505,12 +490,12 @@ export default function NewUserInfo(props) {
                 <LoadingBtn />
               ) : (
                 <button
-                  disabled={validateRequirements()}
+                  disabled={utils.validateRequirements(user)}
                   id="saveBtn"
                   type="submit"
                   onClick={()=>props.showErr(true)}
                   className={
-                    validateRequirements()
+                    utils.validateRequirements(user)
                       ? styles.saveBtnDisabled
                       : styles.saveBtn
                   }

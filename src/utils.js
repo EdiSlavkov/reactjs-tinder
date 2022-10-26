@@ -76,3 +76,18 @@ export const convert = (file) => {
       return true;
     }
   }
+
+  export   const validateRequirements = (user) => {
+    if (
+      user.username.trim().length > 2 &&
+      user.age.length > 1 &&
+      user.age > 17 &&
+      user.phone.trim().length >= 10 &&
+      user.phone[0] === "0" &&
+      user.phone[1] === "8"
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  };
