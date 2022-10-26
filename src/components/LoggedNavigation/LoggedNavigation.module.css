@@ -1,6 +1,5 @@
 .linkProfileInactive{
     display: flex;
-    justify-content: center;
     align-items: center;
     width: fit-content;
     padding: 2px;
@@ -10,9 +9,14 @@
     text-decoration: none;
     color: white;
 }
+
+.linkProfileActive, .linkBtnInactive{
+    overflow-x: hidden !important;
+    max-width: 160px !important;
+}
+
 .linkProfileActive{
     display: flex;
-    justify-content: center;
     align-items: center;
     width: fit-content;
     padding: 2px;
@@ -46,6 +50,13 @@
     height: 87px;
     width: 100%;
 }
+
+/* .linkBtnActive, .linkBtnInactive {
+    position: fixed !important;
+    left: 173px !important;
+} */
+
+
 .linkBtnActive{
     display: inline-block; 
     border: 1px solid transparent;

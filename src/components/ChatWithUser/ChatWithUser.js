@@ -4,11 +4,12 @@ import { useState } from "react";
 import { changeUserData, temporaryData } from "../../store/ActiveUserSlice";
 import { findChat } from "../../server/server";
 import Message from "../../classes/Message";
-import notVerified from "../../images/notVerified.png";
+import noPhoto from "../../images/noPhoto.jpg";
 
-export default function ChatWithUser(props) {
+export default function ChatWithUser() {
     
-  const chatHistory = findChat(props.buddy);
+  const buddy = useSelector(state => state.chatBuddy);
+  const chatHistory = findChat(buddy);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.activeUser);
   const [message, setMessage] = useState("");
@@ -29,8 +30,8 @@ export default function ChatWithUser(props) {
     <div className={style.chatWithUserContainer}>
       <div className={style.chatSection}>
         <div className={style.avatarAndName}>
-          <img src={props.buddy?.pictures[0] || notVerified} className={style.chatUserProfilePic} alt="buddyPic"></img>
-          <span>{props.buddy.username}</span>
+          <img src={buddy?.pictures[0] || noPhoto} className={style.chatUserProfilePic} alt="buddyPic"></img>
+          <span>{buddy.username}</span>
         </div>
         <div className={style.chatMessagesContainer}>
           {chatHistory.map((msg, i) => {
@@ -75,10 +76,10 @@ export default function ChatWithUser(props) {
         <div className={style.matchedUserProfilePictures}></div>
         <div className={style.profileBasicInfo}>
           <div className={style.nameAge}>
-            <span className={style.name}>{props.buddy.username}</span>
-            <span className={style.age}>{props.buddy.age}</span>
+            <span className={style.name}>{buddy.username}</span>
+            <span className={style.age}>{buddy.age}</span>
           </div>
-          <span>{props.buddy?.location? props.buddy.location : "N/A"}</span>
+          <span>{buddy?.location? buddy.location : "N/A"}</span>
         </div>
       </div>
     </div>

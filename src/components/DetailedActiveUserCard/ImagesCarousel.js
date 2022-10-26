@@ -1,8 +1,8 @@
 import Carousel from "nuka-carousel";
 import noPhoto from "../../images/noPhoto.jpg";
 import styles from "./ImagesCarousel.module.css";
-export default function ImagesCarousel(props) {
 
+export default function ImagesCarousel(props) {
 
   return (
 

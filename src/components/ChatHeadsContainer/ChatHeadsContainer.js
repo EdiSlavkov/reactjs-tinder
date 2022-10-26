@@ -3,20 +3,22 @@ import { useSelector } from "react-redux";
 import LikedBy from '../LikedBy/LikedBy';
 import { findWhoLikesMe } from '../../server/server'
 import ChatPath from '../ChatPath/ChatPath';
-
-
+import { useDispatch } from 'react-redux/es/exports';
+import { setChatBuddy } from '../../store/ChatBuddySlice';
 
 export default function ChatHeadsContainer() {
+
+    const dispatch = useDispatch()
+    const user = useSelector(state => state.activeUser)
     const likedByUsers = findWhoLikesMe()
     const activeChat = useSelector(state => state.activeChat.ChatBtnActive);
     const chatContainer = (<div className={style.chatsContainer}>
-        <ChatPath></ChatPath>
-        <ChatPath></ChatPath>
-        <ChatPath></ChatPath>
-        <ChatPath></ChatPath>
-        <ChatPath></ChatPath>
+        {user.MatchedPeople.map(person => <ChatPath onClick={handleChatWindow(person)}/>)}
     </div>)
 
+    const handleChatWindow = (buddy)=>{
+        dispatch(setChatBuddy(buddy));
+    }   
 
 
 

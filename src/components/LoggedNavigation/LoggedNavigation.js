@@ -21,11 +21,11 @@ export default function LoggedNavigation(props) {
             {user?.pictures[0] ? <img src={user?.pictures[0].img} className={style.profileImg} alt="img"></img> : <img src={profileLogo} className={style.profileImg} alt="img"></img>}
             {user?.username&&user?.username}
         </NavLink>
-        <NavLink to='/app/explore' className={({ isActive }) =>
+        <NavLink to='/app/explore' style={{position: "fixed", left: "173px"}} className={({ isActive }) =>
               isActive ? style.linkBtnActive : style.linkBtnInactive}>
             <TbListSearch className={style.navButtonInactive}></TbListSearch>
         </NavLink>
-        <NavLink to='/app/recs' className={({ isActive }) =>
+        <NavLink to='/app/recs'  style={{position: "fixed", left: "318px"}}  className={({ isActive }) =>
               isActive ? style.linkBtnActive : style.linkBtnInactive}>
             <RiHeartFill className={style.navButtonInactive}></RiHeartFill>
         </NavLink>
