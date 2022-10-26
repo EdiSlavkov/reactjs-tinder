@@ -11,10 +11,6 @@ export default function ChatHeadsContainer() {
     const activeChat = useSelector(state => state.activeChat.ChatBtnActive);
     const chatContainer = (<div className={style.chatsContainer}>
         <ChatPath></ChatPath>
-        <ChatPath></ChatPath>
-        <ChatPath></ChatPath>
-        <ChatPath></ChatPath>
-        <ChatPath></ChatPath>
     </div>)
 
 
