@@ -15,6 +15,7 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
+
     setTimeout(() => {
       setLoader(true);
     }, 1000);

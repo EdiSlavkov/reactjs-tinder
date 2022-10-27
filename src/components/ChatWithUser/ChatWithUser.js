@@ -1,15 +1,15 @@
 import style from "./ChatWithUser.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
-import { changeUserData, temporaryData, updateChat } from "../../store/ActiveUserSlice";
-import { findChat, getLoggedUser } from "../../server/server";
+import { useState } from "react";
+import { updateChat } from "../../store/ActiveUserSlice";
+import { findChat } from "../../server/server";
 import Message from "../../classes/Message";
 import noPhoto from "../../images/noPhoto.jpg";
-import { setChatBuddy } from '../../store/ChatBuddySlice';
+
 
 export default function ChatWithUser(props) {
   let chat = findChat(props.buddy);
-
+  
   const dispatch = useDispatch();
   const user = useSelector((state) => state.activeUser);
   const [message, setMessage] = useState("");
@@ -27,6 +27,8 @@ export default function ChatWithUser(props) {
     dispatch(updateChat([props.buddy, obj]))
     setMessage("");
   };
+
+  
   return (
     props.buddy.username ? 
     <div className={style.chatWithUserContainer}>
@@ -36,7 +38,7 @@ export default function ChatWithUser(props) {
           <span>{props.buddy.username}</span>
         </div>
         <div className={style.chatMessagesContainer}>
-          {chat.chatHistory.map((msg, i) => {
+        {chat?.chatHistory ? chat.chatHistory.map((msg, i) => {
             let json = JSON.parse(msg);
             if (json.sender === user.username) {
               return (
@@ -61,7 +63,7 @@ export default function ChatWithUser(props) {
                 </div>
               );
             }
-          })}
+          }) : <span>No messages yet!</span>}
         </div>
         <div className={style.sendMessageSection}>
           <input

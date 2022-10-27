@@ -1,5 +1,5 @@
 import User from "../classes/User.js";
-
+import fakeUsers from "../server/fakeUsers.json"
 export const getUsers = () => {
   return JSON.parse(localStorage.getItem("tinderUsers")) || [];
 };
@@ -27,6 +27,7 @@ export const login = (email, password) => {
   }
   return false;
 };
+
 
 export const isLogged = () => {
   return JSON.parse(localStorage.getItem("tinderLogged")) ? true : false;
@@ -122,3 +123,19 @@ export const updateBuddyChat = (object, chat)=>{
   localStorage.setItem("tinderUsers", JSON.stringify(users));
 
 }
+
+(()=>{
+  const userData = JSON.parse(JSON.stringify(fakeUsers));
+  let allUsers = getUsers();
+  userData.forEach(user=> {
+    let obj = new User(user.email, user.password);
+    obj.username = user.username;
+    obj.age = user.age;
+    obj.phone = user.phone;
+    obj.pictures = user.pictures;
+      if(allUsers.findIndex(u=> u.email === user.email) === -1){
+        allUsers.push(obj);
+      } 
+  })
+    localStorage.setItem("tinderUsers", JSON.stringify(allUsers))
+})()

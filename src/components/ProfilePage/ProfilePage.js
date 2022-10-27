@@ -1,14 +1,12 @@
 import LoggedNavigation from "../LoggedNavigation/LoggedNavigation";
 import ProfilePreference from "../ProfilePreference/ProfilePreference";
-import { AgeSliderComponent, DistanceSliderComponent } from "../SliderComponent/SliderComponent";
-import { update } from "../../store/ActiveUserSlice";
 import Switch from "../Switch/Switch";
 import style from './ProfilePage.module.css'
 import ProfileCard from "./ProfileCard";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import NewUserInfo from "../NewUserInfo/NewUserInfo";
 import { useSelector, useDispatch } from "react-redux";
-import { logout, checkUserData, getLoggedUser } from "../../server/server";
+import { logout, checkUserData } from "../../server/server";
 import { useNavigate } from "react-router-dom";
 import { setChatBuddy } from "../../store/ChatBuddySlice";
 
@@ -21,6 +19,7 @@ export default function ProfilePage() {
     const dispatch = useDispatch();
 
     const handleLogout = ()=>{
+        dispatch(setChatBuddy({}))
         logout();
         navigate("/")
     }
@@ -39,19 +38,8 @@ export default function ProfilePage() {
                     <ProfilePreference component={<Switch></Switch>} placeholder={'Location'}></ProfilePreference>
                     <ProfilePreference component={user.username} placeholder={'Username'}></ProfilePreference>
                     <ProfilePreference component={user.genderPreference} placeholder={'Looking for'}></ProfilePreference>
-                    <div style={{ padding: '15px', backgroundColor: 'white', margin: '2px' }}>
-                        <label htmlFor="AgeSlider">Age Preference</label>
-                        <span className={style.agePreference}>{`${user.agePreference[0]} - ${user.agePreference[1]} years`}</span>
-                        <AgeSliderComponent id='AgeSlider'></AgeSliderComponent>
-                    </div>
-                    <div style={{ padding: '15px', backgroundColor: 'white', margin: '1px 0' }}>
-                        <label htmlFor="DistanceSlider">Distance Preference</label>
-                        <span className={style.distancePreference}>{`${user.distancePreference} km`}</span>
-                        <DistanceSliderComponent id='DistanceSlider'></DistanceSliderComponent>
-                    </div>
                     <h6 className={style.heading}>ABOUT {user.username}</h6>
                     <ProfilePreference component={<div style={{display:'flex', flexDirection: 'column', wordBreak: "break-word"}}>
-                        
                         <div>{user.description}</div>
                     </div>} placeholder={''}></ProfilePreference>
                     <ProfilePreference component={user.zodiacSign} placeholder={'Zodiac sign'}></ProfilePreference>
@@ -63,8 +51,6 @@ export default function ProfilePage() {
                 </div>
             </div>
             {editProfile ? <NewUserInfo showErr={setShowErr}/> : <ProfileCard editProfile={setEditProfile}/>}
-
-
         </div>
         </>
     )

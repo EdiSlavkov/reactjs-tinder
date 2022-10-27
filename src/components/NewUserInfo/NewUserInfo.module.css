@@ -282,10 +282,6 @@ input, textarea {
     color: blue;
 }
 
-.slider {
-    width: 90% !important;
-}
-
 .accordionWrapper{
     width: 100%;
     font-size: 17px;

@@ -5,8 +5,6 @@ export default class User{
                 this.phone = "";
                 this.username = "";
                 this.gender = "";
-                this.agePreference = [18, 100];
-                this.distancePreference = 1;
                 this.pictures = [];
                 this.verified = [];
                 this.age = "";

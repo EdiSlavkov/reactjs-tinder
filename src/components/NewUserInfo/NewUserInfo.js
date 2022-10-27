@@ -9,10 +9,6 @@ import VerifiedIcon from "@mui/icons-material/Verified";
 import notVerified from "../../images/notVerified.png";
 import { useSelector, useDispatch } from "react-redux";
 import { temporaryData, changeUserData } from "../../store/ActiveUserSlice";
-import {
-  AgeSliderComponent,
-  DistanceSliderComponent,
-} from "../SliderComponent/SliderComponent";
 import { PETS, SMOKING, zodiacSigns, PASSIONS } from "../../consts";
 import UserProperties from "./Accordion";
 import DetailedActiveUserCard from "../DetailedActiveUserCard/DetailedActiveUserCard";
@@ -356,18 +352,6 @@ export default function NewUserInfo(props) {
                   onChange={handleChange}
                 />
 
-                <label>Age Preference:</label>
-                <span>{`${user.agePreference[0]} - ${user.agePreference[1]} years`}</span>
-                <div className={styles.slider}>
-                  <AgeSliderComponent />
-                </div>
-
-                <label htmlFor="distance">Distance preference:</label>
-                <span>{`${user.distancePreference} km`}</span>
-                <div className={styles.slider}>
-                  <DistanceSliderComponent />
-                </div>
-              
                 <label style={{position:"relative"}} htmlFor="profileDescription">
                 <span style={user.description ? {display:"none"} : {display:"inline"}}  className={styles.bonusGender}>+10%</span>
                   About me:</label>

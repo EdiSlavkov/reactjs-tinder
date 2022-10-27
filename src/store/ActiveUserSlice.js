@@ -18,9 +18,7 @@ export const activeUserSlice = createSlice({
       const index = state.chats.findIndex(chat => chat.chatBuddy === buddy.email);
       state.chats.splice(index, 1, newChat);
       updateBuddyChat(buddy, newChat);
-      updateData(state);
-      
-    
+      updateData(state);  
     },
     temporaryData : (state, action) => {
       const [key, value] = action.payload;
