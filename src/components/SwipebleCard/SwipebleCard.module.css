@@ -7,3 +7,31 @@
 .userAndBtnContainer{
     height: 80%;
 }
+.pageInfo{
+    display: flex;
+    flex-direction: row;
+    column-gap: 20px;
+    color: gray;
+    justify-content: space-between;
+    font-size: 20px;
+    padding-bottom: -15px;
+}
+.pageInfoContainer{
+    position: absolute;
+    left: 47%;
+    bottom: 5px;
+
+    display: flex;
+    column-gap: 20px;
+    flex-direction: row;
+    font-size: 20px;
+
+}
+.toggleAgenda{
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 0px 5px;
+    background-color: gray;
+    border-radius: 30px;
+}

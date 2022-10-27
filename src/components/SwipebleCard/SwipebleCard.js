@@ -9,6 +9,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { temporaryData, changeUserData } from '../../store/ActiveUserSlice'
 import MatchModal from '../MatchModal/MatchModal';
 import Chat from '../../classes/Chat'
+import { BsArrowBarUp, BsArrowBarLeft, BsArrowBarRight, BsFillInfoCircleFill, BsBoxArrowRight, BsBoxArrowLeft } from 'react-icons/bs';
 
 
 
@@ -17,6 +18,7 @@ export default function SwipebleCard() {
         NotSwipedUsers()
 
     }
+    const [agendaShown, setAgendaShown] = useState(true)
 
     const currentActiveUser = useSelector(state => state.activeUser)
 
@@ -113,7 +115,7 @@ export default function SwipebleCard() {
             chatsActiveUser.push(new Chat(user.email))
             dispatch(temporaryData(['chats', chatsActiveUser]))
 
-            let userCopy = {...user}
+            let userCopy = { ...user }
             userCopy.MatchedPeople.push(currentActiveUser.email)
             userCopy.chats.push(new Chat(currentActiveUser.email))
             updateData(userCopy)
@@ -202,7 +204,29 @@ export default function SwipebleCard() {
                     superLike={() => superLikeThisUser()
                     }
                 />
+                <div className={style.pageInfoContainer}>
+                    {agendaShown ? <span className={style.toggleAgenda} onClick={() => setAgendaShown(!agendaShown)}>Hide</span> : <span className={style.toggleAgenda} onClick={() => setAgendaShown(!agendaShown)}>Show</span>}
+                    {agendaShown ? <div className={style.pageInfo}>
+                    <span>                    
+                        <BsArrowBarLeft></BsArrowBarLeft>
+                        Dislike
+                    </span>
+                    <span>                    
+                        <BsArrowBarRight></BsArrowBarRight>
+                        Like
+                    </span>
+                    <span>                    
+                        <BsArrowBarUp></BsArrowBarUp>
+                        Super like
+                    </span>
+                    <span>                    
+                        <BsFillInfoCircleFill></BsFillInfoCircleFill>
+                        Detail user info
+                    </span>
+                </div> : null}
+                </div>
             </div>
+
         </div>
     )
 }
