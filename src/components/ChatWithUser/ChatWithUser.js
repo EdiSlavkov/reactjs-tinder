@@ -1,15 +1,15 @@
 import style from "./ChatWithUser.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
-import { changeUserData, temporaryData } from "../../store/ActiveUserSlice";
-import { findChat } from "../../server/server";
+import { useEffect, useState } from "react";
+import { changeUserData, temporaryData, updateChat } from "../../store/ActiveUserSlice";
+import { findChat, getLoggedUser } from "../../server/server";
 import Message from "../../classes/Message";
 import noPhoto from "../../images/noPhoto.jpg";
+import { setChatBuddy } from '../../store/ChatBuddySlice';
 
-export default function ChatWithUser() {
-    
-  const buddy = useSelector(state => state.chatBuddy);
-  const chatHistory = findChat(buddy);
+export default function ChatWithUser(props) {
+  let chat = findChat(props.buddy);
+
   const dispatch = useDispatch();
   const user = useSelector((state) => state.activeUser);
   const [message, setMessage] = useState("");
@@ -19,43 +19,46 @@ export default function ChatWithUser() {
     setMessage(value);
   };
   const handleSendMsg = () => {
-    const msg = new Message(user.username, message);
-    const chat = [...chatHistory, msg];
-    dispatch(temporaryData(["chats", chat]));
-    dispatch(changeUserData(user));
+    const newDate = Date();
+    const date = newDate.slice(4, 24);
+    const msg = new Message(user.username, message, date);
+    chat.chatHistory.push(JSON.stringify(msg));
+    const obj = {...chat}
+    dispatch(updateChat([props.buddy, obj]))
     setMessage("");
   };
-
   return (
+    props.buddy.username ? 
     <div className={style.chatWithUserContainer}>
       <div className={style.chatSection}>
         <div className={style.avatarAndName}>
-          <img src={buddy?.pictures[0] || noPhoto} className={style.chatUserProfilePic} alt="buddyPic"></img>
-          <span>{buddy.username}</span>
+          <img src={props.buddy?.pictures[0].img || noPhoto} className={style.chatUserProfilePic} alt="buddyPic"></img>
+          <span>{props.buddy.username}</span>
         </div>
         <div className={style.chatMessagesContainer}>
-          {chatHistory.map((msg, i) => {
-            if (msg.sender === user.username) {
+          {chat.chatHistory.map((msg, i) => {
+            let json = JSON.parse(msg);
+            if (json.sender === user.username) {
               return (
-                <>
-                  <span key={i} className={style.sentMessage}>
-                    {msg.text}
+                <div key={i} className={style.sentMessageWrap}>
+                  <span className={style.sentMessage}>
+                    {json.text}
                   </span>
-                  <span key={i}>
-                    {msg.date}
+                  <span className={style.sentDate}>
+                    {json.date}
                   </span>
-                </>
+                </div>
               );
             } else {
               return (
-                <>
-                  <span key={i} className={style.receivedMessage}>
-                    {msg.text}
+                <div key={i} className={style.receivedMessageWrap}>
+                  <span className={style.receivedMessage}>
+                    {json.text}
                   </span>
-                  <span key={i}>
-                    {msg.date}
+                  <span className={style.receivedDate}>
+                    {json.date}
                   </span>
-                </>
+                </div>
               );
             }
           })}
@@ -76,12 +79,13 @@ export default function ChatWithUser() {
         <div className={style.matchedUserProfilePictures}></div>
         <div className={style.profileBasicInfo}>
           <div className={style.nameAge}>
-            <span className={style.name}>{buddy.username}</span>
-            <span className={style.age}>{buddy.age}</span>
+            <span className={style.name}>{props.buddy.username}</span>
+            <span className={style.age}>{props.buddy.age}</span>
           </div>
-          <span>{buddy?.location? buddy.location : "N/A"}</span>
+          <span>{props.buddy?.location? props.buddy.location : "N/A"}</span>
         </div>
       </div>
-    </div>
+    </div> :
+    <div className={style.noChat}>No active chats available</div>
   );
 }

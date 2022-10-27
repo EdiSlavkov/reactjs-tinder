@@ -8,8 +8,9 @@ import ProfileCard from "./ProfileCard";
 import { useState, useEffect } from "react";
 import NewUserInfo from "../NewUserInfo/NewUserInfo";
 import { useSelector, useDispatch } from "react-redux";
-import { logout, checkUserData } from "../../server/server";
+import { logout, checkUserData, getLoggedUser } from "../../server/server";
 import { useNavigate } from "react-router-dom";
+import { setChatBuddy } from "../../store/ChatBuddySlice";
 
 export default function ProfilePage() {
 
@@ -17,6 +18,7 @@ export default function ProfilePage() {
     const [editProfile, setEditProfile] = useState(false);
     const [showErr, setShowErr] = useState(checkUserData());
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleLogout = ()=>{
         logout();

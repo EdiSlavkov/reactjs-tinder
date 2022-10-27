@@ -8,7 +8,9 @@ export const chatBuddySlice = createSlice({
   reducers: {
     //updates the loggedUser and all registered users in local storage
     setChatBuddy: (state, action)=>{
-        state = action.payload;
+        const obj = action.payload;
+        state = obj
+        return obj;
     }
   }
 })

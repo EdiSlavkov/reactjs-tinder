@@ -1,28 +1,29 @@
 import style from './ChatHeadsContainer.module.css'
 import { useSelector } from "react-redux";
 import LikedBy from '../LikedBy/LikedBy';
-import { findWhoLikesMe } from '../../server/server'
+import { findBudy, findWhoLikesMe } from '../../server/server'
 import ChatPath from '../ChatPath/ChatPath';
 import { useDispatch } from 'react-redux/es/exports';
 import { setChatBuddy } from '../../store/ChatBuddySlice';
 
 export default function ChatHeadsContainer() {
-
-    const dispatch = useDispatch()
-    const user = useSelector(state => state.activeUser)
-    const likedByUsers = findWhoLikesMe()
     const activeChat = useSelector(state => state.activeChat.ChatBtnActive);
-    const chatContainer = (<div className={style.chatsContainer}>
+    const user = useSelector(state => state.activeUser)
+    const dispatch = useDispatch();
 
-        {user.MatchedPeople.map(person => <ChatPath onClick={handleChatWindow(person)}/>)}
+    const handleChat = (buddy)=>{
+        dispatch(setChatBuddy(buddy))}
+
+    const likedByUsers = findWhoLikesMe()
+
+    const chatContainer = (<div className={style.chatsContainer}>
+        
+        {user.MatchedPeople.map((person, i) => {
+            const buddy = findBudy(person);
+            return <div key={i} onClick={()=>{handleChat(buddy)}}><ChatPath buddy={buddy} key={i}/></div>
+        })}
 
     </div>)
-
-    const handleChatWindow = (buddy)=>{
-        dispatch(setChatBuddy(buddy));
-    }   
-
-
 
     const matchesContainer = <div className={style.headsContainer}>
         {likedByUsers.map((user, i) => {

@@ -26,21 +26,22 @@ import { useSelector } from 'react-redux'
 import SwipebleCard from '../SwipebleCard/SwipebleCard'
 import ChatWithUser from '../ChatWithUser/ChatWithUser'
 
+
 export function Matches() {
     const activeChat = useSelector(state => state.activeChat.ChatBtnActive)
-
+    const buddy = useSelector(state=>state.chatBuddy)
     return (
         <div className={style.matchContainer}>
             <div className={style.exploreSection}>
                 <LoggedNavigation></LoggedNavigation>
                 <div className={style.MatchAndChatContainer}>
                     <div className={style.containerControllers}>
-                        <MatchMessageBTN></MatchMessageBTN>
+                        <MatchMessageBTN buddy={buddy}></MatchMessageBTN>
                         <ChatHeadsContainer></ChatHeadsContainer>
                     </div>
                 </div>
             </div>
-            {activeChat ? <ChatWithUser/> : <SwipebleCard/> }
+            {activeChat ? <ChatWithUser buddy={buddy}/> : <SwipebleCard/> }
         </div>
     )
 }

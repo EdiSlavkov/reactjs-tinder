@@ -93,7 +93,8 @@ export const findChat = (buddy) => {
   const chat = allChats.find(
     (chat) => chat.chatBuddy === buddy.email
   );
-  return chat.chatHistory;
+
+  return chat;
 };
 
 
@@ -104,3 +105,20 @@ export const checkForMatch = (activeUser, swipedUser) => {
     return false
 }
 
+export const findBudy = (email)=>{
+      const users = getUsers();
+      const buddy = users.find(user=> user.email === email);
+      return buddy;
+}
+
+export const updateBuddyChat = (object, chat)=>{
+  let users = getUsers();
+  const loggedUser = getLoggedUser();
+  const userIndex = users.findIndex(user=>user.email === object.email);
+  const loggedChat = object.chats.findIndex(chat=> chat.chatBuddy === loggedUser.email)
+  let copy = JSON.parse(JSON.stringify(object));
+  copy.chats[loggedChat].chatHistory = chat.chatHistory;
+  users.splice(userIndex, 1, copy);
+  localStorage.setItem("tinderUsers", JSON.stringify(users));
+
+}

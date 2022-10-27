@@ -11,6 +11,7 @@ import * as server from "../../server/server";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux/es/exports";
 import { update } from "../../store/ActiveUserSlice";
+import { setChatBuddy } from "../../store/ChatBuddySlice";
 
 export default function FormContainer(props) {
 
@@ -69,6 +70,7 @@ export default function FormContainer(props) {
       setTimeout(() => {
         setMsg("");
         setLoader(false);
+        dispatch(setChatBuddy(server.findBudy(server.getLoggedUser().chats[0]?.chatBuddy??{})))
         dispatch(update(server.getLoggedUser()));
       navigate("/app/profile");
       }, 2500);
@@ -159,7 +161,7 @@ export default function FormContainer(props) {
           {loader ?
            <div className={styles.loaderWrapper}>
             <div className={styles.loader}>
-            <div class="spinner-border text-danger"  role="status">
+            <div className="spinner-border text-danger"  role="status">
             </div>
             </div>
             <div className={props.buttonName === "Login" ? styles.btnLoader : styles.btnLoaderReg}>
