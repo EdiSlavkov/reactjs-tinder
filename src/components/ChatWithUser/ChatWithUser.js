@@ -77,6 +77,7 @@ export default function ChatWithUser(props) {
 					<GrEmoji className={style.emojiBtn} onClick={() => setDisplayEmojis(!displayEmojis)}/>
 					{displayEmojis ? <div className={style.emojiContainer} onMouseLeave={() => setDisplayEmojis(!displayEmojis)}>
 						<EmojiPicker className={style.emojiContainer}
+							emojiStyle='native'
 							onEmojiClick={(e) => addEmoji(e)}
 						/>
 						</div> : null}
