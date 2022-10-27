@@ -31,7 +31,7 @@ export default function ChatPath(props){
             <img className={style.chatWithPic} src={props.buddy.pictures[0].img || noPhoto}></img>
             <div className={style.nameAndLastMessage}>
                 <span className={style.chatWithName}>{props.buddy.username}</span>
-                <span className={style.lastMessage}>{history[history.length-1].text ||  "no messages"}</span>
+                <span className={style.lastMessage}>{history.length > 0 ? history[history.length-1].text :  "no messages"}</span>
             </div>
         </div>
     )
