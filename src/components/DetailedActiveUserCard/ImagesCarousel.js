@@ -48,7 +48,7 @@ export default function ImagesCarousel(props) {
         {props.user?.pictures.length > 0 
         ? props.user.pictures.map((img,i)=><img key={i} className={styles.imgCarousel} src={img.img} alt="pic"></img>)
         : <img src={noPhoto} className={styles.imgCarousel} alt="defaultPic"></img>}
-        {props.user?.verified[0]&&<img className={styles.imgCarousel} src={props.user.verified[0]} alt="selfie"></img>}
+        {/* {props.user?.verified[0]&&<img className={styles.imgCarousel} src={props.user.verified[0]} alt="selfie"></img>} */}
       </Carousel>
       </>
   );

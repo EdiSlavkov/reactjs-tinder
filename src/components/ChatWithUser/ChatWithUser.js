@@ -1,6 +1,6 @@
 import style from "./ChatWithUser.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { updateChat } from "../../store/ActiveUserSlice";
 import { findChat } from "../../server/server";
 import Message from "../../classes/Message";
@@ -9,23 +9,31 @@ import ImagesCarousel from '../DetailedActiveUserCard/ImagesCarousel'
 import EmojiPicker from 'emoji-picker-react';
 import { GrEmoji } from "react-icons/gr";
 
-
 export default function ChatWithUser(props) {
 	let chat = findChat(props.buddy);
 
+	const toBottomReff = useRef(null)
 	const dispatch = useDispatch();
 	const user = useSelector((state) => state.activeUser);
 	const [message, setMessage] = useState("");
 	const [displayEmojis, setDisplayEmojis] = useState(false)
 
+	const scrollToBottom = () => {
+		chat?.chatHistory&&toBottomReff.current.scrollIntoView({ behavior: "smooth" })
+	  }
 
+	useEffect(scrollToBottom, [chat?.chatHistory||[]]);
 
 	const addEmoji = (e) => {
-		setMessage(message + e.emoji)
+
+	setMessage(message + e.emoji)
 
 	}
 
-	const handleSendMsg = () => {
+	const handleSendMsg = (e) => {
+		e.preventDefault();
+		if(message.trim() !== ""){
+
 		const newDate = Date();
 		const date = newDate.slice(4, 24);
 		const msg = new Message(user.username, message, date);
@@ -33,6 +41,9 @@ export default function ChatWithUser(props) {
 		const obj = { ...chat }
 		dispatch(updateChat([props.buddy, obj]))
 		setMessage("");
+		}
+		setMessage("");
+		
 	};
 	return (
 		props.buddy.username ?
@@ -47,7 +58,7 @@ export default function ChatWithUser(props) {
 							let json = JSON.parse(msg);
 							if (json.sender === user.username) {
 								return (
-									<div key={i} className={style.sentMessageWrap}>
+									<div ref={toBottomReff} key={i} className={style.sentMessageWrap}>
 										<span className={style.sentMessage}>
 											{json.text}
 										</span>
@@ -58,7 +69,7 @@ export default function ChatWithUser(props) {
 								);
 							} else {
 								return (
-									<div key={i} className={style.receivedMessageWrap}>
+									<div ref={toBottomReff} key={i} className={style.receivedMessageWrap}>
 										<span className={style.receivedMessage}>
 											{json.text}
 										</span>
@@ -78,13 +89,15 @@ export default function ChatWithUser(props) {
 							onEmojiClick={(e) => addEmoji(e)}
 						/>
 						</div> : null}
+						<form style={{width:"100%"}} onSubmit={handleSendMsg}>
 						<input
 							onChange={(e) => setMessage(e.target.value)}
 							value={message}
 							className={style.typeMessageInput}
 							placeholder={"Type a message"}
 						></input>
-						<button onClick={handleSendMsg} className={style.sendMessageBtn}>
+						</form>
+						<button className={style.sendMessageBtn}>
 							Send
 						</button>
 					</div>

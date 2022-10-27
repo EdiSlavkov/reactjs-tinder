@@ -6,6 +6,20 @@
 
 }
 
+.makeProfilePic, .makeProfilePicSelfie{
+    position: absolute;
+    top: 0;
+    color: #f8f9fa;
+    cursor: pointer;
+    font-size: 23px;
+
+}
+
+.makeProfilePicSelfie{
+    top: 8px;
+    left: 11px;
+}
+
 .editProfileContainerSmall {
     height: 51vh;
 }
@@ -157,12 +171,22 @@ textarea {
 }
 
 
-.imgWrapper {
+.imgWrapper, .imgWrapperSelfie {
     position: relative;
 }
 
+.imgWrapperSelfie svg {
+    position: absolute;
+    bottom: 5px;
+    right: 7px;
+    cursor: pointer;
+}
 
-.imgWrapper img {
+.imgWrapperSelfie img{
+    border: 8px solid #ff143e;
+}
+
+.imgWrapper img, .imgWrapperSelfie img {
     width: 98px;
     height: 114px;
     border-radius: 10px;

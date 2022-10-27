@@ -15,6 +15,7 @@ import DetailedActiveUserCard from "../DetailedActiveUserCard/DetailedActiveUser
 import { validateLength } from "../../utils";
 import LoadingBtn from "./LoadingBtn";
 import { hide, reveal } from "../../store/DetailedInfoSlice";
+import { BsPersonCheck } from "react-icons/bs";
 
 export default function NewUserInfo(props) {
   const user = useSelector((state) => state.activeUser);
@@ -75,6 +76,21 @@ export default function NewUserInfo(props) {
       setError("File is not supported!");
     }
   };
+
+  const handleChangeProfilePic = (picture) => {
+    let images = [...user.pictures];
+    const index = images.findIndex((e) => e.id === picture);
+    if(index === -1&& picture === "selfie"){
+      images.unshift({id:"selfie", img:user.verified[0]});
+    } else {
+      const index = images.findIndex((e) => e.id === picture);
+      const img = images.find(e => e.id === picture);
+      images.splice(index, 1);
+      images.unshift(img);
+    }
+   
+    dispatch(temporaryData(["pictures", images]));
+  }
 
   const handleChange = (e) => {
     let target = e.currentTarget;
@@ -175,13 +191,19 @@ export default function NewUserInfo(props) {
                         color="error"
                         className={styles.btn}
                       />
+                      <BsPersonCheck className={styles.makeProfilePic}
+                      onClick={()=>handleChangeProfilePic(picture.id)}/>
                       <img src={picture.img} alt="logo"></img>
                     </div>
                   );
                 })}
-              <div className={styles.imgWrapper}>
+              <div className={styles.imgWrapperSelfie}>
                 {user.verified && user.verified[0] ? (
+                  <>
                   <VerifiedIcon className={styles.verifiedIcon} />
+                  <BsPersonCheck className={styles.makeProfilePicSelfie}
+                      onClick={()=>handleChangeProfilePic("selfie")}/>
+                  </>
                 ) : (
                   <></>
                 )}
@@ -191,7 +213,8 @@ export default function NewUserInfo(props) {
                   className={styles.btn}
                 />
                 {user.verified && user.verified[0] ? (
-                  <img src={user.verified[0]} alt=""></img>
+                  <img src={user.verified[0]} alt="">
+                  </img>
                 ) : (
                   <img src={notVerified} alt="notVerified"></img>
                 )}

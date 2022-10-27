@@ -66,6 +66,9 @@
     background-image: linear-gradient(45deg,#fd267a,#ff6036);
     border: 1px solid transparent;
     font-weight: bold;
+    position: absolute;
+    right: 0;
+    top: 8px;
 }
 .profileSection{
     width: 30%;

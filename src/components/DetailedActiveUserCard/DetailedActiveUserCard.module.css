@@ -30,6 +30,11 @@
     width: 375px;
     height: 450px;
 }
+
+.nameAgeInfo{
+    max-width: 284px;
+    overflow-x: hidden;
+}
 .nameAge, .nameAgeInfo{
     padding-left: 10px;
     font-size: 20px;

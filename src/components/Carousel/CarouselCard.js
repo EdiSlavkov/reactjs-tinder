@@ -9,7 +9,7 @@ export default function CarouselCard(props) {
       <Card.Body>
         <img
           style={{
-            width: "13%",
+            width: "10%",
             position: "absolute",
             top: "10px",
             right: "8px",
