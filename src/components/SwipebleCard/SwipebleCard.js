@@ -87,7 +87,6 @@ export default function SwipebleCard() {
         if (!firstLook) {
             toggleLook()
         }
-        debugger
         setSuperLikeUser(true)
         setAxisYMovementDistance(-1200)
         NotSwipedUsers()
