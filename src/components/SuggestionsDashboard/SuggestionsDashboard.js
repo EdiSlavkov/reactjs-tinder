@@ -49,6 +49,8 @@ export function Matches() {
 }
 
 export function Explore() {
+    const emptyUser = (localStorage.getItem('currentUser'))
+
     return (
         <div className={style.matchContainer}>
             <div className={style.exploreSection}>
@@ -78,7 +80,7 @@ export function Explore() {
                     <SmallCard title={"Ready For A Spa Date?"} subtitle={"Passions"} button={"Self Care"} img={imgSelfCare} />
                 </div>
             </div>
-            <SwipebleCard/>
+            {(emptyUser !== '{}' ? <SwipebleCard/> : <NoMoreUsersPlaceHolder/>)}
         </div>
     )
 }

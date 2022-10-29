@@ -1,7 +1,6 @@
 .editProfileContainer, .editProfileContainerSmall {
     position: relative;
     margin: 5% auto 0 auto;
-    box-shadow: 0px 0px 5px 0px #80808061;
     border-radius: 8px;
 
 }
