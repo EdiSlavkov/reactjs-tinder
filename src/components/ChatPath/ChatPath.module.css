@@ -6,6 +6,12 @@
 }
 
 
+.msgBadge{
+    position: absolute;
+    left: 59px;
+    top: 8px;
+}
+
 .chatWithPic{
     width: 70px;
     height: 70px;
