@@ -1,6 +1,6 @@
 import style from "./ChatWithUser.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { updateChat } from "../../store/ActiveUserSlice";
 import { findChat } from "../../server/server";
 import Message from "../../classes/Message";
@@ -12,17 +12,21 @@ import { GrEmoji } from "react-icons/gr";
 export default function ChatWithUser(props) {
 	let chat = findChat(props.buddy);
 
-	const toBottomReff = useRef(null)
+	const toBottomReff = useRef(null);
 	const dispatch = useDispatch();
 	const user = useSelector((state) => state.activeUser);
 	const [message, setMessage] = useState("");
 	const [displayEmojis, setDisplayEmojis] = useState(false)
 
+
 	const scrollToBottom = () => {
-		chat?.chatHistory&&toBottomReff.current.scrollIntoView({ behavior: "smooth" })
+		if(toBottomReff.current){
+		return toBottomReff.current.scrollIntoView({ behavior: "smooth" })
+		}
 	  }
 
-	useEffect(scrollToBottom, [chat?.chatHistory||[]]);
+	useEffect(scrollToBottom, [message]);
+	
 
 	const addEmoji = (e) => {
 
@@ -36,10 +40,9 @@ export default function ChatWithUser(props) {
 
 		const newDate = Date();
 		const date = newDate.slice(4, 24);
-		const msg = new Message(user.username, message, date);
-		chat.chatHistory.push(JSON.stringify(msg));
-		const obj = { ...chat }
-		dispatch(updateChat([props.buddy, obj]))
+		const msg = new Message(user.email, message, date, false);
+		chat.chatHistory.push(msg);
+		dispatch(updateChat([JSON.stringify(props.buddy), JSON.stringify(chat)]))
 		setMessage("");
 		}
 		setMessage("");
@@ -53,17 +56,16 @@ export default function ChatWithUser(props) {
 						<img src={props.buddy?.pictures[0].img || noPhoto} className={style.chatUserProfilePic} alt="buddyPic"></img>
 						<span>{props.buddy.username}</span>
 					</div>
-					<div className={style.chatMessagesContainer}>
+					<div onClick={scrollToBottom} className={style.chatMessagesContainer}>
 						{chat.chatHistory.map((msg, i) => {
-							let json = JSON.parse(msg);
-							if (json.sender === user.username) {
+							if (msg.sender === user.email) {
 								return (
 									<div ref={toBottomReff} key={i} className={style.sentMessageWrap}>
 										<span className={style.sentMessage}>
-											{json.text}
+											{msg.text}
 										</span>
 										<span className={style.sentDate}>
-											{json.date}
+											{msg.date}
 										</span>
 									</div>
 								);
@@ -71,10 +73,10 @@ export default function ChatWithUser(props) {
 								return (
 									<div ref={toBottomReff} key={i} className={style.receivedMessageWrap}>
 										<span className={style.receivedMessage}>
-											{json.text}
+											{msg.text}
 										</span>
 										<span className={style.receivedDate}>
-											{json.date}
+											{msg.date}
 										</span>
 									</div>
 								);
@@ -96,10 +98,11 @@ export default function ChatWithUser(props) {
 							className={style.typeMessageInput}
 							placeholder={"Type a message"}
 						></input>
-						</form>
-						<button className={style.sendMessageBtn}>
+						<button onClick={handleSendMsg} className={style.sendMessageBtn}>
 							Send
 						</button>
+						</form>
+						
 					</div>
 				</div>
 				<div className={style.profileSection}>

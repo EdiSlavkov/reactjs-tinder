@@ -113,7 +113,8 @@ export default function SwipebleCard() {
 
             let chatsActiveUser = [...currentActiveUser.chats]
             chatsActiveUser.push(new Chat(user.email))
-            dispatch(temporaryData(['chats', chatsActiveUser]))
+            dispatch(temporaryData(['chats', JSON.stringify(chatsActiveUser)]))
+
 
             let userCopy = { ...user }
             userCopy.MatchedPeople.push(currentActiveUser.email)

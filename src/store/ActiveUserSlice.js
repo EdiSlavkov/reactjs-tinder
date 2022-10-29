@@ -15,17 +15,27 @@ export const activeUserSlice = createSlice({
     },
     updateChat : (state, action)=>{
       const [buddy, newChat] = action.payload;
-      const index = state.chats.findIndex(chat => chat.chatBuddy === buddy.email);
-      state.chats.splice(index, 1, newChat);
-      updateBuddyChat(buddy, newChat);
+      let buddyParse = JSON.parse(buddy);
+      let newChatParse = JSON.parse(newChat)
+      const index = state.chats.findIndex(chat => chat.chatBuddy === buddyParse.email);
+      state.chats.splice(index, 1, newChatParse);
+      updateBuddyChat(buddyParse, newChatParse);
       updateData(state);  
     },
     temporaryData : (state, action) => {
       const [key, value] = action.payload;
-      return {
-        ...state,
-        [key]:value
-      }
+      if(key === "chats"){
+        return {
+          ...state,
+          [key]:JSON.parse(value)
+        }
+        } else {
+          return {
+            ...state,
+            [key]:value
+          }
+        }
+      
   },
   update: (state, action)=>{
     const obj = action.payload;

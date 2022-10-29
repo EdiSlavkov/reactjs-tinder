@@ -210,7 +210,7 @@ export default function NewUserInfo(props) {
                 <CameraAltIcon
                   onClick={handleShowSelfie}
                   color="error"
-                  className={styles.btn}
+                  className={styles.btnTakeSelfie}
                 />
                 {user.verified && user.verified[0] ? (
                   <img src={user.verified[0]} alt="">

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Modal from 'react-bootstrap/Modal';
 import styles from './Selfie.module.css';
 import { useDispatch } from "react-redux";
@@ -7,6 +7,7 @@ import { temporaryData } from "../../store/ActiveUserSlice";
 export default function Selfie(props) {
   const videoRef = useRef(null);
   const photoRef = useRef(null);
+  const [saved, setSaved] = useState("");
 
   const dispatch = useDispatch();
 
@@ -42,6 +43,7 @@ export default function Selfie(props) {
         video: true,
       })
       .then((stream) => {
+        setSaved(stream);
         let video = videoRef.current;
         video.srcObject = stream;
         let playPromise = video.play();
@@ -55,14 +57,17 @@ export default function Selfie(props) {
 
   useEffect(() => {
     getUserCamera();
-  }, [videoRef]);
+  }, []);
 
   
 
   return (
     <>
 
-<Modal show={()=>props.show()} onHide={()=>props.show()} animation={false}>
+<Modal show={()=>props.show()} onHide={()=>{
+  setSaved(saved.getTracks()[0].stop())
+  props.show();
+}} animation={false}>
         <Modal.Header closeButton>
           <Modal.Title>Take a selfie and get verified!</Modal.Title>
         </Modal.Header>

@@ -20,7 +20,12 @@
     flex-direction: column;
     padding: 10px;
 }
-.lastMessage{
+.lastMessage, .lastMessageUnseen{
     font-size: 14px;
     color: gray;
+}
+
+.lastMessageUnseen{
+    color: black;
+    font-weight: 800;
 }
