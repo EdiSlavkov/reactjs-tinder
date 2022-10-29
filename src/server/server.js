@@ -56,7 +56,9 @@ export const NotSwipedUsers = () => {
 
   users.forEach((user) => {
     let alreadyLiked = ActiveUser.likedPeople.find((obj) => obj === user.email);
-    if (!alreadyLiked && user.email !== ActiveUser.email) {
+    if (!alreadyLiked 
+      && user.email !== ActiveUser.email
+      && (ActiveUser.genderPreference === 'Both' || ActiveUser.genderPreference === user.gender)) {
       boxOfUsers.push(user);
     }
   });
@@ -133,6 +135,10 @@ export const updateBuddyChat = (object, chat)=>{
     obj.age = user.age;
     obj.phone = user.phone;
     obj.pictures = user.pictures;
+    obj.gender = user.gender;
+    obj.genderPreference = user.genderPreference;
+    obj.passions = user.passions;
+
       if(allUsers.findIndex(u=> u.email === user.email) === -1){
         allUsers.push(obj);
       } 

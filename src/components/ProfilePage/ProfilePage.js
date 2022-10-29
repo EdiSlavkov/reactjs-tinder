@@ -46,9 +46,10 @@ export default function ProfilePage() {
                     <ProfilePreference component={user.smoking} placeholder={'Smoking'}></ProfilePreference>
                     <ProfilePreference component={user.pet} placeholder={'Pets'}></ProfilePreference>
                     <ProfilePreference component={user.gender} placeholder={'Gender'}></ProfilePreference>
-                    <div onClick={handleLogout} className={style.logoutBtn} ><ProfilePreference placeholder={'Logout'}></ProfilePreference></div>
                     
                 </div>
+                <div onClick={handleLogout} className={style.logoutBtn} ><ProfilePreference placeholder={'Logout'}></ProfilePreference></div>
+
             </div>
             {editProfile ? <NewUserInfo showErr={setShowErr}/> : <ProfileCard editProfile={setEditProfile}/>}
         </div>

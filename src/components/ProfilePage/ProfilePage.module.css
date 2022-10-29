@@ -1,14 +1,16 @@
 .ProfilePage {
     display: flex;
-    height: 98vh;
     background: #F0F2F4;
     
 
 }
 
 .LoggedNavigation {
+    display: flex;
+    flex-direction: column;
     background-color: rgb(240, 242, 244);
     width: 375px;
+    height: 100vh;
     border-right: 1px solid rgba(160, 160, 164, 0.3);
     flex-shrink: 0;
 }
