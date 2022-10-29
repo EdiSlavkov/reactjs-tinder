@@ -25,11 +25,13 @@ import ChatHeadsContainer from '../ChatHeadsContainer/ChatHeadsContainer'
 import { useSelector } from 'react-redux'
 import SwipebleCard from '../SwipebleCard/SwipebleCard'
 import ChatWithUser from '../ChatWithUser/ChatWithUser'
+import NoMoreUsersPlaceHolder from '../NoMoreUsersPlaceHolder/NoMoreUsersPlaceHolder'
 
 
 export function Matches() {
     const activeChat = useSelector(state => state.activeChat.ChatBtnActive)
     const buddy = useSelector(state=>state.chatBuddy)
+    const emptyUser = (localStorage.getItem('currentUser'))
     return (
         <div className={style.matchContainer}>
             <div className={style.exploreSection}>
@@ -41,7 +43,7 @@ export function Matches() {
                     </div>
                 </div>
             </div>
-            {activeChat ? <ChatWithUser buddy={buddy}/> : <SwipebleCard/> }
+            {activeChat ? <ChatWithUser buddy={buddy}/> : (emptyUser !== '{}' ? <SwipebleCard/> : <NoMoreUsersPlaceHolder/>) }
         </div>
     )
 }

@@ -330,7 +330,7 @@ export default function NewUserInfo(props) {
                     checked={user.gender === "Woman" ? true : false}
                     onChange={handleChange}
                   />
-                  <label htmlFor="woman_gender">Woman</label>
+                  <label htmlFor="woman_gender">Women</label>
                 </div>
 
                 <label>I have interests in:</label>
@@ -339,20 +339,20 @@ export default function NewUserInfo(props) {
                     id="men_genderPreference"
                     type="radio"
                     name="genderPreference"
-                    value={"Men"}
-                    checked={user.genderPreference === "Men" ? true : false}
+                    value={"Man"}
+                    checked={user.genderPreference === "Man" ? true : false}
                     onChange={handleChange}
                   />
                   <label htmlFor="men_genderPreference">Men</label>
                   <input
-                    id="women_genderPreference"
+                    id="Woman_genderPreference"
                     type="radio"
                     name="genderPreference"
-                    value={"Women"}
-                    checked={user.genderPreference === "Women" ? true : false}
+                    value={"Woman"}
+                    checked={user.genderPreference === "Woman" ? true : false}
                     onChange={handleChange}
                   />
-                  <label htmlFor="women_genderPreference">Women</label>
+                  <label htmlFor="Woman_genderPreference">Women</label>
                   <input
                     id="both_genderPreference"
                     type="radio"
