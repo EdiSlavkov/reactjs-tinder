@@ -245,10 +245,10 @@ export default function NewUserInfo(props) {
                     <input
                       id="username"
                       max="2"
-                      maxLength={15}
+                      maxLength={20}
                       type="text"
                       name="username"
-                      placeholder="Up to 15 letters!"
+                      placeholder="Up to 20 letters!"
                       required={true}
                       value={user.username}
                       onChange={handleChange}
@@ -456,11 +456,11 @@ export default function NewUserInfo(props) {
                     <label htmlFor="job">Job:</label>
                     <input
                       id="job"
-                      maxLength={15}
+                      maxLength={20}
                       type="text"
                       name="job"
                       value={user.job}
-                      placeholder="Up to 15 letters!"
+                      placeholder="Up to 20 letters!"
                       required={false}
                       onChange={handleChange}
                     />
@@ -469,11 +469,11 @@ export default function NewUserInfo(props) {
                     <label htmlFor="school">School:</label>
                     <input
                       id="school"
-                      maxLength={15}
+                      maxLength={20}
                       type="text"
                       name="school"
                       value={user.school}
-                      placeholder="Up to 15 letters!"
+                      placeholder="Up to 20 letters!"
                       required={false}
                       onChange={handleChange}
                     />
@@ -484,10 +484,10 @@ export default function NewUserInfo(props) {
                   <input
                     id="company"
                     type="text"
-                    maxLength={15}
+                    maxLength={20}
                     name="company"
                     value={user.company}
-                    placeholder="Up to 15 letters!"
+                    placeholder="Up to 20 letters!"
                     required={false}
                     onChange={handleChange}
                   />

@@ -60,9 +60,12 @@
 }
 
 
-.logoutBtn{
+.logoutBtn > div{
     cursor: pointer ;
+    background-image: linear-gradient(45deg,#fd267a,#ff6036);
+    font-weight: 700;
 }
+    
 .logoutBtn label {
     position: relative;
     left: 150px;
