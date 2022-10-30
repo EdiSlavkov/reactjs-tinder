@@ -26,6 +26,8 @@ import { useSelector } from 'react-redux'
 import SwipebleCard from '../SwipebleCard/SwipebleCard'
 import ChatWithUser from '../ChatWithUser/ChatWithUser'
 import NoMoreUsersPlaceHolder from '../NoMoreUsersPlaceHolder/NoMoreUsersPlaceHolder'
+import { useEffect } from 'react'
+
 
 
 export function Matches() {
@@ -43,14 +45,12 @@ export function Matches() {
                     </div>
                 </div>
             </div>
-            {activeChat ? <ChatWithUser buddy={buddy}/> : (emptyUser !== '{}' ? <SwipebleCard/> : <NoMoreUsersPlaceHolder/>) }
+            {activeChat ? <ChatWithUser buddy={buddy}/> : <SwipebleCard/>}
         </div>
     )
 }
 
 export function Explore() {
-    const emptyUser = (localStorage.getItem('currentUser'))
-
     return (
         <div className={style.matchContainer}>
             <div className={style.exploreSection}>
@@ -80,7 +80,7 @@ export function Explore() {
                     <SmallCard title={"Ready For A Spa Date?"} subtitle={"Passions"} button={"Self Care"} img={imgSelfCare} />
                 </div>
             </div>
-            {(emptyUser !== '{}' ? <SwipebleCard/> : <NoMoreUsersPlaceHolder/>)}
+            {<SwipebleCard/>}
         </div>
     )
 }
