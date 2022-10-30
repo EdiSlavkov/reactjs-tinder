@@ -12,6 +12,16 @@
 
 }
 
+.loaderWrapper {
+    position: relative;
+    left: 140px;
+    padding: 80px;
+}
+
+.loaderWrapper div {
+    padding: 25px;
+}
+
 .streamBtn {
     text-align: center;
 }
