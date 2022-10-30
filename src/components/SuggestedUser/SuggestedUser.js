@@ -1,4 +1,4 @@
-import style from './WorkingSuggestedUser.module.css'
+import style from './SuggestedUser.module.css'
 import { LikeStamp, NopeStamp, SuperLikeStamp } from '../Stamps/Stamps'
 import { RiMoonClearLine } from "react-icons/ri";
 import { FaPaw } from "react-icons/fa";

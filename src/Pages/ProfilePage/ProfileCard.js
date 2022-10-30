@@ -1,6 +1,6 @@
 import style from './ProfileCard.module.css'
 import { useSelector } from 'react-redux';
-import DetailedActiveUserCard from '../DetailedActiveUserCard/DetailedActiveUserCard';
+import DetailedActiveUserCard from '../../components/DetailedActiveUserCard/DetailedActiveUserCard';
 
 export default function ProfileCard(props) {
 

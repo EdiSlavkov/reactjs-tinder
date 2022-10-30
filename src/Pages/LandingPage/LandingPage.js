@@ -1,10 +1,10 @@
-import FormContainer from "../FormContainer/FormContainer";
+import FormContainer from "../../components/FormContainer/FormContainer";
 import styles from "./LandingPage.module.css";
 import Button from "react-bootstrap/Button";
 import React, { useState } from "react";
-import Navbar from "../NavBar/NavBar";
-import CarouselComments from "../Carousel/Carousel";
-import Footer from "../Footer/Footer";
+import Navbar from "../../components/NavBar/NavBar";
+import CarouselComments from "../../components/Carousel/Carousel";
+import Footer from "../../components/Footer/Footer";
 
 export default function LandingPage() {
   const [showLogin, setShowLogin] = useState(false);

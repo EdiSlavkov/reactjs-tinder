@@ -2,7 +2,7 @@ import style from './SwipebleCard.module.css'
 import { AnimatePresence, motion } from 'framer-motion';
 import { useEffect, useState } from 'react'
 import LikeBtnsSuite from '../LikeBtnsSuite/LikeBtnsSuite'
-import WorkingSuggestedUser from '../WorkingSuggestedUser/WorkingSuggestedUser'
+import SuggestedUser from '../SuggestedUser/SuggestedUser'
 import DetailedInfoSuggestionUser from '../DetailedInfoSuggestionUser/DetailedInfoSuggestionUser'
 import { checkForMatch, NotSwipedUsers, updateData } from '../../server/server'
 import { useSelector, useDispatch } from 'react-redux'
@@ -195,7 +195,7 @@ export default function SwipebleCard() {
                             animateSwipeCard()
 
                         }}>
-                        <WorkingSuggestedUser user={user} like={likeUser} dislike={disLikeUser} superLike={superLikeUser} changeLook={toggleLook} />
+                        <SuggestedUser user={user} like={likeUser} dislike={disLikeUser} superLike={superLikeUser} changeLook={toggleLook} />
                     </motion.div> :
                         <DetailedInfoSuggestionUser user={user} changeLook={toggleLook}></DetailedInfoSuggestionUser>
                     }

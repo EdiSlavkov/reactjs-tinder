@@ -28,7 +28,7 @@ export default function FormContainer(props) {
   const [msg, setMsg] = useState("");
   const [error, setError] = useState("");
 
-  const clear = ()=>{
+  const clear = () => {
     setEmail("");
     setEmailError("");
     setPassword("");
@@ -47,7 +47,7 @@ export default function FormContainer(props) {
   };
 
   const handlePasswordChange = (e) => {
-    utils.confirmPasswords(e.target.value, confirmPassword)&&setConfirmPasswordErr("");
+    utils.confirmPasswords(e.target.value, confirmPassword) && setConfirmPasswordErr("");
 
     setPasswordError("");
     setPassword(e.target.value);
@@ -64,33 +64,33 @@ export default function FormContainer(props) {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if(server.login(email, password)){
+    if (server.login(email, password)) {
       setMsg("Success! Redirecting...")
       setLoader(true);
       setTimeout(() => {
         setMsg("");
         setLoader(false);
         dispatch(update(server.getLoggedUser()));
-      navigate("/app/profile");
+        navigate("/app/profile");
       }, 2500);
-      
+
     } else {
       setMsg("Wrong Credentials!");
-       setEmail("");
-    setPassword("");
-    setTimeout(() => {
-      setMsg("");
-    }, 3000);
-  };
+      setEmail("");
+      setPassword("");
+      setTimeout(() => {
+        setMsg("");
+      }, 3000);
+    };
   }
-   
 
-  const handleRegBtn = () =>{
 
-    if(utils.validateEmail(email) === true &&
-    utils.validatePassword(password) === true &&
-    utils.confirmPasswords(password, confirmPassword) === true
-    ){
+  const handleRegBtn = () => {
+
+    if (utils.validateEmail(email) === true &&
+      utils.validatePassword(password) === true &&
+      utils.confirmPasswords(password, confirmPassword) === true
+    ) {
       setDisable(false)
     } else {
       setDisable(true)
@@ -100,28 +100,28 @@ export default function FormContainer(props) {
   const handleRegistration = (e) => {
     e.preventDefault();
 
-    if(server.createAccount(email, password)){
+    if (server.createAccount(email, password)) {
       setMsg("Successfull! Redirecting to login...");
       setLoader(true);
       setTimeout(() => {
         setDisable(true);
-      setLoader(false);
-      props.setShow(false)
-      props.showLogin()
-      clear();
-    setMsg("");
-    }, 2500)
+        setLoader(false);
+        props.setShow(false)
+        props.showLogin()
+        clear();
+        setMsg("");
+      }, 2500)
     } else {
       setError("Email is already taken!");
       setTimeout(() => {
         setError("");
       }, 3000)
-    setEmail("");
-    setPassword("");
-    setConfirmPassword("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
     }
-    
-    
+
+
   };
 
   if (!props.show) return <></>;
@@ -142,7 +142,7 @@ export default function FormContainer(props) {
           onSubmit={
             props.buttonName === "Login" ? handleLogin : handleRegistration
           }
-          onKeyUp={props.buttonName === "Register" ? (e)=>{
+          onKeyUp={props.buttonName === "Register" ? (e) => {
             handleRegBtn();
             // setPasswordError(utils.validatePassword(password));
             setConfirmPasswordErr(utils.confirmPasswords(confirmPassword, password));
@@ -158,123 +158,123 @@ export default function FormContainer(props) {
             draggable={false}
           ></img>
           {loader ?
-           <div className={styles.loaderWrapper}>
-            <div className={styles.loader}>
-            <div className="spinner-border text-danger"  role="status">
+            <div className={styles.loaderWrapper}>
+              <div className={styles.loader}>
+                <div className="spinner-border text-danger" role="status">
+                </div>
+              </div>
+              <div className={props.buttonName === "Login" ? styles.btnLoader : styles.btnLoaderReg}>
+                <div className="d-grid gap-2">
+                  <Button
+                    id="regBtn"
+                    className={
+                      props.buttonName === "Register" ? styles.registerBtn : ""
+                    }
+                    disabled={props.buttonName === "Register" && disable ? true : false || loader ? true : false}
+                    variant="danger"
+                    size="lg"
+                    type="submit"
+                  >
+                    {props.buttonName}
+                  </Button>
+                </div>
+              </div>
             </div>
-            </div>
-            <div className={props.buttonName === "Login" ? styles.btnLoader : styles.btnLoaderReg}>
-            <div className="d-grid gap-2">
-                        <Button
-                        id="regBtn"
-                        className={
-                          props.buttonName === "Register" ? styles.registerBtn : ""
-                        }
-                        disabled={props.buttonName === "Register"&&disable ? true : false || loader ? true : false}
-                        variant="danger"
-                        size="lg"
-                        type="submit"
-                      >
-                        {props.buttonName}
-                      </Button>
-            </div>
-            </div>
-           </div>
-         : <>
-            <Form.Group className="mb-3" controlId="Email">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control
-              value={email}
-              type="email"
-              onChange={handleEmailChange}
-              placeholder="Enter email"
-            />
-            {emailError && (
-              <span className={styles.emailError}>{emailError}</span>
-            )}
-          </Form.Group>
-          <div className={styles.passWrapper}>
-            <Form.Group className="mb-3 passWrapper" controlId="Password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                value={password}
-                type="password"
-                onChange={handlePasswordChange}
-                onClick={props.buttonName === "Register" ? (e)=> {
-                  handlePasswordChange(e);
-                  setConfirmPasswordErr(utils.confirmPasswords(confirmPassword, password))
-                } : null}
-                placeholder="Password"
-              />
-              {passwordError && (
-                <span className={styles.error}>{passwordError}</span>
-              )}
-            </Form.Group>
-          </div>
-          {props.passConfirm ? (
-            <div className={styles.passConfirmWrapper}>
-              <Form.Group className="mb-3" controlId="ConfirmPassword">
-                <Form.Label>Confirm password</Form.Label>
+            : <>
+              <Form.Group className="mb-3" controlId="Email">
+                <Form.Label>Email address</Form.Label>
                 <Form.Control
-                  value={confirmPassword}
-                  onChange={handleConfPassChange}
-                  onBlur={(e)=>setConfirmPasswordErr(utils.confirmPasswords(e.target.value, password))}
-                  onClick={(e)=>setConfirmPasswordErr(utils.confirmPasswords(e.target.value, password))}
-                  type="password"
-                  placeholder="Confirm Password"
+                  value={email}
+                  type="email"
+                  onChange={handleEmailChange}
+                  placeholder="Enter email"
                 />
-                {confirmPasswordErr && (
-                  <span className={styles.passConfirmError}>
-                    {confirmPasswordErr}
-                  </span>
+                {emailError && (
+                  <span className={styles.emailError}>{emailError}</span>
                 )}
               </Form.Group>
-            </div>
-          ) : (
-            <></>
-          )}
-          <div className="d-grid gap-2">
-            <Button
-              id="regBtn"
-              className={
-                props.buttonName === "Register" ? styles.registerBtn : ""
-              }
-              disabled={props.buttonName === "Register"&&disable ? true : false}
-              variant="danger"
-              size="lg"
-              type="submit"
-            >
-              {props.buttonName}
-            </Button>
-            {props.passConfirm ? (
-              <span>
-                Already registered?{" "}
-                <span
-                  className={styles.link}
-                  onClick={() => {
-                    clear();
-                    props.goToLog();
-                  }}
+              <div className={styles.passWrapper}>
+                <Form.Group className="mb-3 passWrapper" controlId="Password">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    value={password}
+                    type="password"
+                    onChange={handlePasswordChange}
+                    onClick={props.buttonName === "Register" ? (e) => {
+                      handlePasswordChange(e);
+                      setConfirmPasswordErr(utils.confirmPasswords(confirmPassword, password))
+                    } : null}
+                    placeholder="Password"
+                  />
+                  {passwordError && (
+                    <span className={styles.error}>{passwordError}</span>
+                  )}
+                </Form.Group>
+              </div>
+              {props.passConfirm ? (
+                <div className={styles.passConfirmWrapper}>
+                  <Form.Group className="mb-3" controlId="ConfirmPassword">
+                    <Form.Label>Confirm password</Form.Label>
+                    <Form.Control
+                      value={confirmPassword}
+                      onChange={handleConfPassChange}
+                      onBlur={(e) => setConfirmPasswordErr(utils.confirmPasswords(e.target.value, password))}
+                      onClick={(e) => setConfirmPasswordErr(utils.confirmPasswords(e.target.value, password))}
+                      type="password"
+                      placeholder="Confirm Password"
+                    />
+                    {confirmPasswordErr && (
+                      <span className={styles.passConfirmError}>
+                        {confirmPasswordErr}
+                      </span>
+                    )}
+                  </Form.Group>
+                </div>
+              ) : (
+                <></>
+              )}
+              <div className="d-grid gap-2">
+                <Button
+                  id="regBtn"
+                  className={
+                    props.buttonName === "Register" ? styles.registerBtn : ""
+                  }
+                  disabled={props.buttonName === "Register" && disable ? true : false}
+                  variant="danger"
+                  size="lg"
+                  type="submit"
                 >
-                  Go to Login!
-                </span>
-              </span>
-            ) : (
-              <span>
-                Don't have an account?{" "}
-                <span
-                  className={styles.link}
-                  onClick={() => {
-                    clear();
-                    props.goToReg();
-                  }}
-                >
-                  Register here!
-                </span>
-              </span>
-            )}
-          </div>
-          </>}
+                  {props.buttonName}
+                </Button>
+                {props.passConfirm ? (
+                  <span>
+                    Already registered?{" "}
+                    <span
+                      className={styles.link}
+                      onClick={() => {
+                        clear();
+                        props.goToLog();
+                      }}
+                    >
+                      Go to Login!
+                    </span>
+                  </span>
+                ) : (
+                  <span>
+                    Don't have an account?{" "}
+                    <span
+                      className={styles.link}
+                      onClick={() => {
+                        clear();
+                        props.goToReg();
+                      }}
+                    >
+                      Register here!
+                    </span>
+                  </span>
+                )}
+              </div>
+            </>}
         </Form>
       </div>
     </Modal>

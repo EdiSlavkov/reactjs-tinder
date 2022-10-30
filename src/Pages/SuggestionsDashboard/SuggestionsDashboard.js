@@ -1,8 +1,8 @@
 import style from './SuggestionsDashboard.module.css'
-import LoggedNavigation from '../LoggedNavigation/LoggedNavigation'
-import BigCard from '../cards/BigCard'
-import SmallCard from '../cards/SmallCard'
-import MatchMessageBTN from '../MatchMessageBTN/MatchMessageBTN'
+import LoggedNavigation from '../../components/LoggedNavigation/LoggedNavigation'
+import BigCard from '../../components/cards/BigCard'
+import SmallCard from '../../components/cards/SmallCard'
+import MatchMessageBTN from '../../components/MatchMessageBTN/MatchMessageBTN'
 import bigCardImgOne from "../../images/bigCardBackground1.webp";
 import bigCardImgTwo from "../../images/bigCardBackground2.webp";
 import imgFreeTonight from "../../images/smallFreeTonightImg.webp";
@@ -21,11 +21,10 @@ import imgNightOut from "../../images/smallNightOutImg.webp";
 import imgThrill from "../../images/smallThrillImg.webp";
 import imgWander from "../../images/smallWanderLustImg.webp";
 import imgSelfCare from "../../images/smallSelfCareImg.webp";
-import ChatHeadsContainer from '../ChatHeadsContainer/ChatHeadsContainer'
+import ChatHeadsContainer from '../../components/ChatHeadsContainer/ChatHeadsContainer'
 import { useSelector } from 'react-redux'
-import SwipebleCard from '../SwipebleCard/SwipebleCard'
-import ChatWithUser from '../ChatWithUser/ChatWithUser'
-import NoMoreUsersPlaceHolder from '../NoMoreUsersPlaceHolder/NoMoreUsersPlaceHolder'
+import SwipebleCard from '../../components/SwipebleCard/SwipebleCard'
+import ChatWithUser from '../../components/ChatWithUser/ChatWithUser'
 import { useEffect } from 'react'
 
 

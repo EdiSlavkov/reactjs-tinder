@@ -1,12 +1,12 @@
 import { Route, Routes, Outlet, Navigate, useNavigate } from "react-router-dom";
-import LandingPage from "./components/LandingPage/LandingPage";
+import LandingPage from "../src/Pages/LandingPage/LandingPage";
 import {
   Matches,
   Explore,
-} from "./components/SuggestionsDashboard/SuggestionsDashboard";
+} from "../src/Pages/SuggestionsDashboard/SuggestionsDashboard";
 import React, { useState, useEffect } from "react";
 import Loader from "./components/Loader/Loader";
-import ProfilePage from "./components/ProfilePage/ProfilePage";
+import ProfilePage from "../src/Pages/ProfilePage/ProfilePage";
 import { isLogged } from "./server/server";
 import { checkUserData } from "./server/server";
 
