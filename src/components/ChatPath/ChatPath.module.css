@@ -7,9 +7,9 @@
 
 
 .msgBadge{
-    position: absolute;
-    left: 59px;
-    top: 8px;
+    position: absolute !important;
+    left: 88%;
+    top: 14%;
 }
 
 .chatWithPic{

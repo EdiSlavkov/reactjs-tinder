@@ -70,7 +70,6 @@ export default function FormContainer(props) {
       setTimeout(() => {
         setMsg("");
         setLoader(false);
-        // dispatch(setChatBuddy(server.findBudy(server.getLoggedUser().chats[0]?.chatBuddy??{})))
         dispatch(update(server.getLoggedUser()));
       navigate("/app/profile");
       }, 2500);

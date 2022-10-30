@@ -9,8 +9,9 @@ import ImagesCarousel from '../DetailedActiveUserCard/ImagesCarousel'
 import EmojiPicker from 'emoji-picker-react';
 import { GrEmoji } from "react-icons/gr";
 
-export default function ChatWithUser(props) {
-	let chat = findChat(props.buddy);
+export default function ChatWithUser() {
+	let selector = useSelector(state => state.chatBuddy);
+	let chat = findChat(selector);
 
 	const toBottomReff = useRef(null);
 	const dispatch = useDispatch();
@@ -42,19 +43,19 @@ export default function ChatWithUser(props) {
 		const date = newDate.slice(4, 24);
 		const msg = new Message(user.email, message, date, false);
 		chat.chatHistory.push(msg);
-		dispatch(updateChat([JSON.stringify(props.buddy), JSON.stringify(chat)]))
+		dispatch(updateChat([JSON.stringify(selector), JSON.stringify(chat)]))
 		setMessage("");
 		}
 		setMessage("");
 		
 	};
 	return (
-		props.buddy.username ?
+		selector.username ?
 			<div className={style.chatWithUserContainer}>
 				<div className={style.chatSection}>
 					<div className={style.avatarAndName}>
-						<img src={props.buddy?.pictures[0].img || noPhoto} className={style.chatUserProfilePic} alt="buddyPic"></img>
-						<span>{props.buddy.username}</span>
+						<img src={selector?.pictures[0].img || noPhoto} className={style.chatUserProfilePic} alt="buddyPic"></img>
+						<span>{selector.username}</span>
 					</div>
 					<div onClick={scrollToBottom} className={style.chatMessagesContainer}>
 						{chat.chatHistory.map((msg, i) => {
@@ -107,19 +108,19 @@ export default function ChatWithUser(props) {
 				</div>
 				<div className={style.profileSection}>
 					<div className={style.matchedUserProfilePictures}>
-						<ImagesCarousel user={props.buddy} />
+						<ImagesCarousel user={selector} />
 					</div>
 					<div className={style.profileBasicInfo}>
 						<div className={style.nameAge}>
-							<span className={style.name}>{props.buddy.username}</span>
-							<span className={style.age}>{props.buddy.age}</span>
+							<span className={style.name}>{selector.username}</span>
+							<span className={style.age}>{selector.age}</span>
 						</div>
-						<span>{props.buddy?.location ? props.buddy.location : "N/A"}</span>
-						<div className={style.matchedUserDescription}>{props.buddy.description}</div>
+						<span>{selector?.location ? selector.location : "N/A"}</span>
+						<div className={style.matchedUserDescription}>{selector.description}</div>
 
 					</div>
 				</div>
 			</div> :
-			<div className={style.noChat}>No active chats available</div>
+			<div className={style.noChat}>No active chat available</div>
 	);
 }

@@ -12,9 +12,6 @@ export default function ChatPath(props){
     const user = useSelector(state => state.activeUser)
     const buddy = props.buddy
     const dispatch = useDispatch()
-    useEffect(()=>{
-        dispatch(setChatBuddy(buddy))
-    },[])
     
     let chat = findChat(props.buddy);
     const history = chat.chatHistory;

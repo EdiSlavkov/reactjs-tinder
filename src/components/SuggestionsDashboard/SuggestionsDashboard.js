@@ -45,7 +45,7 @@ export function Matches() {
                     </div>
                 </div>
             </div>
-            {activeChat ? <ChatWithUser buddy={buddy}/> : <SwipebleCard/>}
+            {activeChat ? <ChatWithUser/> : <SwipebleCard/>}
         </div>
     )
 }
