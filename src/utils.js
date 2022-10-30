@@ -45,7 +45,7 @@ export const validatePassword = (password)=>{
           ) 
           {
             
-            return `You must enter atleast ${passwordMinLength} symbols! ${passwordMinLength - password.length} symbols remaining!`;
+            return `You must enter at least ${passwordMinLength} symbols! ${passwordMinLength - password.length} symbols remaining!`;
           } else {
             return true;
           }
@@ -80,7 +80,6 @@ export const convert = (file) => {
   export   const validateRequirements = (user) => {
     if (
       user.username.trim().length > 2 &&
-      user.age.length > 1 &&
       user.age > 17 &&
       user.phone.trim().length >= 10 &&
       user.phone[0] === "0" &&
