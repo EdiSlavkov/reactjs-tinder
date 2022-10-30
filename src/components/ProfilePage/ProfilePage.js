@@ -20,6 +20,7 @@ export default function ProfilePage() {
 
     const handleLogout = ()=>{
         dispatch(setChatBuddy({}))
+        localStorage.removeItem('currentUser')
         logout();
         navigate("/")
     }

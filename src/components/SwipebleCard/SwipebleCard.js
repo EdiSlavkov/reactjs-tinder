@@ -10,6 +10,7 @@ import { temporaryData, changeUserData } from '../../store/ActiveUserSlice'
 import MatchModal from '../MatchModal/MatchModal';
 import Chat from '../../classes/Chat'
 import { BsArrowBarUp, BsArrowBarLeft, BsArrowBarRight, BsFillInfoCircleFill, BsBoxArrowRight, BsBoxArrowLeft } from 'react-icons/bs';
+import NoMoreUsersPlaceHolder from '../NoMoreUsersPlaceHolder/NoMoreUsersPlaceHolder';
 
 
 
@@ -87,6 +88,7 @@ export default function SwipebleCard() {
         if (!firstLook) {
             toggleLook()
         }
+        debugger
         setSuperLikeUser(true)
         setAxisYMovementDistance(-1200)
         NotSwipedUsers()
@@ -169,7 +171,7 @@ export default function SwipebleCard() {
     return (
         <div className={style.matchSuggestion}>
             {matchEvent ? <MatchModal /> : null}
-            <div className={style.userAndBtnContainer}>
+            {JSON.stringify(user) === '{}' ? <NoMoreUsersPlaceHolder/> : <div className={style.userAndBtnContainer}>
                 {showCard ? <AnimatePresence>
                     {firstLook ? <motion.div className={style.matchSuggestion}
                         initial={{ x: 0, y: 0 }}
@@ -225,7 +227,7 @@ export default function SwipebleCard() {
                     </span>
                 </div> : null}
                 </div>
-            </div>
+            </div>}
 
         </div>
     )
