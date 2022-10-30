@@ -70,7 +70,7 @@ export default function FormContainer(props) {
       setTimeout(() => {
         setMsg("");
         setLoader(false);
-        dispatch(setChatBuddy(server.findBudy(server.getLoggedUser().chats[0]?.chatBuddy??{})))
+        // dispatch(setChatBuddy(server.findBudy(server.getLoggedUser().chats[0]?.chatBuddy??{})))
         dispatch(update(server.getLoggedUser()));
       navigate("/app/profile");
       }, 2500);
@@ -145,7 +145,7 @@ export default function FormContainer(props) {
           }
           onKeyUp={props.buttonName === "Register" ? (e)=>{
             handleRegBtn();
-            setPasswordError(utils.validatePassword(password));
+            // setPasswordError(utils.validatePassword(password));
             setConfirmPasswordErr(utils.confirmPasswords(confirmPassword, password));
             setEmailError(utils.validateEmail(email));
             handleRegBtn();
@@ -201,8 +201,10 @@ export default function FormContainer(props) {
                 value={password}
                 type="password"
                 onChange={handlePasswordChange}
-                onClick={props.buttonName === "Register" ? handlePasswordChange : null}
-                onBlur={()=>setPasswordError("")}
+                onClick={props.buttonName === "Register" ? (e)=> {
+                  handlePasswordChange(e);
+                  setConfirmPasswordErr(utils.confirmPasswords(confirmPassword, password))
+                } : null}
                 placeholder="Password"
               />
               {passwordError && (
@@ -217,6 +219,7 @@ export default function FormContainer(props) {
                 <Form.Control
                   value={confirmPassword}
                   onChange={handleConfPassChange}
+                  onBlur={(e)=>setConfirmPasswordErr(utils.confirmPasswords(e.target.value, password))}
                   onClick={(e)=>setConfirmPasswordErr(utils.confirmPasswords(e.target.value, password))}
                   type="password"
                   placeholder="Confirm Password"

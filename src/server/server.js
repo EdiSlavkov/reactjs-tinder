@@ -58,7 +58,7 @@ export const NotSwipedUsers = () => {
     let alreadyLiked = ActiveUser.likedPeople.find((obj) => obj === user.email);
     if (!alreadyLiked 
       && user.email !== ActiveUser.email
-      && (ActiveUser.genderPreference === 'Both' || ActiveUser.genderPreference === user.gender)) {
+      && (ActiveUser.genderPreference === 'Both' || ActiveUser.genderPreference === user.gender || ActiveUser.genderPreference === "")) {
       boxOfUsers.push(user);
     }
   });
