@@ -53,12 +53,12 @@ export default function NewUserInfo(props) {
     const file = e.target.files[0];
     const name = e.target.name;
     let allImgs = [...user.pictures];
-
+    let selfie = allImgs.find(pic => pic.id === "selfie")
+    let count = selfie ? 9 : 8;
     if (file.type === "image/png" || file.type === "image/jpeg") {
-      setError("");
       let id = uuidv4();
 
-      if (allImgs.length < 8) {
+      if (allImgs.length < count) {
         const imageUpload = (image, id) => {
           const file = image;
           utils.convert(file).then((convertedImg) => {
@@ -66,8 +66,6 @@ export default function NewUserInfo(props) {
             dispatch(temporaryData([name, allImgs]));
           });
         };
-
-        setError("");
         imageUpload(file, id);
       } else {
         setError("You can upload only 8 pictures and 1 validation selfie!");
@@ -140,6 +138,7 @@ export default function NewUserInfo(props) {
   return (
     
     <div
+    onClick={()=>setError("")}
       className={
         detailedInfo
           ? styles.editProfileContainerSmall
@@ -176,7 +175,7 @@ export default function NewUserInfo(props) {
       <div className={styles.container}>
         {showEdit ? (
           <>
-            <span className={styles.error}>{error}</span>
+            <div className={styles.errorWrapper}><span className={styles.error}>{error}</span></div>
             <div className={styles.pictureContainer}>
               {user.pictures &&
                 user.pictures.map((picture) => {
@@ -187,7 +186,8 @@ export default function NewUserInfo(props) {
                       className={styles.imgWrapper}
                     >
                       <DeleteIcon
-                        onClick={() => handleDelete(picture.id)}
+                        onClick={() => handleDelete(picture.id)
+}
                         color="error"
                         className={styles.btn}
                       />
@@ -500,7 +500,7 @@ export default function NewUserInfo(props) {
                   disabled={utils.validateRequirements(user)}
                   id="saveBtn"
                   type="submit"
-                  onClick={()=>props.showErr(true)}
+                  onClick={()=> props.showErr(true)}
                   className={
                     utils.validateRequirements(user)
                       ? styles.saveBtnDisabled

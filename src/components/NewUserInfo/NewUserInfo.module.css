@@ -214,8 +214,15 @@ textarea {
     color: red;
     font-size: 18px;
     font-weight: 800;
-    display: block;
     text-align: center;
+}
+
+.errorWrapper {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    justify-content: center;
+    top: -58px;
 }
 
 .btnsContainer {
