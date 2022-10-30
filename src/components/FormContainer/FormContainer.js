@@ -11,7 +11,6 @@ import * as server from "../../server/server";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux/es/exports";
 import { update } from "../../store/ActiveUserSlice";
-import { setChatBuddy } from "../../store/ChatBuddySlice";
 
 export default function FormContainer(props) {
 

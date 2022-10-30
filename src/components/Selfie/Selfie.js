@@ -8,15 +8,23 @@ export default function Selfie(props) {
   const videoRef = useRef(null);
   const photoRef = useRef(null);
   const [saved, setSaved] = useState("");
+  const [loader, setLoader] = useState(false);
 
   const dispatch = useDispatch();
 
 
   const savePhoto = () => {
+    setSaved(saved.getTracks()[0].stop())
     let copy = [];
     let selfie = document.getElementById("canvas").toDataURL();
     copy.splice(0, 1, selfie);
     dispatch(temporaryData(["verified", copy]));
+    setLoader(true);
+    setTimeout(() => {
+      props.show()
+      setLoader(false)
+    }, 2000);
+
   };
 
   const takePhoto = () => {
@@ -69,20 +77,25 @@ export default function Selfie(props) {
   props.show();
 }} animation={false}>
         <Modal.Header closeButton>
-          <Modal.Title>Take a selfie and get verified!</Modal.Title>
+          <Modal.Title>{loader ? "Saving selfie..." : "Take a selfie and get verified!"}</Modal.Title>
         </Modal.Header>
-        <div className={styles.picturesWrapper}>
-        <div>
-            <video className={styles.videoStream} ref={videoRef}></video>
-            <button onClick={takePhoto}>Shot</button>
-        </div>
-       <div>
-        <canvas className={styles.canvas} id="canvas" ref={photoRef}></canvas>
-        <div className={styles.controllerBtns}>
-            <button onClick={savePhoto}>Save</button>
-        </div>
+        {loader ? 
+       <div className={styles.loaderWrapper}>
+         <div className="spinner-border text-danger"  role="status"></div>
        </div>
-        </div>
+      :
+      <div className={styles.picturesWrapper}>
+      <div>
+          <video className={styles.videoStream} ref={videoRef}></video>
+          <button onClick={takePhoto}>Shot</button>
+      </div>
+     <div>
+      <canvas className={styles.canvas} id="canvas" ref={photoRef}></canvas>
+      <div className={styles.controllerBtns}>
+          <button onClick={savePhoto}>Save</button>
+      </div>
+     </div>
+      </div>}
       </Modal>
 
     </>
