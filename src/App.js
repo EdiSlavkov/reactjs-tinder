@@ -20,6 +20,7 @@ function App() {
       setLoader(true);
     }, 1000);
     !isLogged() && navigate("/");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loader]);
 
   if (loader) {

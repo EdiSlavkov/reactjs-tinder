@@ -139,6 +139,8 @@ export const updateBuddyChat = (object, chat)=>{
     obj.genderPreference = user.genderPreference;
     obj.passions = user.passions;
     obj.genderPreference = user.genderPreference
+    obj.location = user.location
+    obj.description = user.description
 
       if(allUsers.findIndex(u=> u.email === user.email) === -1){
         allUsers.push(obj);
