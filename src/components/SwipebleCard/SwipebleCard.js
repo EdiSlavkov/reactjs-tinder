@@ -15,7 +15,7 @@ import NoMoreUsersPlaceHolder from '../NoMoreUsersPlaceHolder/NoMoreUsersPlaceHo
 
 
 export default function SwipebleCard() {
-    if (!localStorage.getItem('currentUser')) {
+    if (!sessionStorage.getItem('currentUser')) {
         NotSwipedUsers()
 
     }
@@ -28,7 +28,7 @@ export default function SwipebleCard() {
     const [matchEvent, setMatchEvent] = useState(false)
 
     const [showCard, setShowCard] = useState(true)
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem('currentUser')))
+    const [user, setUser] = useState(JSON.parse(sessionStorage.getItem('currentUser')))
     const [angle, setAngle] = useState(0)
     const [firstLook, setFirstLook] = useState(true)
 
@@ -88,11 +88,10 @@ export default function SwipebleCard() {
         if (!firstLook) {
             toggleLook()
         }
-        debugger
         setSuperLikeUser(true)
         setAxisYMovementDistance(-1200)
         NotSwipedUsers()
-        setUser(JSON.parse(localStorage.getItem('currentUser')))
+        setUser(JSON.parse(sessionStorage.getItem('currentUser')))
 
     }
     const likeThisUser = () => {
@@ -132,7 +131,7 @@ export default function SwipebleCard() {
         dispatch(changeUserData())
 
         NotSwipedUsers()
-        setUser(JSON.parse(localStorage.getItem('currentUser')))
+        setUser(JSON.parse(sessionStorage.getItem('currentUser')))
 
     }
     const dislikeThisUser = () => {
@@ -142,7 +141,7 @@ export default function SwipebleCard() {
         setDisLikeUser(true)
         setAxisXMovementDistance(-1200)
         NotSwipedUsers()
-        setUser(JSON.parse(localStorage.getItem('currentUser')))
+        setUser(JSON.parse(sessionStorage.getItem('currentUser')))
 
     }
     const getDistanceAndDirection = (offSet) => {

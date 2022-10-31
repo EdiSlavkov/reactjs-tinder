@@ -9,6 +9,6 @@ export const store = configureStore({
     activeUser:  activeUserReducer,
     activeChat: chatToggleReducer,
     detailedInfo : detailedInfoReducer,
-    chatBuddy: chatBuddyReducer
+    chatBuddy: chatBuddyReducer,
   },
 })

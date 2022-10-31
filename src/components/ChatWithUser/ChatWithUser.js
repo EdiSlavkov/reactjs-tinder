@@ -2,15 +2,16 @@ import style from "./ChatWithUser.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useRef, useEffect } from "react";
 import { updateChat } from "../../store/ActiveUserSlice";
-import { findChat } from "../../server/server";
+import { refreshChat, findBudy, findChat } from "../../server/server";
 import Message from "../../classes/Message";
 import noPhoto from "../../images/noPhoto.jpg";
 import ImagesCarousel from '../DetailedActiveUserCard/ImagesCarousel'
 import EmojiPicker from 'emoji-picker-react';
 import { GrEmoji } from "react-icons/gr";
+import { setChatBuddy } from "../../store/ChatBuddySlice";
 
 export default function ChatWithUser() {
-	let selector = useSelector(state => state.chatBuddy);
+	const selector = useSelector(state => state.chatBuddy);
 	let chat = findChat(selector);
 
 	const toBottomReff = useRef(null);
@@ -35,10 +36,31 @@ export default function ChatWithUser() {
 
 	}
 
+	const checkMsgs = ()=>{
+		let copyHistory = chat.chatHistory.map(msg => {
+            msg.seen = true;
+            return msg;
+        })
+        chat.chatHistory = copyHistory;
+        dispatch(updateChat([JSON.stringify(findBudy(selector.email)), JSON.stringify(chat)]))
+	}
+
+	useEffect(()=>{
+
+		const id = setInterval(() => {
+		
+		refreshChat()
+		dispatch(setChatBuddy(findBudy(selector.email)))
+		scrollToBottom()
+		}, 3000)
+
+		return ()=> clearInterval(id)
+
+	},[selector])
+
 	const handleSendMsg = (e) => {
 		e.preventDefault();
 		if(message.trim() !== ""){
-
 		const newDate = Date();
 		const date = newDate.slice(4, 24);
 		const msg = new Message(user.email, message, date, false);
@@ -94,6 +116,7 @@ export default function ChatWithUser() {
 						</div> : null}
 						<form style={{width:"100%"}} onSubmit={handleSendMsg}>
 						<input
+							onClick={checkMsgs}
 							onChange={(e) => setMessage(e.target.value)}
 							value={message}
 							className={style.typeMessageInput}

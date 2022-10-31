@@ -22,7 +22,7 @@ export const login = (email, password) => {
     (user) => user.email === email && user.password === password
   );
   if (user) {
-    localStorage.setItem("tinderLogged", JSON.stringify(user));
+    sessionStorage.setItem("tinderLogged", JSON.stringify(user));
     return true;
   }
   return false;
@@ -30,28 +30,36 @@ export const login = (email, password) => {
 
 
 export const isLogged = () => {
-  return JSON.parse(localStorage.getItem("tinderLogged")) ? true : false;
+  return JSON.parse(sessionStorage.getItem("tinderLogged")) ? true : false;
 };
 
 export const logout = () => {
-  localStorage.removeItem("tinderLogged");
+  sessionStorage.removeItem("tinderLogged");
 };
 
 export const getLoggedUser = () => {
-  return JSON.parse(localStorage.getItem("tinderLogged")) || {};
+  return JSON.parse(sessionStorage.getItem("tinderLogged")) || {};
 };
 
 export const updateData = (currentUser) => {
   let users = getUsers();
   const index = users.findIndex((user) => user.email === currentUser.email);
   users.splice(index, 1, currentUser);
-  localStorage.setItem("tinderLogged", JSON.stringify(currentUser));
+  sessionStorage.setItem("tinderLogged", JSON.stringify(currentUser));
   localStorage.setItem("tinderUsers", JSON.stringify(users));
+
 };
+
+export const refreshChat = ()=>{
+    const logged = getLoggedUser();
+    const users = getUsers();
+    const updated = users.find((user) => user.email === logged.email);
+    sessionStorage.setItem("tinderLogged", JSON.stringify(updated))
+}
 
 export const NotSwipedUsers = () => {
   let users = getUsers();
-  let ActiveUser = JSON.parse(localStorage.getItem("tinderLogged"));
+  let ActiveUser = JSON.parse(sessionStorage.getItem("tinderLogged"));
   let boxOfUsers = [];
 
   users.forEach((user) => {
@@ -62,7 +70,7 @@ export const NotSwipedUsers = () => {
       boxOfUsers.push(user);
     }
   });
-  localStorage.setItem(
+  sessionStorage.setItem(
     "currentUser",
     JSON.stringify(
       boxOfUsers[Math.floor(Math.random() * boxOfUsers.length)] || {}
@@ -71,7 +79,7 @@ export const NotSwipedUsers = () => {
 };
 
 export const checkUserData = () => {
-  const user = JSON.parse(localStorage.getItem("tinderLogged"));
+  const user = JSON.parse(sessionStorage.getItem("tinderLogged"));
   if (user.username && user.age && user.phone) {
     return true;
   }

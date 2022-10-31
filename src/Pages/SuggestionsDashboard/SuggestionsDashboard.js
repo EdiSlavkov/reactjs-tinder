@@ -32,7 +32,7 @@ import { useEffect } from 'react'
 export function Matches() {
     const activeChat = useSelector(state => state.activeChat.ChatBtnActive)
     const buddy = useSelector(state=>state.chatBuddy)
-    const emptyUser = (localStorage.getItem('currentUser'))
+    const emptyUser = (sessionStorage.getItem('currentUser'))
     return (
         <div className={style.matchContainer}>
             <div className={style.exploreSection}>
