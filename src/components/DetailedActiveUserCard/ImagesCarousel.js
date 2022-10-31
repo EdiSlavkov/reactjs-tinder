@@ -8,7 +8,7 @@ export default function ImagesCarousel(props) {
 
       <>
       <Carousel
-        style={{ gap: "35px", marginTop: " 2%" }}
+        style={{ gap: "35px"}}
         autoplay={false}
         withoutControls={false}
         scrollMode="remainder"

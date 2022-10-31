@@ -2,7 +2,7 @@ import * as utils from './utils'
 
 describe('Password validation', () => {
     test('pass123 to be valid', () => {
-        expect(utils.validatePassword('Pass123')).toBe(true);
+        expect(utils.validatePassword('Pass123')).toBeTruthy();
     })
     test('pass123 to be invalid. Needs 1 uppercase', () => {
         expect(utils.validatePassword('pass123')).toBe('Enter 1 uppercase!');
@@ -21,7 +21,7 @@ describe('Password validation', () => {
 
 describe('Password to match', () => {
     test('Passwords match', () => {
-        expect(utils.confirmPasswords('Pass123', 'Pass123')).toBe(true);
+        expect(utils.confirmPasswords('Pass123', 'Pass123')).toBeTruthy();
     })
     test('Passwords does not match', () => {
         expect(utils.confirmPasswords('Pass123', 'Pass223')).toBe("Passwords does not match!");
@@ -31,7 +31,7 @@ describe('Password to match', () => {
 
 describe('Valid email address', () => {
     test('Valid email', () => {
-        expect(utils.validateEmail('Stefan@gmail.com')).toBe(true)
+        expect(utils.validateEmail('Stefan@gmail.com')).toBeTruthy()
     })
     test('Email not valid', () => {
         expect(utils.validateEmail('Stefangmail.com')).toBe('Only e-mail is accepted!')
@@ -43,10 +43,10 @@ describe('Valid email address', () => {
 
 describe('Check input length', () => {
     test('Check input with more than allowed length', () => {
-        expect(utils.validateLength('Stefan', 5)).toBe(false)
+        expect(utils.validateLength('Stefan', 5)).toBeFalsy();
     })
     test('Check input not more than allowed length', () => {
-        expect(utils.validateLength('Edi', 5)).toBe(true)
+        expect(utils.validateLength('Edi', 5)).toBeTruthy()
     })
 });
 
@@ -56,35 +56,35 @@ describe('Test if user data meets requirements', () => {
             username: 'Ed',
             age: 24,
             phone: '0888888888'
-    })).toBe(true)
+    })).toBeTruthy()
     })
     test('test younger user flag', () => {
         expect(utils.validateRequirements({
             username: 'Edi',
             age: 16,
             phone: '0888888888'
-    })).toBe(true)
+    })).toBeTruthy()
     })
     test('test shorter number flag', () => {
         expect(utils.validateRequirements({
             username: 'Edi',
             age: 26,
             phone: '08888888'
-    })).toBe(true)
+    })).toBeTruthy()
     })
     test('test invalid number format flag', () => {
         expect(utils.validateRequirements({
             username: 'Edi',
             age: 26,
             phone: '9888888800'
-    })).toBe(true)
+    })).toBeTruthy()
     })
     test('all valid properties', () => {
         expect(utils.validateRequirements({
             username: 'Edi',
             age: 26,
             phone: '0888888800'
-    })).toBe(false)
+    })).toBeFalsy();
     })
 
 });
