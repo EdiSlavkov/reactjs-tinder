@@ -1,7 +1,7 @@
 import style from './ChatHeadsContainer.module.css'
 import { useSelector } from "react-redux";
 import LikedBy from '../LikedBy/LikedBy';
-import { findBudy, findWhoLikesMe } from '../../server/server'
+import { findBuddy, findWhoLikesMe } from '../../server/server'
 import ChatPath from '../ChatPath/ChatPath';
 import { useDispatch } from 'react-redux/es/exports';
 import { setChatBuddy } from '../../store/ChatBuddySlice';
@@ -19,7 +19,7 @@ export default function ChatHeadsContainer() {
     const chatContainer = (<div className={style.chatsContainer}>
         
         {user.MatchedPeople.map((person, i) => {
-            const buddy = findBudy(person);
+            const buddy = findBuddy(person);
             return <div key={i} onClick={()=>{handleChat(buddy)}}><ChatPath buddy={buddy} key={i}/></div>
         })}
 

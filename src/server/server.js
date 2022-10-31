@@ -78,14 +78,6 @@ export const NotSwipedUsers = () => {
   );
 };
 
-export const checkUserData = () => {
-  const user = JSON.parse(sessionStorage.getItem("tinderLogged"));
-  if (user.username && user.age && user.phone) {
-    return true;
-  }
-  return false;
-};
-
 export const findWhoLikesMe = () => {
   let loggedTinderUser = getLoggedUser()
   let allTinderUsers = getUsers()
@@ -116,7 +108,7 @@ export const checkForMatch = (activeUser, swipedUser) => {
     return false
 }
 
-export const findBudy = (email)=>{
+export const findBuddy = (email)=>{
       const users = getUsers();
       const buddy = users.find(user=> user.email === email);
       return buddy;

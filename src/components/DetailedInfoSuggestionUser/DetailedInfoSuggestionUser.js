@@ -1,4 +1,4 @@
-import style from './DetailedInfoSuggestionUser.module.css'
+import style from './DetailedInfoSuggestionUser.module.css';
 import { FaPaw } from "react-icons/fa";
 import { GiCigarette } from "react-icons/gi";
 import { RiMoonClearLine } from "react-icons/ri";
@@ -9,17 +9,16 @@ import ImagesCarousel from '../DetailedActiveUserCard/ImagesCarousel';
 
 export default function DetailedInfoSuggestionUser(props) {
     
-    const ActiveUSer = useSelector(state => state.activeUser)
+    const ActiveUSer = useSelector(state => state.activeUser);
 
     const passions =props.user.passions ?  props.user.passions.map(pass => {
         if(ActiveUSer.passions.indexOf(pass) !== -1){
             return <span key={pass} className={style.passionItem}>{pass}</span>
         }
         return <span key={pass} className={style.commonPassionItem}>{pass}</span>
-    }) : ''
+    }) : '';
 
     return (
-        // same parameters as 1st look
         <div className={style.frame}>
             <div className={style.detailedInfoContainer}>
                 <div className={style.photosContainer}>
@@ -56,6 +55,5 @@ export default function DetailedInfoSuggestionUser(props) {
                 </div>
             </div>
         </div>
-
     )
 }

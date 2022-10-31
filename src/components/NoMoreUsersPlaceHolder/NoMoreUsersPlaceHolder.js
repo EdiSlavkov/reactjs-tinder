@@ -19,15 +19,11 @@ export default function NoMoreUsersPlaceHolder() {
             >
                 <div className={style.biggerCircle}>
                     <div className={style.smallerCircle}>
-                        <img src={(currentActiveUser.pictures[0].img)} className={style.profileCircle}></img>
+                        <img src={(currentActiveUser.pictures[0].img)} className={style.profileCircle} alt="img"></img>
                     </div>
                 </div>
                 <div>There's no one around you. </div>
             </motion.div>
         </AnimatePresence>
-
-
-
-
     )
 }

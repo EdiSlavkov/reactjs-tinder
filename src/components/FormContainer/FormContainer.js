@@ -26,6 +26,7 @@ export default function FormContainer(props) {
   const [confirmPasswordErr, setConfirmPasswordErr] = useState("");
   const [msg, setMsg] = useState("");
   const [error, setError] = useState("");
+  const handleClose = () => props.setShow(false);
 
   const clear = () => {
     setEmail("");
@@ -41,17 +42,14 @@ export default function FormContainer(props) {
   const handleEmailChange = (e) => {
     setEmailError("");
     setEmail(e.target.value);
-    props.buttonName === "Register" &&
-      setEmailError(utils.validateEmail(e.target.value));
+    props.buttonName === "Register" && setEmailError(utils.validateEmail(e.target.value));
   };
 
   const handlePasswordChange = (e) => {
     utils.confirmPasswords(e.target.value, confirmPassword) && setConfirmPasswordErr("");
-
     setPasswordError("");
     setPassword(e.target.value);
-    props.buttonName === "Register" &&
-      setPasswordError(utils.validatePassword(e.target.value));
+    props.buttonName === "Register" && setPasswordError(utils.validatePassword(e.target.value));
   };
 
   const handleConfPassChange = (e) => {
@@ -83,16 +81,13 @@ export default function FormContainer(props) {
     };
   }
 
-
   const handleRegBtn = () => {
-
     if (utils.validateEmail(email) === true &&
       utils.validatePassword(password) === true &&
       utils.confirmPasswords(password, confirmPassword) === true
     ) {
-      setDisable(false)
-    } else {
-      setDisable(true)
+      setDisable(false);
+    } else {;
     }
   }
 
@@ -119,13 +114,9 @@ export default function FormContainer(props) {
       setPassword("");
       setConfirmPassword("");
     }
-
-
   };
 
   if (!props.show) return <></>;
-
-  const handleClose = () => props.setShow(false);
 
   return (
     <Modal show={props.handleAction} onHide={handleClose} animation={false}>
@@ -143,7 +134,6 @@ export default function FormContainer(props) {
           }
           onKeyUp={props.buttonName === "Register" ? (e) => {
             handleRegBtn();
-            // setPasswordError(utils.validatePassword(password));
             setConfirmPasswordErr(utils.confirmPasswords(confirmPassword, password));
             setEmailError(utils.validateEmail(email));
             handleRegBtn();

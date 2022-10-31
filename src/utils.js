@@ -77,7 +77,7 @@ export const convert = (file) => {
     }
   }
 
-  export   const validateRequirements = (user) => {
+  export const isDisabled = (user) => {
     if (
       user.username.trim().length > 2 &&
       user.age > 17 &&

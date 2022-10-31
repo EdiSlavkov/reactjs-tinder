@@ -25,14 +25,12 @@ import ChatHeadsContainer from '../../components/ChatHeadsContainer/ChatHeadsCon
 import { useSelector } from 'react-redux'
 import SwipebleCard from '../../components/SwipebleCard/SwipebleCard'
 import ChatWithUser from '../../components/ChatWithUser/ChatWithUser'
-import { useEffect } from 'react'
-
 
 
 export function Matches() {
     const activeChat = useSelector(state => state.activeChat.ChatBtnActive)
     const buddy = useSelector(state=>state.chatBuddy)
-    const emptyUser = (sessionStorage.getItem('currentUser'))
+
     return (
         <div className={style.matchContainer}>
             <div className={style.exploreSection}>

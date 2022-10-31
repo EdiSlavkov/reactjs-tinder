@@ -7,8 +7,8 @@ import {
 import React, { useState, useEffect } from "react";
 import Loader from "./components/Loader/Loader";
 import ProfilePage from "../src/Pages/ProfilePage/ProfilePage";
-import { isLogged } from "./server/server";
-import { checkUserData } from "./server/server";
+import { getLoggedUser, isLogged } from "./server/server";
+import { isDisabled } from "./utils";
 
 function App() {
   const [loader, setLoader] = useState(false);
@@ -24,7 +24,7 @@ function App() {
 
   if (loader) {
     if (isLogged()) {
-      if (checkUserData()) {
+      if (!isDisabled(getLoggedUser())) {
         return (
           <Routes>
             <Route path="/" element={<ProfilePage/>}></Route>

@@ -1,20 +1,15 @@
 import { TbListSearch } from "react-icons/tb";
 import { RiHeartFill } from "react-icons/ri";
 import { NavLink } from "react-router-dom";
-import style from './LoggedNavigation.module.css'
+import style from './LoggedNavigation.module.css';
 import { useSelector } from "react-redux";
-import profileLogo from "../../images/profile_placeholder.png"
-
-
+import profileLogo from "../../images/profile_placeholder.png";
 
 export default function LoggedNavigation(props) {
     
-
-    const user = useSelector(state => state.activeUser)
-
+    const user = useSelector(state => state.activeUser);
 
     return (<div className={style.navigationController}>
-
 
         <NavLink to='/app/profile'  style={{position: "sticky"}} onClick={props.show} className={({ isActive }) =>
               isActive ? style.linkProfileActive : style.linkProfileInactive}>

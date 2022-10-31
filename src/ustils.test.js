@@ -52,35 +52,35 @@ describe('Check input length', () => {
 
 describe('Test if user data meets requirements', () => {
     test('Test shorter username flag', () => {
-        expect(utils.validateRequirements({
+        expect(utils.isDisabled({
             username: 'Ed',
             age: 24,
             phone: '0888888888'
     })).toBe(true)
     })
     test('test younger user flag', () => {
-        expect(utils.validateRequirements({
+        expect(utils.isDisabled({
             username: 'Edi',
             age: 16,
             phone: '0888888888'
     })).toBe(true)
     })
     test('test shorter number flag', () => {
-        expect(utils.validateRequirements({
+        expect(utils.isDisabled({
             username: 'Edi',
             age: 26,
             phone: '08888888'
     })).toBe(true)
     })
     test('test invalid number format flag', () => {
-        expect(utils.validateRequirements({
+        expect(utils.isDisabled({
             username: 'Edi',
             age: 26,
             phone: '9888888800'
     })).toBe(true)
     })
     test('all valid properties', () => {
-        expect(utils.validateRequirements({
+        expect(utils.isDisabled({
             username: 'Edi',
             age: 26,
             phone: '0888888800'

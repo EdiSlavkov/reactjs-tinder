@@ -1,4 +1,4 @@
-import style from './DetailedActiveUserCard.module.css'
+import style from './DetailedActiveUserCard.module.css';
 import { FaPaw } from "react-icons/fa";
 import { GiCigarette } from "react-icons/gi";
 import { IoSchoolOutline } from "react-icons/io5";
@@ -16,15 +16,14 @@ import { useDispatch } from "react-redux";
 export default function DetailedActiveUserCard(props) {
 
     const dispatch = useDispatch();
-    const [show, setShow] = useState(false)
+    const user = useSelector(state=>state.activeUser);
+    const [show, setShow] = useState(false);
 
     useEffect(()=>{
-        dispatch(reveal())
+        dispatch(reveal());
     })
 
-    const user = useSelector(state=>state.activeUser)
     return (
-        // same parameters as 1st look
         <div className={style.frame}>
             <div className={show ? style.detailedInfoContainer : style.detailedInfoContainerSmall}>
                 <div className={style.mainWrapper}>

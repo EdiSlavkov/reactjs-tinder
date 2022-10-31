@@ -1,9 +1,7 @@
-import { motion } from 'framer-motion'
-import style from './MatchModal.module.css'
-
+import { motion } from 'framer-motion';
+import style from './MatchModal.module.css';
 
 export default function MatchModal(props) {
-
 
     return (
         <>
