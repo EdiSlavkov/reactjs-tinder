@@ -1,4 +1,5 @@
 export const validateEmail = (email)=>{
+  // eslint-disable-next-line
     const emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
     return email ? email.match(emailFormat) ? true : "Only e-mail is accepted!" :
