@@ -87,7 +87,8 @@ export default function FormContainer(props) {
       utils.confirmPasswords(password, confirmPassword) === true
     ) {
       setDisable(false);
-    } else {;
+    } else {
+      setDisable(true);
     }
   }
 

@@ -5,7 +5,7 @@ import { RiMoonClearLine } from "react-icons/ri";
 import { useSelector } from 'react-redux';
 import { ImArrowDown } from "react-icons/im";
 import ImagesCarousel from '../DetailedActiveUserCard/ImagesCarousel';
-
+import VerifiedIcon from '@mui/icons-material/Verified';
 
 export default function DetailedInfoSuggestionUser(props) {
     
@@ -29,6 +29,7 @@ export default function DetailedInfoSuggestionUser(props) {
                     {props.user.username}
                     </span>
                     <span className={style.age}>{props.user.age}</span>
+                    {props.user?.verified[0]? <VerifiedIcon className={style.verifiedIcon}/> : <VerifiedIcon className={style.unVerifiedIcon}/>}
                     <ImArrowDown className={style.firstLookIcon} onClick={props.changeLook}/>
                 </div>
                 <span className={style.location}>{props.user.location}</span>

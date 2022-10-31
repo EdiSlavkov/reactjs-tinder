@@ -41,6 +41,15 @@
     padding-right: 10px;
     font-weight: 500;
 }
+
+.verifiedIcon{
+    color: blue;
+}
+
+.unVerifiedIcon {
+    color: gray;
+}
+
 .location{
     padding-left: 10px;
 }
