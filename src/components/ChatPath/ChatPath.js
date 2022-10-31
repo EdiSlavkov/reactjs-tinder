@@ -54,7 +54,7 @@ export default function ChatPath(props){
         <div onClick={handleChat} className={style.chatPath}>
             <div style={{position:"relative"}}>
             {unreadCount()}
-            <img className={style.chatWithPic} alt="img" src={props.buddy.pictures[0].img || noPhoto}></img>
+            <img className={style.chatWithPic} alt="img" src={props.buddy?.pictures[0]?.img || noPhoto}></img>
             </div>
             <div className={style.nameAndLastMessage}>
                 <span className={style.chatWithName}>{props.buddy.username}</span>

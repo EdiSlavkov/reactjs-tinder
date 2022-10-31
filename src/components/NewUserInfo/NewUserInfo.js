@@ -79,10 +79,9 @@ export default function NewUserInfo(props) {
   const handleChangeProfilePic = (picture) => {
     let images = [...user.pictures];
     const index = images.findIndex((e) => e.id === picture);
-    if(index === -1&& picture === "selfie"){
+    if(index === -1 && picture === "selfie"){
       images.unshift({id:"selfie", img:user.verified[0]});
     } else {
-      const index = images.findIndex((e) => e.id === picture);
       const img = images.find(e => e.id === picture);
       images.splice(index, 1);
       images.unshift(img);

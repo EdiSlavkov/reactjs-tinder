@@ -13,8 +13,8 @@ import { setChatBuddy } from "../../store/ChatBuddySlice";
 export default function ChatWithUser() {
 
 	const dispatch = useDispatch();
-	const selector = useSelector(state => state.chatBuddy);
-	let chat = findChat(selector);
+	const buddy = useSelector(state => state.chatBuddy);
+	let chat = findChat(buddy);
 	const toBottomReff = useRef(null)
 	const user = useSelector((state) => state.activeUser);
 	const [message, setMessage] = useState("");
@@ -33,7 +33,7 @@ export default function ChatWithUser() {
             return msg;
         })
         chat.chatHistory = copyHistory;
-        dispatch(updateChat([JSON.stringify(findBuddy(selector.email)), JSON.stringify(chat)]))
+        dispatch(updateChat([JSON.stringify(findBuddy(buddy.email)), JSON.stringify(chat)]))
 	}
 
 	useEffect(scrollToBottom, [message]);
@@ -42,13 +42,13 @@ export default function ChatWithUser() {
 
 		const id = setInterval(() => {
 			refreshChat();
-			dispatch(setChatBuddy(findBuddy(selector.email)));
+			dispatch(setChatBuddy(findBuddy(buddy.email)));
 			scrollToBottom();
 		}, 3000)
 
 		return ()=> clearInterval(id);
  	// eslint-disable-next-line react-hooks/exhaustive-deps
-	},[selector])
+	},[buddy])
 
 	const handleSendMsg = (e) => {
 		e.preventDefault();
@@ -57,19 +57,19 @@ export default function ChatWithUser() {
 			const date = newDate.slice(4, 24);
 			const msg = new Message(user.email, message, date, false);
 			chat.chatHistory.push(msg);
-			dispatch(updateChat([JSON.stringify(selector), JSON.stringify(chat)]))
+			dispatch(updateChat([JSON.stringify(buddy), JSON.stringify(chat)]))
 			setMessage("");
 		}
 		setMessage("");
 		
 	};
 	return (
-		selector.username ?
+		buddy.username ?
 			<div className={style.chatWithUserContainer}>
 				<div className={style.chatSection}>
 					<div className={style.avatarAndName}>
-						<img src={selector?.pictures[0].img || noPhoto} className={style.chatUserProfilePic} alt="buddyPic"></img>
-						<span>{selector.username}</span>
+						<img src={buddy?.pictures[0]?.img || noPhoto} className={style.chatUserProfilePic} alt="buddyPic"></img>
+						<span>{buddy.username}</span>
 					</div>
 					<div onClick={scrollToBottom} className={style.chatMessagesContainer}>
 						{chat.chatHistory.map((msg, i) => {
@@ -124,15 +124,15 @@ export default function ChatWithUser() {
 				</div>
 				<div className={style.profileSection}>
 					<div className={style.matchedUserProfilePictures}>
-						<ImagesCarousel user={selector} />
+						<ImagesCarousel user={buddy} />
 					</div>
 					<div className={style.profileBasicInfo}>
 						<div className={style.nameAge}>
-							<span className={style.name}>{selector.username}</span>
-							<span className={style.age}>{selector.age}</span>
+							<span className={style.name}>{buddy.username}</span>
+							<span className={style.age}>{buddy.age}</span>
 						</div>
-						<span>{selector?.location ? selector.location : "N/A"}</span>
-						<div className={style.matchedUserDescription}>{selector.description}</div>
+						<span>{buddy?.location ? buddy.location : "N/A"}</span>
+						<div className={style.matchedUserDescription}>{buddy.description}</div>
 
 					</div>
 				</div>
