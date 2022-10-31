@@ -9,9 +9,7 @@ export default function Selfie(props) {
   const photoRef = useRef(null);
   const [saved, setSaved] = useState("");
   const [loader, setLoader] = useState(false);
-
   const dispatch = useDispatch();
-
 
   const savePhoto = () => {
     setSaved(saved.getTracks()[0].stop())
@@ -31,9 +29,7 @@ export default function Selfie(props) {
 
     let width = 150;
     let height = 150;
-
     let photo = photoRef.current;
-
     let video = videoRef.current;
 
     photo.width = width;
@@ -60,44 +56,40 @@ export default function Selfie(props) {
           .catch(err => console.log())
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log());
   };
 
   useEffect(() => {
     getUserCamera();
   }, []);
 
-  
-
   return (
     <>
-
-<Modal show={()=>props.show()} onHide={()=>{
-  setSaved(saved.getTracks()[0].stop())
-  props.show();
-}} animation={false}>
-        <Modal.Header closeButton>
-          <Modal.Title>{loader ? "Saving selfie..." : "Take a selfie and get verified!"}</Modal.Title>
-        </Modal.Header>
-        {loader ? 
-       <div className={styles.loaderWrapper}>
-         <div className="spinner-border text-danger"  role="status"></div>
-       </div>
-      :
-      <div className={styles.picturesWrapper}>
-      <div>
-          <video className={styles.videoStream} ref={videoRef}></video>
-          <button onClick={takePhoto}>Shot</button>
-      </div>
-     <div>
-      <canvas className={styles.canvas} id="canvas" ref={photoRef}></canvas>
-      <div className={styles.controllerBtns}>
-          <button onClick={savePhoto}>Save</button>
-      </div>
-     </div>
-      </div>}
+      <Modal show={()=>props.show()} onHide={()=>{
+        setSaved(saved.getTracks()[0].stop())
+        props.show();
+      }} animation={false}>
+              <Modal.Header closeButton>
+                <Modal.Title>{loader ? "Saving selfie..." : "Take a selfie and get verified!"}</Modal.Title>
+              </Modal.Header>
+              {loader ? 
+            <div className={styles.loaderWrapper}>
+              <div className="spinner-border text-danger"  role="status"></div>
+            </div>
+            :
+            <div className={styles.picturesWrapper}>
+            <div>
+                <video className={styles.videoStream} ref={videoRef}></video>
+                <button onClick={takePhoto}>Shot</button>
+            </div>
+          <div>
+            <canvas className={styles.canvas} id="canvas" ref={photoRef}></canvas>
+            <div className={styles.controllerBtns}>
+                <button onClick={savePhoto}>Save</button>
+            </div>
+          </div>
+            </div>}
       </Modal>
-
     </>
   );
 }

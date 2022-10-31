@@ -138,7 +138,7 @@
 
 .sentDate{
     font-size: 10px;
-    align-self: end;
+    align-self: flex-end;
 }
 
 .receivedDate{

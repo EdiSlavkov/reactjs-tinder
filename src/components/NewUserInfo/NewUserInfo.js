@@ -34,6 +34,7 @@ export default function NewUserInfo(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(changeUserData());
+    sessionStorage.removeItem("currentUser");
     setSaving(true);
     setTimeout(() => {
       setSaving(false);
@@ -365,12 +366,12 @@ export default function NewUserInfo(props) {
                 </div>
                 <label htmlFor="location">Location:</label>
                 <input
-                  maxLength={15}
+                  maxLength={25}
                   id="location"
                   type="text"
                   name="location"
                   value={user.location}
-                  placeholder="Up to 15 letters!"
+                  placeholder="Up to 25 letters!"
                   required={false}
                   onChange={handleChange}
                 />
@@ -497,12 +498,12 @@ export default function NewUserInfo(props) {
                 <LoadingBtn />
               ) : (
                 <button
-                  disabled={utils.validateRequirements(user)}
+                  disabled={utils.isDisabled(user)}
                   id="saveBtn"
                   type="submit"
                   onClick={()=> props.showErr(true)}
                   className={
-                    utils.validateRequirements(user)
+                    utils.isDisabled(user)
                       ? styles.saveBtnDisabled
                       : styles.saveBtn
                   }

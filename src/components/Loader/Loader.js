@@ -8,6 +8,5 @@ export  default function Loader(){
             <img className={styles.loaderBackground} src={logo} alt="loadingImg"></img>
             <img src={loadingImg} className={styles.loaderLogo} alt="loadingImg"></img>
         </>
-        
     )
 }

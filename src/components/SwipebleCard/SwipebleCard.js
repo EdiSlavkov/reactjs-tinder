@@ -1,17 +1,16 @@
 import style from './SwipebleCard.module.css'
 import { AnimatePresence, motion } from 'framer-motion';
-import { useEffect, useState } from 'react'
-import LikeBtnsSuite from '../LikeBtnsSuite/LikeBtnsSuite'
-import SuggestedUser from '../SuggestedUser/SuggestedUser'
-import DetailedInfoSuggestionUser from '../DetailedInfoSuggestionUser/DetailedInfoSuggestionUser'
-import { checkForMatch, NotSwipedUsers, updateData } from '../../server/server'
-import { useSelector, useDispatch } from 'react-redux'
-import { temporaryData, changeUserData } from '../../store/ActiveUserSlice'
+import { useEffect, useState } from 'react';
+import LikeBtnsSuite from '../LikeBtnsSuite/LikeBtnsSuite';
+import SuggestedUser from '../SuggestedUser/SuggestedUser';
+import DetailedInfoSuggestionUser from '../DetailedInfoSuggestionUser/DetailedInfoSuggestionUser';
+import { checkForMatch, NotSwipedUsers, updateData } from '../../server/server';
+import { useSelector, useDispatch } from 'react-redux';
+import { temporaryData, changeUserData } from '../../store/ActiveUserSlice';
 import MatchModal from '../MatchModal/MatchModal';
-import Chat from '../../classes/Chat'
-import { BsArrowBarUp, BsArrowBarLeft, BsArrowBarRight, BsFillInfoCircleFill, BsBoxArrowRight, BsBoxArrowLeft } from 'react-icons/bs';
+import Chat from '../../classes/Chat';
+import { BsArrowBarUp, BsArrowBarLeft, BsArrowBarRight, BsFillInfoCircleFill } from 'react-icons/bs';
 import NoMoreUsersPlaceHolder from '../NoMoreUsersPlaceHolder/NoMoreUsersPlaceHolder';
-
 
 
 export default function SwipebleCard() {

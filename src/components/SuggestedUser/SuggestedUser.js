@@ -7,14 +7,7 @@ import { BsInfoCircleFill } from "react-icons/bs";
 import ImagesCarousel from '../DetailedActiveUserCard/ImagesCarousel';
 
 
-
-
-
-
 export default function WorkingSuggestedUser(props) {
-
-    
-
 
     return (
         <div className={style.suggestedUserContainer}>

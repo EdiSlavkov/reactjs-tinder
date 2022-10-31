@@ -1,9 +1,6 @@
-import { useState } from 'react'
-import { useLinkClickHandler } from 'react-router-dom'
-import style from './MatchMessageBTN.module.css'
+import style from './MatchMessageBTN.module.css';
 import { useSelector, useDispatch } from "react-redux";
 import { toggleChat } from '../../store/ChatToggleSlice';
-
 
 
 export default function MatchMessageBTN() {
@@ -16,7 +13,6 @@ export default function MatchMessageBTN() {
             dispatch(toggleChat())
         }
     }
-
 
     return (
         <div className={style.matchButtonsContainer}>

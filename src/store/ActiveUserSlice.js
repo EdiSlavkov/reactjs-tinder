@@ -39,7 +39,6 @@ export const activeUserSlice = createSlice({
   },
   update: (state, action)=>{
     const obj = action.payload;
-    console.log(obj)
     return obj;
   }
   }

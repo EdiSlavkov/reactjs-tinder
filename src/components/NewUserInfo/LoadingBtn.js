@@ -1,6 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
-import styles from "./NewUserInfo.module.css"
+import styles from "./NewUserInfo.module.css";
 function LoadingBtn () {
   return (
     <>

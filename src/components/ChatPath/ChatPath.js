@@ -3,15 +3,14 @@ import noPhoto from "../../images/noPhoto.jpg";
 import { findChat } from '../../server/server';
 import {setChatBuddy} from "../../store/ChatBuddySlice"
 import { useDispatch } from 'react-redux/es/exports';
-import { useEffect } from 'react';
 import { updateChat } from '../../store/ActiveUserSlice';
 import { useSelector } from 'react-redux/es/exports';
 import Badge from '@mui/material/Badge';
 
 export default function ChatPath(props){
-    const user = useSelector(state => state.activeUser)
-    const buddy = props.buddy
-    const dispatch = useDispatch()
+    const user = useSelector(state => state.activeUser);
+    const buddy = props.buddy;
+    const dispatch = useDispatch();
     
     let chat = findChat(props.buddy);
     const history = chat.chatHistory;
@@ -23,7 +22,7 @@ export default function ChatPath(props){
             return msg;
         })
         chat.chatHistory = copyHistory;
-        dispatch(updateChat([JSON.stringify(buddy), JSON.stringify(chat)]))
+        dispatch(updateChat([JSON.stringify(buddy), JSON.stringify(chat)]));
     }
 
     const unreadCount = ()=>{
@@ -42,7 +41,7 @@ export default function ChatPath(props){
         if(history.length > 0){
             if(history[history.length-1].sender !== user.email&&history[history.length-1].seen === false){
                 
-                return style.lastMessageUnseen
+                return style.lastMessageUnseen;
             } else {
               return style.lastMessage;
              
@@ -55,7 +54,7 @@ export default function ChatPath(props){
         <div onClick={handleChat} className={style.chatPath}>
             <div style={{position:"relative"}}>
             {unreadCount()}
-            <img className={style.chatWithPic} src={props.buddy.pictures[0].img || noPhoto}></img>
+            <img className={style.chatWithPic} alt="img" src={props.buddy.pictures[0].img || noPhoto}></img>
             </div>
             <div className={style.nameAndLastMessage}>
                 <span className={style.chatWithName}>{props.buddy.username}</span>

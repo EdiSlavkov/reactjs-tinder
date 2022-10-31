@@ -6,15 +6,16 @@ import ProfileCard from "./ProfileCard";
 import { useState } from "react";
 import NewUserInfo from "../../components/NewUserInfo/NewUserInfo";
 import { useSelector, useDispatch } from "react-redux";
-import { logout, checkUserData } from "../../server/server";
+import { logout, getLoggedUser } from "../../server/server";
 import { useNavigate } from "react-router-dom";
 import { setChatBuddy } from "../../store/ChatBuddySlice";
+import { isDisabled } from "../../utils";
 
 export default function ProfilePage() {
 
     const user = useSelector(state => state.activeUser);
     const [editProfile, setEditProfile] = useState(false);
-    const [showErr, setShowErr] = useState(checkUserData());
+    const [showErr, setShowErr] = useState(!isDisabled(getLoggedUser()));
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
