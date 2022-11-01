@@ -39,6 +39,7 @@
     font-size: 25px;
     padding-right: 10px;
     font-weight: 500;
+    word-break: break-all;
 }
 
 .verifiedIcon{
