@@ -25,11 +25,11 @@ export default function LandingPage() {
       <section className={styles.mainContainer}>
         <FormContainer
           handleAction={handleLogin}
+          showReg={handleReg}
           show={showLogin}
           setShow={setShowLogin}
           passConfirm={false}
           buttonName="Login"
-          goToReg={handleReg}
         />
         <FormContainer
           handleAction={handleReg}
@@ -38,7 +38,6 @@ export default function LandingPage() {
           setShow={setShowReg}
           passConfirm={true}
           buttonName="Register"
-          goToLog={handleLogin}
         />
         <div className={styles.sloganContainer}>
           <h1 className={styles.slogan}>Swipe Right®</h1>

@@ -108,6 +108,7 @@ export default function FormContainer(props) {
       }, 2500)
     } else {
       setError("Email is already taken!");
+      setDisable(true);
       setTimeout(() => {
         setError("");
       }, 3000)
@@ -156,11 +157,10 @@ export default function FormContainer(props) {
               <div className={props.buttonName === "Login" ? styles.btnLoader : styles.btnLoaderReg}>
                 <div className="d-grid gap-2">
                   <Button
-                    id="regBtn"
                     className={
                       props.buttonName === "Register" ? styles.registerBtn : ""
                     }
-                    disabled={props.buttonName === "Register" && disable ? true : false || loader ? true : false}
+                    disabled={loader ? true : false}
                     variant="danger"
                     size="lg"
                     type="submit"
@@ -242,8 +242,9 @@ export default function FormContainer(props) {
                     <span
                       className={styles.link}
                       onClick={() => {
+                        setDisable(true);
                         clear();
-                        props.goToLog();
+                        props.showLogin();
                       }}
                     >
                       Go to Login!
@@ -256,7 +257,7 @@ export default function FormContainer(props) {
                       className={styles.link}
                       onClick={() => {
                         clear();
-                        props.goToReg();
+                        props.showReg();
                       }}
                     >
                       Register here!

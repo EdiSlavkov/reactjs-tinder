@@ -1,4 +1,4 @@
-.editProfileContainer, .editProfileContainerSmall {
+.editProfileContainer{
     position: relative;
     margin: 5% auto 0 auto;
     border-radius: 8px;
@@ -18,10 +18,6 @@
 .makeProfilePicSelfie{
     top: 8px;
     left: 11px;
-}
-
-.editProfileContainerSmall {
-    height: 51vh;
 }
 
 .container {
