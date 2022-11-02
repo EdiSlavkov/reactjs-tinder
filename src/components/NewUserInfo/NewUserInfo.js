@@ -50,16 +50,15 @@ export default function NewUserInfo(props) {
     let allImgs = [...user.pictures];
     let selfie = allImgs.find(pic => pic.id === "selfie")
     let count = selfie ? 9 : 8;
-    if (file.type === "image/png" || file.type === "image/jpeg") {
+    if (file.type.match("image")) {
       let id = uuidv4();
 
       if (allImgs.length < count) {
         const imageUpload = (image, id) => {
-          const file = image;
-          utils.convert(file).then((convertedImg) => {
+          utils.convert(image).then((convertedImg) => {
             allImgs.push({ img: convertedImg, id: id });
             dispatch(temporaryData([name, allImgs]));
-          });
+          }).catch(err => console.log(err));
         };
         imageUpload(file, id);
       } else {
@@ -175,8 +174,7 @@ export default function NewUserInfo(props) {
                       className={styles.imgWrapper}
                     >
                       <DeleteIcon
-                        onClick={() => handleDelete(picture.id)
-}
+                        onClick={() => handleDelete(picture.id)}         
                         color="error"
                         className={styles.btn}
                       />
