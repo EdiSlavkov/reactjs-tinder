@@ -125,7 +125,7 @@ export default function SwipebleCard() {
             setMatchEvent(true)
             setTimeout(() => {
                 setMatchEvent(false)
-            }, 4000);
+            }, 2000);
         }
         dispatch(changeUserData())
 

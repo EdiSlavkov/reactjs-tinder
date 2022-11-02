@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./NewUserInfo.module.css";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { v4 as uuidv4 } from "uuid";
@@ -14,22 +14,16 @@ import UserProperties from "./Accordion";
 import DetailedActiveUserCard from "../DetailedActiveUserCard/DetailedActiveUserCard";
 import { validateLength } from "../../utils";
 import LoadingBtn from "./LoadingBtn";
-import { hide, reveal } from "../../store/DetailedInfoSlice";
 import { BsPersonCheck } from "react-icons/bs";
 
 export default function NewUserInfo(props) {
   const user = useSelector((state) => state.activeUser);
-  const detailedInfo = useSelector((state) => state.detailedInfo);
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const [error, setError] = useState("");
   const [saving, setSaving] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
   const [showEdit, setShowEdit] = useState(true);
-
-  useEffect(() => {
-    dispatch(hide());
-  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -56,16 +50,15 @@ export default function NewUserInfo(props) {
     let allImgs = [...user.pictures];
     let selfie = allImgs.find(pic => pic.id === "selfie")
     let count = selfie ? 9 : 8;
-    if (file.type === "image/png" || file.type === "image/jpeg") {
+    if (file.type.match("image")) {
       let id = uuidv4();
 
       if (allImgs.length < count) {
         const imageUpload = (image, id) => {
-          const file = image;
-          utils.convert(file).then((convertedImg) => {
+          utils.convert(image).then((convertedImg) => {
             allImgs.push({ img: convertedImg, id: id });
             dispatch(temporaryData([name, allImgs]));
-          });
+          }).catch(err => console.log(err));
         };
         imageUpload(file, id);
       } else {
@@ -139,11 +132,7 @@ export default function NewUserInfo(props) {
     
     <div
     onClick={()=>setError("")}
-      className={
-        detailedInfo
-          ? styles.editProfileContainerSmall
-          : styles.editProfileContainer
-      }
+      className={styles.editProfileContainer}
     >
       {show && <Selfie show={handleShowSelfie} />}
       <div className={styles.btnsContainer}>
@@ -164,7 +153,6 @@ export default function NewUserInfo(props) {
             {
               setShowPreview(true)
               setShowEdit(false)
-              dispatch(reveal())
             }
           }
         >
@@ -186,8 +174,7 @@ export default function NewUserInfo(props) {
                       className={styles.imgWrapper}
                     >
                       <DeleteIcon
-                        onClick={() => handleDelete(picture.id)
-}
+                        onClick={() => handleDelete(picture.id)}         
                         color="error"
                         className={styles.btn}
                       />

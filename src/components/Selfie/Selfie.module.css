@@ -12,6 +12,13 @@
 
 }
 
+
+.customDialog{
+    width: 48% !important;
+    top: 14% !important;
+    left: 10%;
+}
+
 .loaderWrapper {
     position: relative;
     left: 140px;

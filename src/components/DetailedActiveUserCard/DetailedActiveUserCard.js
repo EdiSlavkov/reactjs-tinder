@@ -7,30 +7,21 @@ import ImagesCarousel from "./ImagesCarousel";
 import { useSelector } from 'react-redux';
 import { MdOutlineWorkOutline } from "react-icons/md";
 import VerifiedIcon from '@mui/icons-material/Verified';
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { AiOutlineInfo } from "react-icons/ai";
 import { IoMdArrowRoundDown } from "react-icons/io";
-import {reveal} from "../../store/DetailedInfoSlice";
-import { useDispatch } from "react-redux";
 
 export default function DetailedActiveUserCard(props) {
 
-    const dispatch = useDispatch();
     const user = useSelector(state=>state.activeUser);
     const [show, setShow] = useState(false);
-
-    useEffect(()=>{
-        dispatch(reveal());
-    })
 
     return (
         <div className={style.frame}>
             <div className={show ? style.detailedInfoContainer : style.detailedInfoContainerSmall}>
                 <div className={style.mainWrapper}>
                     <ImagesCarousel user={user}/>
-                    {show ? <IoMdArrowRoundDown onClick={()=>{
-                        setShow(false) 
-                        dispatch(reveal())}} className={style.fullInfoBtn}/> : <AiOutlineInfo onClick={()=>setShow(true)} className={style.InfoBtn}/>}
+                    {show ? <IoMdArrowRoundDown onClick={()=>setShow(false)} className={style.fullInfoBtn}/> : <AiOutlineInfo onClick={()=>setShow(true)} className={style.InfoBtn}/>}
                     {!show&&<div className={style.infoWrapper}>
                         <div className={style.nameAgeInfo}>
                             <span className={style.name}>

@@ -7,14 +7,14 @@ import { temporaryData } from "../../store/ActiveUserSlice";
 export default function Selfie(props) {
   const videoRef = useRef(null);
   const photoRef = useRef(null);
-  const [saved, setSaved] = useState("");
+  const [sessionId, setSessionId] = useState("");
   const [loader, setLoader] = useState(false);
   const dispatch = useDispatch();
 
   const savePhoto = () => {
-    setSaved(saved.getTracks()[0].stop())
+    setSessionId(sessionId.getTracks()[0].stop())
     let copy = [];
-    let selfie = document.getElementById("canvas").toDataURL();
+    let selfie = photoRef.current.toDataURL();
     copy.splice(0, 1, selfie);
     dispatch(temporaryData(["verified", copy]));
     setLoader(true);
@@ -27,13 +27,11 @@ export default function Selfie(props) {
 
   const takePhoto = () => {
 
-    let width = 150;
-    let height = 150;
     let photo = photoRef.current;
     let video = videoRef.current;
 
-    photo.width = width;
-    photo.height = height;
+    photo.width = 150;
+    photo.height = 150;
 
     let ctx = photo.getContext("2d");
 
@@ -47,7 +45,7 @@ export default function Selfie(props) {
         video: true,
       })
       .then((stream) => {
-        setSaved(stream);
+        setSessionId(stream);
         let video = videoRef.current;
         video.srcObject = stream;
         let playPromise = video.play();
@@ -65,8 +63,8 @@ export default function Selfie(props) {
 
   return (
     <>
-      <Modal show={()=>props.show()} onHide={()=>{
-        setSaved(saved.getTracks()[0].stop())
+      <Modal dialogClassName={styles.customDialog} show={()=>props.show()} onHide={()=>{
+        setSessionId(sessionId.getTracks()[0].stop())
         props.show();
       }} animation={false}>
               <Modal.Header closeButton>
@@ -83,7 +81,7 @@ export default function Selfie(props) {
                 <button onClick={takePhoto}>Shot</button>
             </div>
           <div>
-            <canvas className={styles.canvas} id="canvas" ref={photoRef}></canvas>
+            <canvas className={styles.canvas} ref={photoRef}></canvas>
             <div className={styles.controllerBtns}>
                 <button onClick={savePhoto}>Save</button>
             </div>
