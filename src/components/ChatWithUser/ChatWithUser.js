@@ -30,7 +30,7 @@ export default function ChatWithUser() {
 
 	const checkMsgs = ()=>{
 		let copyHistory = chat.chatHistory.map(msg => { 
-			if(user.email !== msg.sender&&buddy.email === msg.sender){
+			if(buddy.email === msg.sender){
 				msg.seen = true;
 			}
             return msg;

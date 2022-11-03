@@ -3,7 +3,6 @@ import noPhoto from "../../images/noPhoto.jpg";
 import { findChat } from '../../server/server';
 import {setChatBuddy} from "../../store/ChatBuddySlice"
 import { useDispatch } from 'react-redux/es/exports';
-import { updateChat } from '../../store/ActiveUserSlice';
 import { useSelector } from 'react-redux/es/exports';
 import Badge from '@mui/material/Badge';
 

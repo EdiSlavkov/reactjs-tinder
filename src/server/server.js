@@ -119,11 +119,9 @@ export const updateBuddyChat = (object, chat)=>{
   const loggedUser = getLoggedUser();
   const userIndex = users.findIndex(user=>user.email === object.email);
   const loggedChat = object.chats.findIndex(chat=> chat.chatBuddy === loggedUser.email)
-  let copy = JSON.parse(JSON.stringify(object));
-  copy.chats[loggedChat].chatHistory = chat.chatHistory;
-  users.splice(userIndex, 1, copy);
+  object.chats[loggedChat].chatHistory = chat.chatHistory;
+  users.splice(userIndex, 1, object);
   localStorage.setItem("tinderUsers", JSON.stringify(users));
-
 }
 
 (()=>{
