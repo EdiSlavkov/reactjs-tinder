@@ -10,9 +10,8 @@ import VerifiedIcon from '@mui/icons-material/Verified';
 export default function DetailedInfoSuggestionUser(props) {
     
     const ActiveUSer = useSelector(state => state.activeUser);
-
     const passions =props.user.passions ?  props.user.passions.map(pass => {
-        if(ActiveUSer.passions.indexOf(pass) !== -1){
+        if(ActiveUSer.passions.indexOf(pass) === -1){
             return <span key={pass} className={style.passionItem}>{pass}</span>
         }
         return <span key={pass} className={style.commonPassionItem}>{pass}</span>
