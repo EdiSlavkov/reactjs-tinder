@@ -48,13 +48,9 @@ export default function Selfie(props) {
         setSessionId(stream);
         let video = videoRef.current;
         video.srcObject = stream;
-        let playPromise = video.play();
-        if(playPromise !== undefined){
-          playPromise.then()
-          .catch(err => console.log())
-        }
+        video.play();
       })
-      .catch((error) => console.log());
+      .catch((error) => console.log(error));
   };
 
   useEffect(() => {
