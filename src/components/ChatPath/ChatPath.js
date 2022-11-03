@@ -17,12 +17,6 @@ export default function ChatPath(props){
 
     const handleChat = ()=>{
         dispatch(setChatBuddy(buddy))
-        let copyHistory = history.map(msg => {
-            msg.seen = true;
-            return msg;
-        })
-        chat.chatHistory = copyHistory;
-        dispatch(updateChat([JSON.stringify(buddy), JSON.stringify(chat)]));
     }
 
     const unreadCount = ()=>{

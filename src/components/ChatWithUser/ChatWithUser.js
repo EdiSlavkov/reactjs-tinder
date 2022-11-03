@@ -29,7 +29,10 @@ export default function ChatWithUser() {
 	const addEmoji = (e) => setMessage(message + e.emoji);
 
 	const checkMsgs = ()=>{
-		let copyHistory = chat.chatHistory.map(msg => { msg.seen = true;
+		let copyHistory = chat.chatHistory.map(msg => { 
+			if(user.email !== msg.sender&&buddy.email === msg.sender){
+				msg.seen = true;
+			}
             return msg;
         })
         chat.chatHistory = copyHistory;
